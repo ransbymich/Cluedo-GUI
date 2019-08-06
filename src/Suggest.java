@@ -53,9 +53,12 @@ public class Suggest extends Turn {
         }
 
         if(!wasRefuted){
-            while(true){
-                if(board.processTurn(new Accuse(weapon, accused))){
-                    break;
+            String input = InputUtil.requireString("Would you like to make an accusation? [y/n]", "y|n");
+            if(input.equals("y")){
+                while(true){
+                    if(board.processTurn(new Accuse(weapon, accused))){
+                        break;
+                    }
                 }
             }
         }
