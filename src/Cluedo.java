@@ -66,8 +66,6 @@ public class Cluedo {
             Position movePosition = Position.positionFromString(InputUtil.requireString("Input a coordinate to move to: ", InputUtil.COORDINATE_REGEX));
             if(board.processTurn(new Move(movePosition))){
                 break;
-            }else{
-                System.out.println("Invalid move.");
             }
         }
     }
