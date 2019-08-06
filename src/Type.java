@@ -5,28 +5,28 @@ import java.util.stream.Collectors;
 
 enum Type{
     CANDLE_STICK(SubType.WEAPON, "Candle Stick"),
-    DAGGER(SubType.WEAPON),
-    LEAD_PIPE(SubType.WEAPON),
-    REVOLVER(SubType.WEAPON),
-    ROPE(SubType.WEAPON),
-    SPANNER(SubType.WEAPON),
+    DAGGER(SubType.WEAPON, "Dagger"),
+    LEAD_PIPE(SubType.WEAPON, "Lead Pipe"),
+    REVOLVER(SubType.WEAPON, "Revolver"),
+    ROPE(SubType.WEAPON, "Rope"),
+    SPANNER(SubType.WEAPON, "Spanner"),
 
-    BALL_ROOM(SubType.ROOM),
-    KITCHEN(SubType.ROOM),
-    DINING_ROOM(SubType.ROOM),
-    LOUNGE(SubType.ROOM),
-    HALL(SubType.ROOM),
-    STUDY(SubType.ROOM),
-    LIBRARY(SubType.ROOM),
-    BILLARD_ROOM(SubType.ROOM),
-    CONSERVATORY(SubType.ROOM),
+    BALL_ROOM(SubType.ROOM, "Ball Room"),
+    KITCHEN(SubType.ROOM, "Kitchen"),
+    DINING_ROOM(SubType.ROOM, "Dining Room"),
+    LOUNGE(SubType.ROOM, "Lounge"),
+    HALL(SubType.ROOM, "Hall"),
+    STUDY(SubType.ROOM, "Study"),
+    LIBRARY(SubType.ROOM, "Library"),
+    BILLARD_ROOM(SubType.ROOM, "Billiard Room"),
+    CONSERVATORY(SubType.ROOM, "Conservatory"),
 
-    MISS_SCARLETT(SubType.PLAYER),
-    COL_MUSTARD(SubType.PLAYER),
-    MRS_WHITE(SubType.PLAYER),
-    MR_GREEN(SubType.PLAYER),
-    MRS_PEACOCK(SubType.PLAYER),
-    PROF_PLUM(SubType.PLAYER);
+    MISS_SCARLETT(SubType.PLAYER, "Miss Scarlett"),
+    COL_MUSTARD(SubType.PLAYER, "Col. Mustard"),
+    MRS_WHITE(SubType.PLAYER, "Mrs White"),
+    MR_GREEN(SubType.PLAYER, "Mrs Green"),
+    MRS_PEACOCK(SubType.PLAYER, "Mrs Peacock"),
+    PROF_PLUM(SubType.PLAYER, "Prof. Plum");
 
     enum SubType{
         WEAPON(6),
