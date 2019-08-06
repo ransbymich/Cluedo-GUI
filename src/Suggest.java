@@ -55,8 +55,6 @@ public class Suggest extends Turn {
                 wasRefuted = true;
                 System.out.println(refutingPlayer.getName() + " refutes with " + hand.iterator().next().getName());
                 break;
-            } else {
-                System.out.println("No one refuted!");
             }
         }
 
