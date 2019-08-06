@@ -40,13 +40,17 @@ public class Cluedo {
     private void startGame(){
         playing = true;
         while(playing){
+            //Print out the board nicely
             System.out.println(board.toString());
-            System.out.println("Now playing " + board.getCurrentTurn().getName() + "'s turn.");
-            System.out.println("They have: ");
 
+            //Display whose turn it is
+            System.out.println("Now playing " + board.getCurrentTurn().getName() + "'s turn.");
+
+            //Printing out the players hand
+            System.out.print("They have: \n");
             for (Card card : board.getCurrentPlayer().getHand()) {
-                System.out.println(card.toString());
-            }
+                System.out.println("\t" + card.toString());
+            };
 
             Turn.TurnType turnType = askTurnType();
 
