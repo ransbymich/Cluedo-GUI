@@ -284,9 +284,160 @@ public class Tests {
 
         assertEquals(solution, b.justBoard());
     }
+    @Test
+    public void test15(){
+
+    }
+
+    //making incorrect accusation
+    @Test
+    public void test16(){
+
+    }
+
+    //winning
+    @Test
+    public void test17(){
+
+    }
+
+    //making accusations without being in a room
+    @Test
+    public void test18(){
+
+    }
+
+    //maya not move on top another player
+    @Test
+    public void test19(){
+        Board b = new Board(3);
+        String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
+                            "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
+                            "| B|  |  |  |  |  |  |--|__|__|__|  |  |  |  |__|__|__|--|  |  |  |  |  |  |\n" +
+                            "| C|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |\n" +
+                            "| D|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |\n" +
+                            "| E|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |  |__|__|CT|  |  |  |  |  |\n" +
+                            "| F|  |  |  |  |  |  |__|__|BR|  |  |  |  |  |  |BR|__|__|__|  |  |  |  |--|\n" +
+                            "| G|--|  |  |  |KT|  |__|__|  |  |  |  |  |  |  |  |__|__|__|__|__|__|__|__|\n" +
+                            "| H|__|__|__|__|__|__|__|__|  |BR|  |  |  |  |BR|  |__|__|__|__|__|__|__|--|\n" +
+                            "| I|--|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|  |  |  |  |  |  |\n" +
+                            "| J|  |  |  |  |  |__|__|__|__|__|__|__|__|__|__|__|__|__|BL|  |  |  |  |  |\n" +
+                            "| K|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
+                            "| L|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
+                            "| M|  |  |  |  |  |  |  |DR|__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
+                            "| N|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|__|__|__|__|__|--|\n" +
+                            "| O|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |LB|  |  |--|\n" +
+                            "| P|  |  |  |  |  |  |DR|  |__|__|--|--|--|--|--|__|__|  |  |  |  |  |  |  |\n" +
+                            "| Q|--|__|__|__|__|__|__|__|__|__|--|--|--|--|--|__|__|LB|  |  |  |  |  |  |\n" +
+                            "| R|MU|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|  |  |  |  |  |  |  |\n" +
+                            "| S|--|__|__|__|__|__|__|__|__|  |  |HL|HL|  |  |__|__|__|  |  |  |  |  |--|\n" +
+                            "| T|  |  |  |  |  |  |LG|__|__|  |  |  |  |  |  |__|__|__|__|__|__|__|__|__|\n" +
+                            "| U|  |  |  |  |  |  |  |__|__|  |  |  |  |  |HL|__|__|__|__|__|__|__|__|--|\n" +
+                            "| V|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|ST|  |  |  |  |  |  |\n" +
+                            "| W|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
+                            "| X|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
+                            "| Y|  |  |  |  |  |  |--|SC|--|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |\n";
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("1,r"), 1000));
+
+
+        assertEquals(solution, b.justBoard());
+    }
+
 
     @Test
-    public void test08(){
+    public void test20CheckRowLengthEquality(){
+        Board b = new Board(3);
+
+        //check all rows are of the same length
+        int rowLength = b.getBoard()[0].length;
+
+        for (int y = 0; y < b.getBoard().length; y++) {
+            assertEquals(rowLength, b.getBoard()[y].length);
+        }
+    }
+
+    @Test
+    public void test21CheckBoardValidity(){
+        Board b = new Board(3);
+        Tile[][] board = b.getBoard();
+
+
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[0].length; x++) {
+                Tile tile = board[y][x];
+
+                Position pos = tile.getPosition();
+
+                assertEquals(x, pos.getX());
+                assertEquals(y, pos.getY());
+            }
+        }
+
+    }
+
+    @Test
+    public void test22DieRollBoundaries(){
+        int numberofRolls = 100000;
+        for (int i = 0; i < numberofRolls; i++) {
+            assertEquals(true, Die.roll() <= 12);
+            assertEquals(true, Die.roll() >= 2);
+        }
+    }
+
+    @Test
+    public void test23BoundaryNumberOfPlayers(){
+        Board b = new Board(6);
+        assertEquals(6, b.getPlayers().size());
+
+        b = new Board(3);
+        assertEquals(3,b.getPlayers().size());
+    }
+
+    @Test
+    public void test24ValidMovement(){
+        //Tests room entrance and simple movement
+        Board b = new Board(3);
+        String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
+                            "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
+                            "| B|  |  |  |  |  |  |--|__|__|__|  |  |  |  |__|__|__|--|  |  |  |  |  |  |\n" +
+                            "| C|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |\n" +
+                            "| D|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |\n" +
+                            "| E|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |  |__|__|CT|  |  |  |  |  |\n" +
+                            "| F|  |  |  |  |  |  |__|__|BR|  |  |  |  |  |  |BR|__|__|__|  |  |  |  |--|\n" +
+                            "| G|--|  |  |  |KT|  |__|__|  |  |  |  |  |  |  |  |__|__|__|__|__|__|__|__|\n" +
+                            "| H|__|__|__|__|__|__|__|__|  |BR|  |  |  |  |BR|  |__|SC|__|__|__|__|__|--|\n" +
+                            "| I|--|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|  |  |  |  |  |  |\n" +
+                            "| J|  |  |  |  |  |__|__|__|__|__|__|__|__|__|__|__|__|__|BL|  |  |  |  |  |\n" +
+                            "| K|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
+                            "| L|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
+                            "| M|  |  |  |  |  |  |  |DR|__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
+                            "| N|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|__|__|__|__|__|--|\n" +
+                            "| O|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |LB|  |  |--|\n" +
+                            "| P|  |  |  |  |  |  |DR|  |__|__|--|--|--|--|--|__|__|  |  |  |  |  |  |  |\n" +
+                            "| Q|--|__|__|__|__|__|__|__|__|__|--|--|--|--|--|__|__|LB|  |  |  |  |  |  |\n" +
+                            "| R|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|  |  |  |  |  |  |  |\n" +
+                            "| S|--|__|__|MU|__|__|__|__|__|  |  |HL|HL|  |  |__|__|__|  |  |  |  |  |--|\n" +
+                            "| T|  |  |  |  |  |  |LG|__|__|  |  |  |  |  |  |__|__|__|__|__|__|__|__|__|\n" +
+                            "| U|  |  |  |  |  |  |  |__|__|  |  |  |  |  |HL|__|__|__|__|__|__|__|__|--|\n" +
+                            "| V|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|ST|  |  |  |  |  |  |\n" +
+                            "| W|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
+                            "| X|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
+                            "| Y|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |\n";
+
+
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("18,h"), 1000));
+        b.completeTurn();
+
+        b.processTurn(new Move(Position.positionFromString("4,s"), 1000));
+
+        assertEquals(solution, b.justBoard());
+    }
+
+    @Test
+    public void test25InvalidMovement(){
+        //Tests room entrance and invalid simple movement
         Board b = new Board(3);
         String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
                 "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
@@ -306,19 +457,24 @@ public class Tests {
                 "| O|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |LB|  |  |--|\n" +
                 "| P|  |  |  |  |  |  |DR|  |__|__|--|--|--|--|--|__|__|  |  |  |  |  |  |  |\n" +
                 "| Q|--|__|__|__|__|__|__|__|__|__|--|--|--|--|--|__|__|LB|  |  |  |  |  |  |\n" +
-                "| R|MU|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|  |  |  |  |  |  |  |\n" +
+                "| R|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|  |  |  |  |  |  |  |\n" +
                 "| S|--|__|__|__|__|__|__|__|__|  |  |HL|HL|  |  |__|__|__|  |  |  |  |  |--|\n" +
                 "| T|  |  |  |  |  |  |LG|__|__|  |  |  |  |  |  |__|__|__|__|__|__|__|__|__|\n" +
                 "| U|  |  |  |  |  |  |  |__|__|  |  |  |  |  |HL|__|__|__|__|__|__|__|__|--|\n" +
                 "| V|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|ST|  |  |  |  |  |  |\n" +
                 "| W|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
                 "| X|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
-                "| Y|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |\n";
+                "| Y|  |  |  |  |  |  |--|SC|--|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |\n" +
+                "Dining Room: Col. Mustard\n";
 
-        b.setSolution(new Type[]{Type.REVOLVER, Type.LOUNGE, Type.MISS_SCARLETT});
 
-        setInput("y\nREVOLVER\nMISS SCARLETT");
-        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,q"), 5));
+        b.completeTurn();
 
+        b.processTurn(new Move(Position.positionFromString("7,p"), 100));
+        b.completeTurn();
+
+        assertEquals(solution, b.toString());
     }
 }
