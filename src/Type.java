@@ -46,8 +46,9 @@ enum Type{
     private SubType type;
     private String name;
 
-    Type(SubType type){
+    Type(SubType type, String name){
         this.type = type;
+        this.name = name;
     }
 
     public String getName(){
