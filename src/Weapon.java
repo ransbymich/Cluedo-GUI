@@ -5,32 +5,9 @@
 // line 104 "model.ump"
 // line 194 "model.ump"
 public class Weapon extends Entity {
-
-    //------------------------
-    // ENUMERATIONS
-    //------------------------
-
-
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
-
     public Weapon(Type aType, Position aPosition) {
         super(aType);
     }
-
-    //------------------------
-    // INTERFACE
-    //------------------------
-
-    public void delete() {
-        super.delete();
-    }
-
     // line 107 "model.ump"
     public Type getType() {
         return type;
