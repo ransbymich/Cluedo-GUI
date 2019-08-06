@@ -44,6 +44,7 @@ public class Board {
     //------------------------
 
     //Board Attributes
+    private int turnCounter;
     private final int nPlayers;
 
     //Board State Machines
@@ -65,11 +66,6 @@ public class Board {
         generatePlayers();
         dealCards();
         board = RoomParse.makeRoom(room, rooms, players, aNPlayers);
-        spawnPlayers();
-    }
-
-    private void spawnPlayers(){
-
     }
 
     public Tile[][] getBoard() {
@@ -90,7 +86,14 @@ public class Board {
 
 
     public boolean processTurn(Turn turn){
-        return turn.execute(this);
+        boolean access = turn.execute(this);
+        if(access){
+            List<Type> types = Type.getTypes(Type.SubType.PLAYER);
+            int index = types.indexOf(currentTurn) + 1;
+
+            currentTurn = types.get(index % nPlayers);
+        }
+        return access;
     }
 
     private void dealCards() {

@@ -10,6 +10,7 @@ enum Type{
     REVOLVER(SubType.WEAPON, "Revolver"),
     ROPE(SubType.WEAPON, "Rope"),
     SPANNER(SubType.WEAPON, "Spanner"),
+
     BALL_ROOM(SubType.ROOM, "Ball Room"),
     KITCHEN(SubType.ROOM, "Kitchen"),
     DINING_ROOM(SubType.ROOM, "Dining Room"),
