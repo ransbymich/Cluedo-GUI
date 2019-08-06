@@ -94,8 +94,7 @@ public class Move extends Turn {
             return false;
         }
 
-        Position pPos = player.getPosition();
-        Tile tile = board.getBoard()[pPos.getY()][pPos.getX()];
+        Tile tile = board.getBoard()[pos.getY()][pos.getX()];
         if(tile instanceof EmptyTile && ((EmptyTile)tile).getPlayer() != null){
             System.out.println("You can not move ontop of another player.");
             return false;
