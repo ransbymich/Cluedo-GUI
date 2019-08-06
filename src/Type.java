@@ -10,7 +10,6 @@ enum Type{
     REVOLVER(SubType.WEAPON, "Revolver"),
     ROPE(SubType.WEAPON, "Rope"),
     SPANNER(SubType.WEAPON, "Spanner"),
-
     BALL_ROOM(SubType.ROOM, "Ball Room"),
     KITCHEN(SubType.ROOM, "Kitchen"),
     DINING_ROOM(SubType.ROOM, "Dining Room"),
@@ -47,15 +46,13 @@ enum Type{
     private SubType type;
     private String name;
 
-    Type(SubType type, String name){
+    Type(SubType type){
         this.type = type;
-        this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public String getName(){
+      return name;
     }
-
     public SubType getType() {
         return type;
     }

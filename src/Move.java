@@ -1,50 +1,78 @@
 public class Move extends Turn {
 
     private Position pos;
+    private int diceRoll;
 
-    public Move(Position pos) {
+    public Move(Position pos, int dieRoll) {
         this.pos = pos;
+        this.diceRoll = dieRoll;
     }
 
     @Override
     boolean execute(Board board) {
-        int diceRoll = Die.roll();
-        System.out.println("You rolled a " + diceRoll);
         Player cPlayer = board.getCurrentPlayer();
 
-//        System.out.printf("Attempt to move %s from %s to %s\n", cPlayer, cPlayer.getPosition(), pos);
+        return clearOldTile(board, cPlayer) && checkAssumptions(board, cPlayer) && setNewTile(board, cPlayer);
+    }
 
-        if(pos.distTo(cPlayer.getPosition()) > diceRoll){
+    private boolean setNewTile(Board board, Player player){
+        Tile newTile = board.getBoard()[pos.getY()][pos.getX()];
+
+        if(newTile instanceof EmptyTile){
+            EmptyTile emptyTile = (EmptyTile)newTile;
+
+            if(emptyTile.getPlayer() != null) return false;
+
+            emptyTile.setPlayer(player);
+
+            player.setPosition(pos);
+            return true;
+        }else if(newTile instanceof RoomTile){
+            Room room = ((RoomTile)newTile).getRoom();
+            room.addEntity(player);
+            System.out.printf("%s enters %s.\n", player.getType(), room.getType());
+            player.setPosition(pos);
+            System.out.println(room.getEntities());
+            return true;
+        }
+
+        throw new InvalidInputException();
+    }
+
+    private boolean clearOldTile(Board board, Player player){
+        Position oldPosition = player.getPosition();
+
+        Tile oldTile = board.getBoard()[oldPosition.getY()][oldPosition.getX()];
+
+        if(oldTile instanceof EmptyTile){
+            EmptyTile emptyTile = (EmptyTile)oldTile;
+            emptyTile.setPlayer(null);
+            return true;
+        }else if(oldTile instanceof RoomTile){
+                Room room = ((RoomTile)oldTile).getRoom();
+                room.removeEntity(player);
+            System.out.printf("%s enters %s.\n", player.getType(), room.getType());
+
+            return true;
+        }
+
+        throw new InvalidInputException();
+
+    }
+
+    private boolean checkAssumptions(Board board, Player player){
+        if(pos.distTo(player.getPosition()) > diceRoll){
             System.out.println("Invalid die roll.");
             return false;
         }
 
-        if(!PathfindingUtil.findPath(board, cPlayer.getPosition(), pos)){
+        if(!PathfindingUtil.findPath(board, player.getPosition(), pos)){
             System.out.println("Invalid path");
             return false;
         }
 
-        if((board.getBoard()[pos.getY()][pos.getX()] instanceof EmptyTile)){
-            EmptyTile emptyTile = (EmptyTile) board.getBoard()[pos.getY()][pos.getX()];
-            if(emptyTile.getPlayer() != null){
-                System.out.println("Target tile not empty!");
-                return false;
-            }
 
-            emptyTile.setPlayer(cPlayer);
-            ((EmptyTile)(board.getBoard()[cPlayer.getPosition().getY()][cPlayer.getPosition().getX()])).setPlayer(null);
-            cPlayer.setPosition(pos);
-            return true;
-        }else if((board.getBoard()[pos.getY()][pos.getX()] instanceof RoomTile)){
-            Room room = ((RoomTile) board.getBoard()[pos.getY()][pos.getX()]).getRoom();
-            room.addEntity(cPlayer);
-
-            ((EmptyTile)(board.getBoard()[cPlayer.getPosition().getY()][cPlayer.getPosition().getX()])).setPlayer(null);
-            return true;
-        }
-
-        System.out.println("Invalid target tile");
-        return false;
+        return true;
     }
 }
 
