@@ -33,11 +33,11 @@ public class Accuse extends Turn {
         Type[] solution = board.getSolution();
 
         if(weapon == solution[0] && this.player == solution[1] && room == solution[2]){
-            System.out.println("%s's accusation was correct! %s wins!");
+            System.out.printf("%s's accusation was correct! %s wins!\n", player.getName(), player.getName());
             board.completeGame();
         }else{
             player.setIsInPlay(false);
-            System.out.println("%s's accusation was incorrect. They can no longer make any more suggestions or accusations.");
+            System.out.printf("%s's accusation was incorrect. They can no longer make any more suggestions or accusations.\n", player.getName());
         }
 
         return true;

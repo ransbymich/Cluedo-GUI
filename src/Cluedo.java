@@ -45,6 +45,8 @@ public class Cluedo {
                 default:
                     throw new InvalidInputException();
             }
+
+            board.completeTurn();
         }
     }
 
