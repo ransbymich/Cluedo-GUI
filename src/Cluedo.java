@@ -2,6 +2,7 @@
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
 
+import java.util.List;
 import java.util.Scanner;
 
 // line 49 "model.ump"
@@ -82,6 +83,13 @@ public class Cluedo {
     }
 
     private void processSuggestion(){
+//        System.out.println(askType(Type.SubType.PLAYER));
+        while(true){
+            if(board.processTurn(new Suggest(askType(Type.SubType.WEAPON), askType(Type.SubType.PLAYER)))){
+                break;
+            }
+        }
+
 
     }
 
@@ -112,9 +120,39 @@ public class Cluedo {
     }
 
     // line 54 "model.ump"
-    public Type askType() {
-        //TODO: Make
-        return null;
+    public Type askType(Type.SubType subType) {
+        String regex;
+        StringBuilder builder = new StringBuilder();
+
+        List<Type> types;
+        if(subType == Type.SubType.PLAYER){
+            types = board.getPlayers();
+        }else{
+            types = Type.getTypes(subType);
+        }
+
+        builder.append("^(");
+        types.forEach((t)->{
+            builder.append(t.getName().toLowerCase());
+
+            builder.append("|");
+        });
+        builder.delete(builder.length() - 1, builder.length());
+        builder.append(")$");
+
+        regex = builder.toString();
+        regex = regex.replaceAll("\\.","");
+
+        String input = InputUtil.requireString("Enter the " + subType + " you would like to suggest: ", regex);
+
+        for(Type t : types){
+            String name = t.getName().toLowerCase().replaceAll("\\.", "");
+            if(name.equals(input)){
+                return t;
+            }
+        }
+
+        throw new InvalidInputException();
     }
 
     public Turn.TurnType askTurnType(){

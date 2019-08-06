@@ -30,7 +30,7 @@ public class InputUtil {
         Scanner scan = new Scanner(System.in);
 
         while(true){
-            String token = scan.next();
+            String token = scan.nextLine();
 
             if(Pattern.matches(regex, token)){
                 return token;
