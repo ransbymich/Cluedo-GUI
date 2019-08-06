@@ -5,6 +5,9 @@
 import com.sun.jdi.InvalidTypeException;
 
 import java.security.InvalidParameterException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // line 137 "model.ump"
 // line 221 "model.ump"
@@ -35,6 +38,11 @@ public class RoomTile extends Tile {
     room = aRoom;
     wasSet = true;
     return wasSet;
+  }
+
+  public boolean hasPlayers(){
+    List entities = room.getEntities().stream().filter((e)-> e instanceof Player).collect(Collectors.toList());
+    return entities.size() > 0;
   }
 
   public Room getRoom() {

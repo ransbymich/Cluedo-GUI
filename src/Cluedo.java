@@ -40,8 +40,13 @@ public class Cluedo {
     private void startGame(){
         playing = true;
         while(playing){
-            System.out.println(board);
-            System.out.println("Now playing " + board.getCurrentTurn() + "'s turn.");
+            System.out.println(board.toString());
+            System.out.println("Now playing " + board.getCurrentTurn().getName() + "'s turn.");
+            System.out.println("They have: ");
+
+            for (Card card : board.getCurrentPlayer().getHand()) {
+                System.out.println(card.toString());
+            }
 
             Turn.TurnType turnType = askTurnType();
 
@@ -79,7 +84,8 @@ public class Cluedo {
     private void processAccusation(){
 
 
-    }    //------------------------
+    }
+    //------------------------
     // INTERFACE
     //------------------------
     /* Code from template association_GetOne */

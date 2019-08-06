@@ -8,4 +8,6 @@ public interface Card
   // ABSTRACT METHODS 
 
  public Type getType();
+
+ public String toString();
 }

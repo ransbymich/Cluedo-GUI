@@ -3,6 +3,7 @@
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // line 83 "model.ump"
 // line 176 "model.ump"
@@ -138,7 +139,26 @@ public class Room {
 
 
     public String toString() {
-        return super.toString() + "[" + "]" + System.getProperties().getProperty("line.separator") +
-                "  " + "type" + "=" + (getType() != null ? !getType().equals(this) ? getType().toString().replaceAll("  ", "    ") : "this" : "null");
+        StringBuilder ret = new StringBuilder();
+        ret.append(type.getName());
+        if (entities.isEmpty()){
+            ret.append(" is empty\n");
+            return ret.toString();
+        } else {
+            List<Entity> players = getEntities().stream().filter((e)-> e instanceof Player).collect(Collectors.toList());
+            ret.append(": ");
+
+            for (Entity player : players) {
+                ret.append(player.getType().getName());
+            }
+
+        }
+
+        ret.append("\n");
+        return ret.toString();
+    }
+
+    public boolean isEmpty() {
+        return getEntities().stream().filter((e) -> e instanceof Player).count() == 0;
     }
 }

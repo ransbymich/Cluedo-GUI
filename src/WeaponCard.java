@@ -33,8 +33,7 @@ public class WeaponCard implements Card
   // INTERFACE
   //------------------------
 
-  public boolean setType(Type aType)
-  {
+  public boolean setType(Type aType) {
     boolean wasSet = false;
     type = aType;
     wasSet = true;
@@ -46,13 +45,10 @@ public class WeaponCard implements Card
     return type;
   }
 
-  public void delete()
-  {}
+  public void delete(){}
 
 
-  public String toString()
-  {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "type" + "=" + (getType() != null ? !getType().equals(this)  ? getType().toString().replaceAll("  ","    ") : "this" : "null");
+  public String toString() {
+    return type.getName();
   }
 }
