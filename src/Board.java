@@ -44,7 +44,6 @@ public class Board {
     //------------------------
 
     //Board Attributes
-    private int turnCounter;
     private final int nPlayers;
 
     //Board State Machines
@@ -94,6 +93,10 @@ public class Board {
             currentTurn = types.get(index % nPlayers);
         }
         return access;
+    }
+
+    public List<Type> getPlayers(){
+        return new ArrayList<>(players.keySet());
     }
 
     private void dealCards() {
