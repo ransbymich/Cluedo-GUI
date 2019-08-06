@@ -62,9 +62,11 @@ public class Cluedo {
     }
 
     private void processMove(){
+        int diceRoll = Die.roll();
+        System.out.println("You roll a " + diceRoll + ".");
         while(true){
             Position movePosition = Position.positionFromString(InputUtil.requireString("Input a coordinate to move to: ", InputUtil.COORDINATE_REGEX));
-            if(board.processTurn(new Move(movePosition))){
+            if(board.processTurn(new Move(movePosition, diceRoll))){
                 break;
             }
         }
