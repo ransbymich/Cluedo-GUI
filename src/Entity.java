@@ -6,24 +6,9 @@
 // line 182 "model.ump"
 public abstract class Entity {
 
-    //------------------------
-    // ENUMERATIONS
-    //------------------------
-
-
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //Entity Attributes
     protected Type type;
 
-    //Entity Associations
     protected Position position;
-
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
 
     public Entity(Type aType) {
         type = aType;
@@ -36,10 +21,18 @@ public abstract class Entity {
         return wasSet;
     }
 
+    /**
+     * Gets the type of the entity
+     * @return Gets the type of entity
+     */
     public Type getType() {
         return type;
     }
 
+    /**
+     * Gets the position of the entity
+     * @return The position of the entity
+     */
     public String getName(){return this.getType().getName();}
 
     /* Code from template association_GetOne */
@@ -47,7 +40,11 @@ public abstract class Entity {
         return position;
     }
 
-    /* Code from template association_SetUnidirectionalOne */
+    /**
+     * Sets the position of the entity
+     * @param aNewPosition  The position to set
+     * @return              Whether or not the position was set or not
+     */
     public boolean setPosition(Position aNewPosition) {
         boolean wasSet = false;
         if (aNewPosition != null) {
@@ -56,11 +53,6 @@ public abstract class Entity {
         }
         return wasSet;
     }
-
-    public void delete() {
-        position = null;
-    }
-
 
     public String toString() {
         return super.toString() + "[" + "]" + System.getProperties().getProperty("line.separator") +

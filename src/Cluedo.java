@@ -1,43 +1,20 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
-
-import java.util.List;
-import java.util.Scanner;
-
-// line 49 "model.ump"
-// line 160 "model.ump"
 public class Cluedo {
 
-
-    //------------------------
-    // ENUMERATIONS
-    //------------------------
-
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //Cluedo Associations
     private Board board;
-
 
     private boolean playing = false;
 
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
-
     public Cluedo() {
-        Board board = new Board(InputUtil.requireInt("How many people are playing?: ", 3, 6));
-        if (!setBoard(board)) {
-            throw new RuntimeException("Unable to create Cluedo due to aBoard. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-        }
-
+        board = new Board(InputUtil.requireInt("How many people are playing?: ", 3, 6));
         startGame();
     }
 
-
+    /**
+     * Starts the game of Cluedo
+     */
     private void startGame(){
         playing = true;
         while(playing){
@@ -71,6 +48,9 @@ public class Cluedo {
         }
     }
 
+    /**
+     * Processes a move turn
+     */
     private void processMove(){
         int diceRoll = Die.roll();
         System.out.println("You roll a " + diceRoll + ".");
@@ -82,6 +62,9 @@ public class Cluedo {
         }
     }
 
+    /**
+     * Processes a suggestion turn
+     */
     private void processSuggestion(){
         while(true){
             if(board.processTurn(new Suggest(InputUtil.askType(Type.SubType.WEAPON, board), InputUtil.askType(Type.SubType.PLAYER, board)))){
@@ -90,33 +73,15 @@ public class Cluedo {
         }
     }
 
+    /**
+     * Processes an accusation turn
+     */
     private void processAccusation(){
         while(true){
             if(board.processTurn(new Accuse(InputUtil.askType(Type.SubType.WEAPON, board), InputUtil.askType(Type.SubType.PLAYER, board)))){
                 break;
             }
         }
-    }
-    //------------------------
-    // INTERFACE
-    //------------------------
-    /* Code from template association_GetOne */
-    public Board getBoard() {
-        return board;
-    }
-
-    /* Code from template association_SetUnidirectionalOne */
-    public boolean setBoard(Board aNewBoard) {
-        boolean wasSet = false;
-        if (aNewBoard != null) {
-            board = aNewBoard;
-            wasSet = true;
-        }
-        return wasSet;
-    }
-
-    public void delete() {
-        board = null;
     }
 
     public static void main(String[] args){

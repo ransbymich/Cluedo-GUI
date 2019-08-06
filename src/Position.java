@@ -8,36 +8,33 @@ import java.util.Objects;
 // line 189 "model.ump"
 public class Position {
 
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //Position Attributes
     private final int x;
     private final int y;
-
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
 
     public Position(int aX, int aY) {
         x = aX;
         y = aY;
     }
 
-    //------------------------
-    // INTERFACE
-    //------------------------
-
+    /**
+     * Gets the x position of the position
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Gets the y position of the position
+     */
     public int getY() {
         return y;
     }
 
-
+    /**
+     * Generates a position from a string
+     * @param s The string to generate a position from
+     * @return  The position generated
+     */
     public static Position positionFromString(String s){
         String[] split = s.toLowerCase().split(",");
 
@@ -47,24 +44,19 @@ public class Position {
         return new Position(x, y);
     }
 
+    /**
+     * Adds two 
+     * @param x
+     * @param y
+     * @return
+     */
     public Position add(int x, int y){
         return new Position(this.x + x, this.y + y);
     }
 
-    public Position minus(int x, int y){
-        return new Position(this.x - x, this.y - y);
-    }
-
-    public Position minus(Position pos){
-        return new Position(this.x - pos.x, this.y - pos.y);
-    }
-
-
-    // line 101 "model.ump"
     public int distTo(Position p) {
         return Math.abs(this.x - p.x) + Math.abs(this.y - p.y);
     }
-
 
     @Override
     public boolean equals(Object o) {

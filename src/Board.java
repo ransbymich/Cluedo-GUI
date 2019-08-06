@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 // line 166 "model.ump"
 public class Board {
 
+    //This giant string is the harded coded room map which is then parsed into a 2d array of tile objects
     public static final String room =
                     "|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|GR|--|--|--|--|--|--|--|--|--|\n" +
                     "|  |  |  |  |  |  |--|__|__|__|  |  |  |  |__|__|__|--|  |  |  |  |  |  |\n" +
@@ -36,22 +37,10 @@ public class Board {
                     "|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
                     "|  |  |  |  |  |  |--|SC|--|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |";
 
-    // - NULL
-    //
-
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //Board Attributes
     private final int nPlayers;
+    private Type currentTurn; //Who's player is currently in turn
+    private boolean hasWon;
 
-    //Board State Machines
-    private Type currentTurn;
-
-    private Turn turn;
-
-    //Board Associations
     private Map<Type, Room> rooms;
     private Map<Type, Player> players;
     private Card[] solution;
@@ -63,32 +52,55 @@ public class Board {
 
         generateRooms();
         generatePlayers();
-        dealCards();
+        dealTypes();
+        System.out.println(solution[0]);
+        System.out.println(solution[1]);
+        System.out.println(solution[2]);
         board = RoomParse.makeRoom(room, rooms, players, aNPlayers);
     }
 
+    /**
+     *  Gets the current tile board
+     * @return The tile board
+     */
     public Tile[][] getBoard() {
         return board;
     }
 
+    /**
+     * Gets the players whose turn it is currently
+     * @return The player
+     */
     public Player getCurrentPlayer(){
         return players.get(currentTurn);
     }
 
+    /**
+     * Gets a player specified by the type provided
+     * @param type  The type of player we wish to get
+     * @return      Returns the player that we wanted
+     */
     public Player getPlayer(Type type){
         return players.get(type);
     }
 
-    public Room getRoom(Type type){
-        return rooms.get(type);
+    /**
+     * Gets the solution to the game
+     * @return  The solution to the game
+     */
+    public Card[] getSolution(){
+        return this.solution;
     }
 
-
-
-
+    /**
+     * Processes a turn, this turn could be a move, suggestion or accusation. The turn executed is dependant on the turn object
+     * passed onto the function.
+     * @param turn  The turn in which to execute.
+     * @return  Whether or not the turn was a valid turn or not.
+     */
     public boolean processTurn(Turn turn){
         boolean access = turn.execute(this);
-        if(access){
+        if(access){     //Change the current player to the next one if the turn was successful
             List<Type> types = Type.getTypes(Type.SubType.PLAYER);
             int index = types.indexOf(currentTurn) + 1;
 
@@ -97,34 +109,53 @@ public class Board {
         return access;
     }
 
+    /**
+     * Gets a list of all players in play.
+     * @return  The players in play
+     */
     public List<Type> getPlayers(){
         return new ArrayList<>(players.keySet());
     }
 
+    /**
+     * Completes the game!
+     */
+    public void completeGame(){
+        hasWon = true;
+    }
+
+    /**
+     * Deals out all of the types to their correct places, three random one as the solution and the rest evenly distributed to each player
+     */
     public boolean hasPlayer(Type player){
         return players.containsKey(player);
     }
 
-    private void dealCards() {
+    private void dealTypes() {
         solution = new Card[3];
 
         //WEAPON, PLAYER, ROOM
+        //Gets all of the weapons, players and rooms in play
         List<WeaponCard> weapons = Type.getTypes(Type.SubType.WEAPON).stream().map(WeaponCard::new).collect(Collectors.toList());
         List<PlayerCard> players = this.players.keySet().stream().map(PlayerCard::new).collect(Collectors.toList());
         List<RoomCard> rooms = Type.getTypes(Type.SubType.ROOM).stream().map(RoomCard::new).collect(Collectors.toList());
 
+        //Shuffle them all
         Collections.shuffle(weapons);
         Collections.shuffle(players);
         Collections.shuffle(rooms);
 
+        //Randomly select a solution
         solution[0] = weapons.get(0);
         solution[1] = players.get(0);
         solution[2] = rooms.get(0);
 
+        //Solution types should not be included in the distribution of types
         weapons.remove(0);
         players.remove(0);
         rooms.remove(0);
 
+        //Combine everything together and then shuffle
         List<Card> everything = new ArrayList<>();
         everything.addAll(weapons);
         everything.addAll(players);
@@ -134,7 +165,7 @@ public class Board {
 
         List<Player> tempPlayers = new ArrayList<>(this.players.values());
 
-        for (int i = 0; i < everything.size(); i++) {
+        for (int i = 0; i < everything.size(); i++) {   //And finally we evenly distribute all of the types
             tempPlayers.get(i % nPlayers).addHand(everything.get(i));
         }
     }
@@ -160,167 +191,18 @@ public class Board {
         }
     }
 
+    /**
+     * Gets the type of player whose current turn it is
+     * @return
+     */
     public Type getCurrentTurn() {
         return currentTurn;
     }
 
-    //------------------------
-    // INTERFACE
-    //------------------------
-
-    public int getNPlayers() {
-        return nPlayers;
-    }
-
-    public String getTurnFullName() {
-        String answer = turn.toString();
-        return answer;
-    }
-
-    public Turn getTurn() {
-        return turn;
-    }
-
-    /* Code from template association_GetMany */
-    public Room getRoom(int index) {
-        Room aRoom = rooms.get(index);
-        return aRoom;
-    }
-
-    public Collection<Room> getRooms() {
-
-        return Collections.unmodifiableCollection(rooms.values());
-    }
-
-    public int numberOfRooms() {
-        int number = rooms.size();
-        return number;
-    }
-
-    public boolean hasRooms() {
-        boolean has = rooms.size() > 0;
-        return has;
-    }
-
-    public int indexOfRoom(Room aRoom) {
-//        int index = rooms.indexOf(aRoom);
-        return 0;
-    }
-
-    /* Code from template association_RequiredNumberOfMethod */
-    public static int requiredNumberOfRooms() {
-        return 9;
-    }
-
-    /* Code from template association_MinimumNumberOfMethod */
-    public static int minimumNumberOfRooms() {
-        return 9;
-    }
-
-    /* Code from template association_MaximumNumberOfMethod */
-    public static int maximumNumberOfRooms() {
-        return 9;
-    }
-
-    /* Code from template association_SetUnidirectionalN */
-    public boolean setRooms(Room... newRooms) {
-        boolean wasSet = false;
-        ArrayList<Room> verifiedRooms = new ArrayList<Room>();
-        for (Room aRoom : newRooms) {
-            if (verifiedRooms.contains(aRoom)) {
-                continue;
-            }
-            verifiedRooms.add(aRoom);
-        }
-
-        if (verifiedRooms.size() != newRooms.length || verifiedRooms.size() != requiredNumberOfRooms()) {
-            return wasSet;
-        }
-
-        rooms.clear();
-        verifiedRooms.forEach((r) -> rooms.put(r.getType(), r));
-        wasSet = true;
-        return wasSet;
-    }
-
-    /* Code from template association_RequiredNumberOfMethod */
-    public static int requiredNumberOfSolution() {
-        return 3;
-    }
-
-    /* Code from template association_MinimumNumberOfMethod */
-    public static int minimumNumberOfSolution() {
-        return 3;
-    }
-
-    /* Code from template association_MaximumNumberOfMethod */
-    public static int maximumNumberOfSolution() {
-        return 3;
-    }
-
-    /* Code from template association_SetUnidirectionalN */
-//    public boolean setSolution(Card... newSolution) {
-//        boolean wasSet = false;
-//        ArrayList<Card> verifiedSolution = new ArrayList<Card>();
-//        for (Card aSolution : newSolution) {
-//            if (verifiedSolution.contains(aSolution)) {
-//                continue;
-//            }
-//            verifiedSolution.add(aSolution);
-//        }
-//
-//        if (verifiedSolution.size() != newSolution.length || verifiedSolution.size() != requiredNumberOfSolution()) {
-//            return wasSet;
-//        }
-//
-//        solution.clear();
-//        solution.addAll(verifiedSolution);
-//        wasSet = true;
-//        return wasSet;
-//    }
-
-    /* Code from template association_RequiredNumberOfMethod */
-    public static int requiredNumberOfBoard() {
-        return 600;
-    }
-
-    /* Code from template association_MinimumNumberOfMethod */
-    public static int minimumNumberOfBoard() {
-        return 600;
-    }
-
-    /* Code from template association_MaximumNumberOfMethod */
-    public static int maximumNumberOfBoard() {
-        return 600;
-    }
-
-    /* Code from template association_SetUnidirectionalN */
-//    public boolean setBoard(Tile... newBoard) {
-//        boolean wasSet = false;
-//        ArrayList<Tile> verifiedBoard = new ArrayList<Tile>();
-//        for (Tile aBoard : newBoard) {
-//            if (verifiedBoard.contains(aBoard)) {
-//                continue;
-//            }
-//            verifiedBoard.add(aBoard);
-//        }
-//
-//        if (verifiedBoard.size() != newBoard.length || verifiedBoard.size() != requiredNumberOfBoard()) {
-//            return wasSet;
-//        }
-//
-//        board.clear();
-//        board.addAll(verifiedBoard);
-//        wasSet = true;
-//        return wasSet;
-//    }
-
-//    public void delete() {
-//        rooms.clear();
-//        solution.clear();
-//        board.clear();
-//    }
-
+    /**
+     * Prints out and returns the board as a string!
+     * @return The board as a string
+     */
     public String toString() {
         StringBuilder ret = new StringBuilder();
         int begin = 'A';

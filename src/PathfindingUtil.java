@@ -2,6 +2,13 @@ import java.util.*;
 
 public class PathfindingUtil {
 
+    /**
+     * Checks whether or not there is a valid path between start and goal
+     * @param board     The board in it's current state
+     * @param start     The start position
+     * @param goal      The goal position
+     * @return          Whether or not there is a path between the two points or not
+     */
     public static boolean findPath(Board board, Position start, Position goal){
         Set<Node> visitedNodes = new HashSet<>();
         Queue<Node> frontier = new PriorityQueue<>();
@@ -9,6 +16,7 @@ public class PathfindingUtil {
 
         Tile[][] tiles = board.getBoard();
 
+        //First add everything to the frontier queue
         for(int y = 0; y < tiles.length; y++){
             for(int x = 0; x < tiles[0].length; x++){
                 if(tiles[y][x] instanceof EmptyTile || tiles[y][x] instanceof RoomTile){
@@ -47,6 +55,12 @@ public class PathfindingUtil {
         return false;
     }
 
+    /**
+     * Gets all of the neighbours of a given node
+     * @param node      The node to get neighbours of
+     * @param mappings  The node mappings
+     * @return          The list of nodes
+     */
     private static Node[] getNeighbours(Node node, Map<Position, Node> mappings){
         //UP, RIGHT, DOWN, LEFT
         Position position = node.getTile().getPosition();
@@ -67,10 +81,6 @@ public class PathfindingUtil {
 
         return neighbours;
     }
-
-
-
-
 
     private static class Node implements Comparable<Node>{
         private Tile tile;

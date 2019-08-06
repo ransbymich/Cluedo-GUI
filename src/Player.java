@@ -4,86 +4,57 @@
 
 import java.util.*;
 
-// line 110 "model.ump"
-// line 199 "model.ump"
 public class Player extends Entity {
 
-    //------------------------
-    // ENUMERATIONS
-    //------------------------
-
-
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //Player Attributes
     private boolean isInPlay = true;
 
-    //Player Associations
     private List<Card> hand;
 
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
 
     public Player(Type aType) {
         super(aType);
         hand = new ArrayList<Card>();
     }
 
-    //------------------------
-    // INTERFACE
-    //------------------------
-
+    /**
+     * Sets whether or not the player is in player or not
+     * @param aIsInPlay The value to set it to
+     */
     public boolean setIsInPlay(boolean aIsInPlay) {
-        boolean wasSet = false;
         isInPlay = aIsInPlay;
-        wasSet = true;
-        return wasSet;
+        return true;
     }
 
+    /**
+     * Gets whether or not the player is in play or not.
+     * @return  Whether or not the player is in play or not
+     */
     public boolean getIsInPlay() {
         return isInPlay;
     }
 
-    /* Code from template association_GetMany */
-    public Card getHand(int index) {
-        Card aHand = hand.get(index);
-        return aHand;
-    }
-
+    /**
+     * Gets the hand of the player
+     * @return  The hand of the player
+     */
     public List<Card> getHand() {
-        List<Card> newHand = Collections.unmodifiableList(hand);
-        return newHand;
+        return Collections.unmodifiableList(hand);
     }
 
-    public int numberOfHand() {
-        int number = hand.size();
-        return number;
-    }
-
-    public boolean hasHand() {
-        boolean has = hand.size() > 0;
-        return has;
-    }
-
-    public int indexOfHand(Card aHand) {
-        int index = hand.indexOf(aHand);
-        return index;
-    }
-
+    /**
+     * Checks whether or not the player is in a room or not
+     * @param board The board in it's current state
+     * @return  Whether or not the player is in a room.
+     */
     public boolean inRoom(Board board){
         //Is the player on a RoomTile?
         return board.getBoard()[position.getY()][position.getX()] instanceof RoomTile;
     }
 
-    /* Code from template association_MinimumNumberOfMethod */
-    public static int minimumNumberOfHand() {
-        return 0;
-    }
-
-    /* Code from template association_AddUnidirectionalMany */
+    /**
+     * Adds a card to the players card
+     * @param aHand The card to add
+     */
     public boolean addHand(Card aHand) {
         boolean wasAdded = false;
         if (hand.contains(aHand)) {
@@ -94,56 +65,10 @@ public class Player extends Entity {
         return wasAdded;
     }
 
-    public boolean removeHand(Card aHand) {
-        boolean wasRemoved = false;
-        if (hand.contains(aHand)) {
-            hand.remove(aHand);
-            wasRemoved = true;
-        }
-        return wasRemoved;
-    }
-
-    /* Code from template association_AddIndexControlFunctions */
-    public boolean addHandAt(Card aHand, int index) {
-        boolean wasAdded = false;
-        if (addHand(aHand)) {
-            if (index < 0) {
-                index = 0;
-            }
-            if (index > numberOfHand()) {
-                index = numberOfHand() - 1;
-            }
-            hand.remove(aHand);
-            hand.add(index, aHand);
-            wasAdded = true;
-        }
-        return wasAdded;
-    }
-
-    public boolean addOrMoveHandAt(Card aHand, int index) {
-        boolean wasAdded = false;
-        if (hand.contains(aHand)) {
-            if (index < 0) {
-                index = 0;
-            }
-            if (index > numberOfHand()) {
-                index = numberOfHand() - 1;
-            }
-            hand.remove(aHand);
-            hand.add(index, aHand);
-            wasAdded = true;
-        } else {
-            wasAdded = addHandAt(aHand, index);
-        }
-        return wasAdded;
-    }
-
-    public void delete() {
-        hand.clear();
-        super.delete();
-    }
-
-    // line 115 "model.ump"
+    /**
+     * Get the type of the player
+     * @return  The type of the player
+     */
     public Type getType() {
         return type;
     }

@@ -24,6 +24,7 @@ public class Suggest extends Turn {
         //if a single player has any of the three solutions return false
         List<Player> players = Type.getTypes(Type.SubType.PLAYER).stream().filter(board::hasPlayer).map(board::getPlayer).collect(Collectors.toList());
 
+
         players.remove(board.getCurrentPlayer());
 
 //        System.out.println("In play: " + players.toString());

@@ -1,13 +1,11 @@
 public class MathUtil {
 
-    public static int constrain(int value, int max, int min){
-        return value > max ? max : value < min ? min : value;
-    }
-
-    public static double constrain(double value, double max, double min){
-        return value > max ? max : value < min ? min : value;
-    }
-
+    /**
+     * Randomly generates an integer between the given range
+     * @param min   The minimum value the number can be
+     * @param max   The maximum value the number can be
+     * @return      The random number generated
+     */
     public static int randomInt(int min, int max){
         return (int)((Math.random() * (max - min)) + min);
     }
