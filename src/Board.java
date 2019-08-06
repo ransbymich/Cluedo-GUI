@@ -84,6 +84,8 @@ public class Board {
     }
 
 
+
+
     public boolean processTurn(Turn turn){
         boolean access = turn.execute(this);
         if(access){
@@ -97,6 +99,10 @@ public class Board {
 
     public List<Type> getPlayers(){
         return new ArrayList<>(players.keySet());
+    }
+
+    public boolean hasPlayer(Type player){
+        return players.containsKey(player);
     }
 
     private void dealCards() {

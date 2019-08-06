@@ -27,14 +27,7 @@ public abstract class Entity {
 
     public Entity(Type aType) {
         type = aType;
-//        if (!setPosition(aPosition)) {
-//            throw new RuntimeException("Unable to create Entity due to aPosition. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-//        }
     }
-
-    //------------------------
-    // INTERFACE
-    //------------------------
 
     public boolean setType(Type aType) {
         boolean wasSet = false;
@@ -46,6 +39,8 @@ public abstract class Entity {
     public Type getType() {
         return type;
     }
+
+    public String getName(){return this.getType().getName();}
 
     /* Code from template association_GetOne */
     public Position getPosition() {
