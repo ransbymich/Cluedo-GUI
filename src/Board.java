@@ -381,37 +381,30 @@ public class Board {
 
     public String toString() {
         StringBuilder ret = new StringBuilder();
-        int begin = (int) 'A';
+        int begin = 'A';
 
         for (int y = 0; y < board.length + 1; y++) {
             ret.append("|");
-//            System.out.print("|");
             for (int x = 0; x < board[0].length + 1; x++) {
                 if (y == 0) {
                     if (x != 0) {
                         ret.append(cellify(String.valueOf(x)));
-//                        System.out.print(cellify(String.valueOf(x)));
                     } else {
                         ret.append("  |");
-//                        System.out.print("  |");
                     }
                     continue;
                 }
-                if (x == 0 && y != 0) {
+                if (x == 0) {
                     ret.append(cellify(String.valueOf((char) (begin + y - 1))));
-//                    System.out.print(cellify(String.valueOf((char) (begin + y - 1))));
-                    continue;
                 }
 
             }
             if (y > 0){
                 Tile[] row = board[y-1];
                 ret.append(rowToString(row));
-//                System.out.print(rowToString(row));
             }
 
             ret.append("\n");
-//            System.out.print("\n");
         }
 
         for (Room room : rooms.values()) {
@@ -438,6 +431,5 @@ public class Board {
         }
         String padding = " ";
         return padding.repeat(2 - text.length()) + text + "|";
-
     }
 }
