@@ -15,6 +15,13 @@ public class Move extends Turn {
         return clearOldTile(board, cPlayer) && checkAssumptions(board, cPlayer) && setNewTile(board, cPlayer);
     }
 
+    /**
+     * Completes the set new tile logic, by either putting the player inside of a room or moving them to the correct empty tile.
+     * If the player is entering a room, we also ask whether or not they would like to make a suggestion or not.
+     * @param board     The board in it's current state
+     * @param player    The player making the move
+     * @return          Whether or not the move was successful or not
+     */
     private boolean setNewTile(Board board, Player player){
         Tile newTile = board.getBoard()[pos.getY()][pos.getX()];
 
@@ -47,6 +54,13 @@ public class Move extends Turn {
         throw new InvalidInputException();
     }
 
+    /**
+     * Completes the logic for clearing the old tile a player once was on. If the player was in a room then we remove them from the room,
+     * otherwise we just clear the EmptyTile.
+     * @param board     The board in it's current state
+     * @param player    The player making the move
+     * @return          Whether or not it was successful or not
+     */
     private boolean clearOldTile(Board board, Player player){
         Position oldPosition = player.getPosition();
 
@@ -68,6 +82,12 @@ public class Move extends Turn {
 
     }
 
+    /**
+     * Checks the assumptions for a move
+     * @param board     The board in it's current state
+     * @param player    The player making a move
+     * @return          Whether or not the assumptions are met or not
+     */
     private boolean checkAssumptions(Board board, Player player){
         if(pos.distTo(player.getPosition()) > diceRoll){
             System.out.println("You can't move that far!");
@@ -78,7 +98,6 @@ public class Move extends Turn {
             System.out.println("Invalid path.");
             return false;
         }
-
 
         return true;
     }

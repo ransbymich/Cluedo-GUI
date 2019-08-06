@@ -23,9 +23,26 @@ public class Accuse extends Turn {
         room = ((RoomTile)(board.getBoard()[pPos.getY()][pPos.getX()])).getRoom().getType();
         System.out.printf("%s accuses %s of murdering Mr Black with a %s in the %s!\n", player.getType().getName(), this.player.getName(), weapon.getName(), room.getName());
 
+        //WEAPON, PLAYER, ROOM
+        Card[] solution = board.getSolution();
+
+        if(weapon == solution[0].getType() && this.player == solution[1].getType() && room == solution[2].getType()){
+            System.out.println("%s's accusation was correct! %s wins!");
+            board.completeGame();
+        }else{
+            player.setIsInPlay(false);
+            System.out.println("%s's accusation was incorrect. They can no longer make any more suggestions or accusations.");
+        }
+
         return true;
     }
 
+    /**
+     * Checks all of the assumptions required for an accusation
+     * @param board     The current board
+     * @param player    The player making the accusation
+     * @return          Whether or not the accusation is actually a valid move
+     */
     private boolean checkAssumptions(Board board, Player player){
         Position playerPosition = player.getPosition();
 

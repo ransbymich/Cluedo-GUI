@@ -47,8 +47,6 @@ public class RoomCard implements Card {
 
 
     public String toString() {
-        return  type.getName();
-//        return super.toString() + "[" + "]" + System.getProperties().getProperty("line.separator") +
-//                "  " + "type" + "=" + (getType() != null ? !getType().equals(this) ? getType().toString().replaceAll("  ", "    ") : "this" : "null");
+        return type.getName();
     }
 }

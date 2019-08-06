@@ -29,6 +29,7 @@ public class Suggest extends Turn {
         //if a single player has any of the three solutions return false
         List<Player> players = Type.getTypes(Type.SubType.PLAYER).stream().map(board::getPlayer).collect(Collectors.toList());
 
+        System.out.println(players);
         for (Player refutingPlayer : players) {
             for (Card card : refutingPlayer.getHand()) {
 

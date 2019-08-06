@@ -7,6 +7,13 @@ public class InputUtil {
 
     public static final String COORDINATE_REGEX = "[0-9]+,[A-Za-z]";
 
+    /**
+     * Asks the user a question and then waits for an integer input, requires the integer input to be within the range
+     * @param string    The string to output
+     * @param min       The minimum value the number can be
+     * @param max       The maximum value the number can be
+     * @return          The inputted value
+     */
     public static int requireInt(String string, int min, int max){
         System.out.println(string);
         Scanner scan = new Scanner(System.in);
@@ -25,6 +32,12 @@ public class InputUtil {
         }
     }
 
+    /**
+     * Requires the user to input a string which matches the provided regex, this is done after outputting the provided question
+     * @param string    The question to output
+     * @param regex     The regex string to match
+     * @return          The inputted string
+     */
     public static String requireString(String string, String regex){
         System.out.println(string);
 
@@ -41,6 +54,12 @@ public class InputUtil {
         }
     }
 
+    /**
+     * Asks the user to input a type and then returns that type
+     * @param subType   The subtype of type you want
+     * @param board     The board in it's current state
+     * @return          The type
+     */
     public static Type askType(Type.SubType subType, Board board) {
         String regex;
         StringBuilder builder = new StringBuilder();
@@ -52,6 +71,7 @@ public class InputUtil {
             types = Type.getTypes(subType);
         }
 
+        //First we must generate a regex
         builder.append("^(");
         types.forEach((t)->{
             builder.append(t.getName().toLowerCase());
@@ -66,6 +86,7 @@ public class InputUtil {
 
         String input = InputUtil.requireString("Enter the " + subType + " you would like to suggest: ", regex);
 
+        //Now get the type
         for(Type t : types){
             String name = t.getName().toLowerCase().replaceAll("\\.", "");
             if(name.equals(input)){
@@ -76,6 +97,10 @@ public class InputUtil {
         throw new InvalidInputException();
     }
 
+    /**
+     * Asks the user for a turn type
+     * @return  The turn type returned
+     */
     public static Turn.TurnType askTurnType(){
         String input = InputUtil.requireString("What kind of turn would you like to do?: ", Turn.TurnType.REGEX);
 

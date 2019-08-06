@@ -6,53 +6,35 @@
 // line 182 "model.ump"
 public abstract class Entity {
 
-    //------------------------
-    // ENUMERATIONS
-    //------------------------
-
-
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //Entity Attributes
     protected Type type;
 
-    //Entity Associations
     protected Position position;
-
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
 
     public Entity(Type aType) {
         type = aType;
-//        if (!setPosition(aPosition)) {
-//            throw new RuntimeException("Unable to create Entity due to aPosition. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-//        }
     }
 
-    //------------------------
-    // INTERFACE
-    //------------------------
-
-    public boolean setType(Type aType) {
-        boolean wasSet = false;
-        type = aType;
-        wasSet = true;
-        return wasSet;
-    }
-
+    /**
+     * Gets the type of the entity
+     * @return Gets the type of entity
+     */
     public Type getType() {
         return type;
     }
 
-    /* Code from template association_GetOne */
+    /**
+     * Gets the position of the entity
+     * @return The position of the entity
+     */
     public Position getPosition() {
         return position;
     }
 
-    /* Code from template association_SetUnidirectionalOne */
+    /**
+     * Sets the position of the entity
+     * @param aNewPosition  The position to set
+     * @return              Whether or not the position was set or not
+     */
     public boolean setPosition(Position aNewPosition) {
         boolean wasSet = false;
         if (aNewPosition != null) {
@@ -61,11 +43,6 @@ public abstract class Entity {
         }
         return wasSet;
     }
-
-    public void delete() {
-        position = null;
-    }
-
 
     public String toString() {
         return super.toString() + "[" + "]" + System.getProperties().getProperty("line.separator") +
