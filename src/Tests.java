@@ -493,6 +493,8 @@ public class Tests {
     @Test
     public void test08(){
 
+        Board b = new Board(3);
+
         b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
         b.clearHands();
         setInput("n");
