@@ -127,6 +127,10 @@ public class Board {
     /**
      * Deals out all of the types to their correct places, three random one as the solution and the rest evenly distributed to each player
      */
+    public boolean hasPlayer(Type player){
+        return players.containsKey(player);
+    }
+
     private void dealTypes() {
         solution = new Card[3];
 

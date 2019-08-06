@@ -14,6 +14,13 @@ public abstract class Entity {
         type = aType;
     }
 
+    public boolean setType(Type aType) {
+        boolean wasSet = false;
+        type = aType;
+        wasSet = true;
+        return wasSet;
+    }
+
     /**
      * Gets the type of the entity
      * @return Gets the type of entity
@@ -26,6 +33,9 @@ public abstract class Entity {
      * Gets the position of the entity
      * @return The position of the entity
      */
+    public String getName(){return this.getType().getName();}
+
+    /* Code from template association_GetOne */
     public Position getPosition() {
         return position;
     }

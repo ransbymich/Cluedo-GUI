@@ -73,9 +73,9 @@ public class Player extends Entity {
         return type;
     }
 
+    public String getName(){return getType().getName();}
 
     public String toString() {
-        return super.toString() + "[" +
-                "isInPlay" + ":" + getIsInPlay() + "]";
+        return super.toString() + "[" + "isInPlay" + ":" + getIsInPlay() + "]";
     }
 }

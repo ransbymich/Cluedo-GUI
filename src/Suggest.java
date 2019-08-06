@@ -1,38 +1,50 @@
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Suggest extends Turn {
     private Type weapon;
     private Type accused;
 
-    public Suggest(Type weapon, Type player) {
+    public Suggest(Type weapon, Type accused) {
         this.weapon = weapon;
-        this.accused = player;
+        this.accused = accused;
     }
 
     @Override
     boolean execute(Board board) {
-        List<Card> suggestions = new ArrayList<>();
-
         Position pPos = board.getCurrentPlayer().getPosition();
-
-
         Player player = board.getCurrentPlayer();
 
-        Type room = ((RoomTile)board.getBoard()[pPos.getY()][pPos.getX()]).getRoom().getType();
+        Type room = ((RoomTile) board.getBoard()[pPos.getY()][pPos.getX()]).getRoom().getType();
+        Set<Type> suggestions = new HashSet<>(Arrays.asList(weapon, accused, room));
 
         //check assumptions
         if (!checkAssumptions(board, player)) return false;
 
         //if a single player has any of the three solutions return false
-        List<Player> players = Type.getTypes(Type.SubType.PLAYER).stream().map(board::getPlayer).collect(Collectors.toList());
+        List<Player> players = Type.getTypes(Type.SubType.PLAYER).stream().filter(board::hasPlayer).map(board::getPlayer).collect(Collectors.toList());
 
-        System.out.println(players);
+
+        players.remove(board.getCurrentPlayer());
+
+//        System.out.println("In play: " + players.toString());
+        players.remove(null);
+
         for (Player refutingPlayer : players) {
-            for (Card card : refutingPlayer.getHand()) {
+            Set<Type> hand = refutingPlayer.getHand().stream().map(Card::getType).collect(Collectors.toSet());
+            hand.retainAll(suggestions);
+            System.out.println(hand.size() + " refutable cards from " + refutingPlayer.getType().getName());
 
+            if (hand.size() > 1){
+                while(true){
+                    Type next = InputUtil.askType(new ArrayList<>(hand), board);
+                    if (next != null){
+                        System.out.println(refutingPlayer.getName() + " refutes with " + next.getName());
+                        break;
+                    }
+                }
+            } else if (hand.size() == 1){
+                System.out.println(refutingPlayer.getName() + " refutes with " + hand.iterator().next().getName());
             }
         }
 
@@ -47,8 +59,9 @@ public class Suggest extends Turn {
 
     }
 
-    private boolean checkAssumptions(Board board, Player player){
+    private boolean checkAssumptions(Board board, Player player) {
         //player accusing must be in room
-        return player.getIsInPlay();
+        //must be their turn
+        return player.getIsInPlay() && player.inRoom(board) && player == board.getCurrentPlayer();
     }
 }

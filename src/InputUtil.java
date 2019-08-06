@@ -101,6 +101,35 @@ public class InputUtil {
      * Asks the user for a turn type
      * @return  The turn type returned
      */
+    public static Type askType(List<Type> types, Board board){
+        String regex;
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("^(");
+        types.forEach((t)->{
+            builder.append(t.getName().toLowerCase());
+
+            builder.append("|");
+        });
+        builder.delete(builder.length() - 1, builder.length());
+        builder.append(")$");
+
+        regex = builder.toString();
+        regex = regex.replaceAll("\\.","");
+
+        System.out.println("Options to refute with: " + regex);
+        String input = InputUtil.requireString("Enter the card  you would like to refute with: ", regex);
+
+        for(Type t : types){
+            String name = t.getName().toLowerCase().replaceAll("\\.", "");
+            if(name.equals(input)){
+                return t;
+            }
+        }
+
+        return null;
+    }
+
     public static Turn.TurnType askTurnType(){
         String input = InputUtil.requireString("What kind of turn would you like to do?: ", Turn.TurnType.REGEX);
 
