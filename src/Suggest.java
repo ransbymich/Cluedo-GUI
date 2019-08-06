@@ -10,16 +10,21 @@ public class Suggest extends Turn {
         this.accused = accused;
     }
 
+
+    /**
+     * Actually makes the move on the board
+     * @param board The board (provided from Cluedo class)
+     * @return returns whether or not the play is VALID, may be incorrect and still return true
+     */
     @Override
     boolean execute(Board board) {
         Position pPos = board.getCurrentPlayer().getPosition();
-        Player player = board.getCurrentPlayer();
 
         Type room = ((RoomTile) board.getBoard()[pPos.getY()][pPos.getX()]).getRoom().getType();
         Set<Type> suggestions = new HashSet<>(Arrays.asList(weapon, accused, room));
 
         //check assumptions
-        if (!checkAssumptions(board, player)) return false;
+        if (!checkAssumptions(board)) return false;
 
         //if a single player has any of the three solutions return false
         List<Player> players = Type.getTypes(Type.SubType.PLAYER).stream().filter(board::hasPlayer).map(board::getPlayer).collect(Collectors.toList());
@@ -33,7 +38,7 @@ public class Suggest extends Turn {
         for (Player refutingPlayer : players) {
             Set<Type> hand = new HashSet<>(refutingPlayer.getHand());
             hand.retainAll(suggestions);
-            System.out.println(hand.size() + " refutable cards from " + refutingPlayer.getType().getName());
+//            System.out.println(hand.size() + " refutable cards from " + refutingPlayer.getType().getName());
 
             if (hand.size() > 1){
                 while(true){
@@ -45,8 +50,13 @@ public class Suggest extends Turn {
                 }
             } else if (hand.size() == 1){
                 System.out.println(refutingPlayer.getName() + " refutes with " + hand.iterator().next().getName());
+                break;
+            } else {
+                System.out.println("No one refuted!");
             }
         }
+
+        //PLAYERS ARE MOVED IF THEY ARE ACCUSED
 
 
         //still returns true if the play is valid, but incorrect
@@ -59,7 +69,14 @@ public class Suggest extends Turn {
 
     }
 
-    private boolean checkAssumptions(Board board, Player player) {
+    /**
+     * Quick helper to ensure that the assumptions for a player and the board are valid
+     * @param board the game board
+     * @return true if the assumptions are met
+     */
+    private boolean checkAssumptions(Board board) {
+        Player player = board.getCurrentPlayer();
+
         //player accusing must be in room
         //must be their turn
         return player.getIsInPlay() && player.inRoom(board) && player == board.getCurrentPlayer();
