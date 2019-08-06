@@ -73,6 +73,11 @@ public class Player extends Entity {
         return index;
     }
 
+    public boolean inRoom(Board board){
+        //Is the player on a RoomTile?
+        return board.getBoard()[position.getY()][position.getX()] instanceof RoomTile;
+    }
+
     /* Code from template association_MinimumNumberOfMethod */
     public static int minimumNumberOfHand() {
         return 0;
