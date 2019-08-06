@@ -50,7 +50,4 @@ public class Suggest extends Turn {
         //player accusing must be in room
         return player.getIsInPlay();
     }
-
-
-
 }

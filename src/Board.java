@@ -201,58 +201,6 @@ public class Board {
         return 0;
     }
 
-    /* Code from template association_GetMany */
-//    public Card getSolution(int index) {
-//        Card aSolution = solution.get(index);
-//        return aSolution;
-//    }
-//
-//    public List<Card> getSolution() {
-//        List<Card> newSolution = Collections.unmodifiableList(solution);
-//        return newSolution;
-//    }
-//
-//    public int numberOfSolution() {
-//        int number = solution.size();
-//        return number;
-//    }
-//
-//    public boolean hasSolution() {
-//        boolean has = solution.size() > 0;
-//        return has;
-//    }
-//
-//    public int indexOfSolution(Card aSolution) {
-//        int index = solution.indexOf(aSolution);
-//        return index;
-//    }
-
-//    /* Code from template association_GetMany */
-//    public Tile getBoard(int index) {
-//        Tile aBoard = board.get(index);
-//        return aBoard;
-//    }
-//
-//    public List<Tile> getBoard() {
-//        List<Tile> newBoard = Collections.unmodifiableList(board);
-//        return newBoard;
-//    }
-//
-//    public int numberOfBoard() {
-//        int number = board.size();
-//        return number;
-//    }
-//
-//    public boolean hasBoard() {
-//        boolean has = board.size() > 0;
-//        return has;
-//    }
-//
-//    public int indexOfBoard(Tile aBoard) {
-//        int index = board.indexOf(aBoard);
-//        return index;
-//    }
-
     /* Code from template association_RequiredNumberOfMethod */
     public static int requiredNumberOfRooms() {
         return 9;
@@ -366,24 +314,6 @@ public class Board {
 //        solution.clear();
 //        board.clear();
 //    }
-
-    // line 72 "model.ump"
-    public void suggest(WeaponCard w, PlayerCard p, RoomCard r) {
-
-    }
-
-    // line 75 "model.ump"
-    public boolean accuse(Player plantiff, WeaponCard w, PlayerCard p, RoomCard r) {
-        return false;
-        //TODO: DO
-    }
-
-    // line 80 "model.ump"
-    public boolean move(Player p, int x, int y) {
-        return false;
-        //TODO: Do
-    }
-
 
     public String toString() {
         StringBuilder ret = new StringBuilder();

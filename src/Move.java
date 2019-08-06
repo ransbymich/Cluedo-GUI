@@ -32,7 +32,15 @@ public class Move extends Turn {
             room.addEntity(player);
             System.out.printf("%s enters %s.\n", player.getType(), room.getType());
             player.setPosition(pos);
-            System.out.println(room.getEntities());
+
+            String input = InputUtil.requireString("Would you like to make a suggestion? [y/n]", "y|n");
+            if(input.equals("y")){
+                while(true){
+                    if(board.processTurn(new Suggest(InputUtil.askType(Type.SubType.WEAPON, board), InputUtil.askType(Type.SubType.PLAYER, board)))){
+                        break;
+                    }
+                }
+            }
             return true;
         }
 
@@ -62,12 +70,12 @@ public class Move extends Turn {
 
     private boolean checkAssumptions(Board board, Player player){
         if(pos.distTo(player.getPosition()) > diceRoll){
-            System.out.println("Invalid die roll.");
+            System.out.println("You can't move that far!");
             return false;
         }
 
         if(!PathfindingUtil.findPath(board, player.getPosition(), pos)){
-            System.out.println("Invalid path");
+            System.out.println("Invalid path.");
             return false;
         }
 

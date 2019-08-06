@@ -51,7 +51,7 @@ public class Cluedo {
             System.out.print("They have: \n");
             for (Card card : board.getCurrentPlayer().getHand()) {
                 System.out.println("\t" + card.toString());
-            };
+            }
 
             Turn.TurnType turnType = InputUtil.askTurnType();
 
@@ -83,7 +83,6 @@ public class Cluedo {
     }
 
     private void processSuggestion(){
-//        System.out.println(askType(Type.SubType.PLAYER));
         while(true){
             if(board.processTurn(new Suggest(InputUtil.askType(Type.SubType.WEAPON, board), InputUtil.askType(Type.SubType.PLAYER, board)))){
                 break;
@@ -92,8 +91,11 @@ public class Cluedo {
     }
 
     private void processAccusation(){
-
-
+        while(true){
+            if(board.processTurn(new Accuse(InputUtil.askType(Type.SubType.WEAPON, board), InputUtil.askType(Type.SubType.PLAYER, board)))){
+                break;
+            }
+        }
     }
     //------------------------
     // INTERFACE
@@ -116,7 +118,6 @@ public class Cluedo {
     public void delete() {
         board = null;
     }
-
 
     public static void main(String[] args){
         new Cluedo();
