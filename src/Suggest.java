@@ -35,6 +35,8 @@ public class Suggest extends Turn {
 //        System.out.println("In play: " + players.toString());
         players.remove(null);
 
+        boolean wasRefuted = false;
+
         for (Player refutingPlayer : players) {
             Set<Type> hand = new HashSet<>(refutingPlayer.getHand());
             hand.retainAll(suggestions);
@@ -45,10 +47,12 @@ public class Suggest extends Turn {
                     Type next = InputUtil.askType(new ArrayList<>(hand), board);
                     if (next != null){
                         System.out.println(refutingPlayer.getName() + " refutes with " + next.getName());
+                        wasRefuted = true;
                         break;
                     }
                 }
             } else if (hand.size() == 1){
+                wasRefuted = true;
                 System.out.println(refutingPlayer.getName() + " refutes with " + hand.iterator().next().getName());
                 break;
             } else {
@@ -56,8 +60,17 @@ public class Suggest extends Turn {
             }
         }
 
+        if(!wasRefuted){
+            String input = InputUtil.requireString("Would you like to make an accusation? [y/n]", "y|n");
+            if(input.equals("y")){
+                while(true){
+                    if(board.processTurn(new Accuse(weapon, accused))){
+                        break;
+                    }
+                }
+            }
+        }
         //PLAYERS ARE MOVED IF THEY ARE ACCUSED
-
 
         //still returns true if the play is valid, but incorrect
         return true;

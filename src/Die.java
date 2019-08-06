@@ -8,8 +8,7 @@ public class Die {
      * @return The two randomly generated numbers adding together
      */
     static int roll() {
-//        return MathUtil.randomInt(1, 6) + MathUtil.randomInt(1, 6);
-        return 1000;
+        return MathUtil.randomInt(1, 6) + MathUtil.randomInt(1, 6);
     }
 
 }

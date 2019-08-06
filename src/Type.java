@@ -62,6 +62,11 @@ enum Type{
         return type;
     }
 
+    /**
+     * Gets all of the types within a provided subtype
+     * @param type  The subtype
+     * @return      The list of types
+     */
     public static List<Type> getTypes(SubType type){
         return Arrays.stream(Type.values()).filter((t)->t.getType() == type).collect(Collectors.toList());
     }

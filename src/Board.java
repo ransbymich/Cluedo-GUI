@@ -53,10 +53,14 @@ public class Board {
         generateRooms();
         generatePlayers();
         dealTypes();
-        System.out.println(solution[0]);
-        System.out.println(solution[1]);
-        System.out.println(solution[2]);
         board = RoomParse.makeRoom(room, rooms, players, aNPlayers);
+    }
+
+    public void completeTurn(){
+        List<Type> types = Type.getTypes(Type.SubType.PLAYER);
+        int index = types.indexOf(currentTurn) + 1;
+
+        currentTurn = types.get(index % nPlayers);
     }
 
     /**
@@ -100,12 +104,6 @@ public class Board {
      */
     public boolean processTurn(Turn turn){
         boolean access = turn.execute(this);
-        if(access){     //Change the current player to the next one if the turn was successful
-            List<Type> types = Type.getTypes(Type.SubType.PLAYER);
-            int index = types.indexOf(currentTurn) + 1;
-
-            currentTurn = types.get(index % nPlayers);
-        }
         return access;
     }
 
