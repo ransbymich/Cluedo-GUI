@@ -119,8 +119,6 @@ public class Cluedo {
         board = null;
     }
 
-    // line 54 "model.ump
-
     public static void main(String[] args){
         new Cluedo();
     }
