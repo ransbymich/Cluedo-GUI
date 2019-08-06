@@ -204,6 +204,10 @@ public class Board {
      * @return The board as a string
      */
     public String toString() {
+        char newline = '\n';
+
+
+
         StringBuilder ret = new StringBuilder();
         int begin = 'A';
 
