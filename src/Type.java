@@ -3,6 +3,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Types for any card within the game, also note the presence of subtypes, which make filtering easier
+ */
 enum Type{
     CANDLE_STICK(SubType.WEAPON, "Candle Stick"),
     DAGGER(SubType.WEAPON, "Dagger"),
