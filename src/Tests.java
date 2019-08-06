@@ -387,38 +387,73 @@ public class Tests {
         assertEquals("You can't move that far!\n", outContent.toString());
     }
 
+    //Check accused players are actually moved to the tile(room) they're accused in
     @Test
     public void test15(){
+        Board b = new Board(3);
 
-    }
+        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.LOUNGE});
+        b.clearHands();
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.ROPE, Type.MISS_SCARLETT));
 
-    //making incorrect accusation
-    @Test
-    public void test16InvalidAccusation(){
+        //current player is where the accused needs to go
+        Position room = b.getCurrentPlayer().getPosition();
 
-    }
-
-    //winning
-    @Test
-    public void test17TestValidtWin(){
+        System.out.println(b.toString());
+        //check that the player is in the position of the room that they're supposedly in
+        assertEquals(room, b.getPlayer(Type.MISS_SCARLETT).getPosition());
 
     }
 
     //making accusations without being in a room
     @Test
-    public void test18InvalidAccusations(){
+    public void test16AccusationNotInRoom(){
         Board b = new Board(3);
 
-        b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
+        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLARD_ROOM});
         b.clearHands();
         setInput("n");
-        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        b.processTurn(new Move(Position.positionFromString("17,j"), 100));
         setInput("n");
-        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
-        b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
+        b.processTurn(new Suggest(Type.ROPE, Type.COL_MUSTARD));
+        b.processTurn(new Accuse(Type.ROPE, Type.COL_MUSTARD));
 
-        System.out.println(b.toString());
-        assertEquals(true, false);
+        //wasn't in a room, therefore can't suggest/accuse -> win
+        assertFalse(b.isHasWon());
+    }
+
+    //winning
+    @Test
+    public void test17TestValidWin(){
+        Board b = new Board(3);
+
+        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLARD_ROOM});
+        b.clearHands();
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("19,j"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.ROPE, Type.COL_MUSTARD));
+        b.processTurn(new Accuse(Type.ROPE, Type.COL_MUSTARD));
+
+        assertTrue(b.isHasWon());
+    }
+
+    @Test
+    public void test18IncorrectAccusation(){
+        Board b = new Board(3);
+
+        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLARD_ROOM});
+        b.clearHands();
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("19,j"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.ROPE, Type.MISS_SCARLETT));
+//        b.processTurn(new Accuse(Type.ROPE, Type.COL_MUSTARD));
+
+        assertFalse(b.isHasWon());
     }
 
     //may not move on top another player
