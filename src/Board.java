@@ -372,11 +372,6 @@ public class Board {
         //TODO: DO
     }
 
-    // line 78 "model.ump"
-    public void setSolution(WeaponCard w, PlayerCard p, RoomCard r) {
-
-    }
-
     // line 80 "model.ump"
     public boolean move(Player p, int x, int y) {
         return false;
@@ -385,34 +380,47 @@ public class Board {
 
 
     public String toString() {
+        StringBuilder ret = new StringBuilder();
         int begin = (int) 'A';
 
         for (int y = 0; y < board.length + 1; y++) {
-            System.out.print("|");
+            ret.append("|");
+//            System.out.print("|");
             for (int x = 0; x < board[0].length + 1; x++) {
                 if (y == 0) {
                     if (x != 0) {
-                        System.out.print(cellify(String.valueOf(x)));
+                        ret.append(cellify(String.valueOf(x)));
+//                        System.out.print(cellify(String.valueOf(x)));
                     } else {
-                        System.out.print("  |");
+                        ret.append("  |");
+//                        System.out.print("  |");
                     }
                     continue;
                 }
                 if (x == 0 && y != 0) {
-                    System.out.print(cellify(String.valueOf((char) (begin + y - 1))));
+                    ret.append(cellify(String.valueOf((char) (begin + y - 1))));
+//                    System.out.print(cellify(String.valueOf((char) (begin + y - 1))));
                     continue;
                 }
 
             }
             if (y > 0){
                 Tile[] row = board[y-1];
-
-                System.out.print(rowToString(row));
+                ret.append(rowToString(row));
+//                System.out.print(rowToString(row));
             }
 
-            System.out.print("\n");
+            ret.append("\n");
+//            System.out.print("\n");
         }
-        return "";
+
+        for (Room room : rooms.values()) {
+            if (!room.isEmpty()){
+                ret.append(room.toString());
+            }
+        }
+
+        return ret.toString();
     }
 
     private static String rowToString(Tile[] row){
@@ -428,10 +436,7 @@ public class Board {
         if (text.length() > 2) {
             throw new InvalidInputException();
         }
-
         String padding = " ";
-
-
         return padding.repeat(2 - text.length()) + text + "|";
 
     }

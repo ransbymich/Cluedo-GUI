@@ -12,7 +12,7 @@ public class InputUtil {
         while(true){
             String token = scan.next();
             try{
-                int value = Integer.valueOf(token);
+                int value = Integer.parseInt(token);
                 if(value >= min && value <= max){
                     return value;
                 }else{
