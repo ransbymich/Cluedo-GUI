@@ -21,7 +21,13 @@ public class Accuse extends Turn {
         Position pPos = player.getPosition();
 
         room = ((RoomTile)(board.getBoard()[pPos.getY()][pPos.getX()])).getRoom().getType();
-        System.out.printf("%s accuses %s of murdering Mr Black with a %s in the %s!\n", player.getName(), this.player.getName(), weapon.getName(), room.getName());
+        System.out.printf(
+                "%s accuses %s of murdering Mr Black with a %s in the %s!\n",
+                player.getName(),
+                this.player.getName(),
+                weapon.getName(),
+                room.getName()
+        );
 
         //WEAPON, PLAYER, ROOM
         Type[] solution = board.getSolution();
