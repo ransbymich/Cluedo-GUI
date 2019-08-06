@@ -18,13 +18,17 @@ public class Suggest extends Turn {
      */
     @Override
     boolean execute(Board board) {
+
+        //check assumptions
+        if (!checkAssumptions(board)){
+            System.out.println("You cannot make a suggestion without being in a room!");
+            return false;
+        }
+
         Position pPos = board.getCurrentPlayer().getPosition();
 
         Type room = ((RoomTile) board.getBoard()[pPos.getY()][pPos.getX()]).getRoom().getType();
         Set<Type> suggestions = new HashSet<>(Arrays.asList(weapon, accused, room));
-
-        //check assumptions
-        if (!checkAssumptions(board)) return false;
 
         //if a single player has any of the three solutions return false
         List<Player> players = Type.getTypes(Type.SubType.PLAYER).stream().filter(board::hasPlayer).map(board::getPlayer).collect(Collectors.toList());

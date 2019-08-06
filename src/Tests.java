@@ -1,13 +1,25 @@
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class Tests {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
 
     private void setInput(String data){
         InputStream testInput = new ByteArrayInputStream( data.getBytes() );
@@ -476,5 +488,93 @@ public class Tests {
         b.completeTurn();
 
         assertEquals(solution, b.toString());
+    }
+  
+    @Test
+    public void test08(){
+
+        b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
+        b.clearHands();
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
+        b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
+
+        assertTrue(b.isHasWon());
+    }
+
+    @Test
+    public void test09(){
+        Board b = new Board(3);
+
+        b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
+        b.clearHands();
+        b.givePlayerType(Type.COL_MUSTARD, Type.LOUNGE);
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
+
+        assertFalse(b.isHasWon());
+    }
+
+    @Test
+    public void test10(){
+        Board b = new Board(3);
+
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        b.completeTurn();
+
+        setInput("n");
+
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        b.completeTurn();
+
+        assertEquals(b.getRooms().get(Type.LOUNGE).getEntities().size(), 2);
+    }
+
+    @Test
+    public void test11(){
+        Board b = new Board(3);
+
+        b.setSolution(new Type[]{Type.LEAD_PIPE, Type.MISS_SCARLETT, Type.LOUNGE});
+        b.clearHands();
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
+        b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
+
+        assertFalse(b.isHasWon());
+
+    }
+
+    @Test
+    public void test12(){
+        Board b = new Board(3);
+
+        b.processTurn(new Suggest(Type.LEAD_PIPE, Type.MISS_SCARLETT));
+
+        assertEquals("You cannot make a suggestion without being in a room!\n", outContent.toString());
+    }
+
+    @Test
+    public void test13(){
+        Board b = new Board(3);
+
+        b.processTurn(new Move(Position.positionFromString("6,y"), 100));
+
+        assertEquals("Invalid path.\n", outContent.toString());
+    }
+
+    @Test
+    public void test14(){
+        Board b = new Board(3);
+
+        b.processTurn(new Move(Position.positionFromString("1,r"), 2));
+
+        assertEquals("You can't move that far!\n", outContent.toString());
     }
 }
