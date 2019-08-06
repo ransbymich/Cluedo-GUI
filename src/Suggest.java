@@ -15,9 +15,7 @@ public class Suggest extends Turn {
     }
 
     private boolean checkAssumptions(Board board, Player player){
+
         return true;
     }
-
-
-
 }

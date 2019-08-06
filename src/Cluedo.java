@@ -51,9 +51,9 @@ public class Cluedo {
             System.out.print("They have: \n");
             for (Card card : board.getCurrentPlayer().getHand()) {
                 System.out.println("\t" + card.toString());
-            };
+            }
 
-            Turn.TurnType turnType = askTurnType();
+            Turn.TurnType turnType = InputUtil.askTurnType();
 
             switch (turnType){
                 case MOVE:
@@ -83,19 +83,19 @@ public class Cluedo {
     }
 
     private void processSuggestion(){
-//        System.out.println(askType(Type.SubType.PLAYER));
         while(true){
-            if(board.processTurn(new Suggest(askType(Type.SubType.WEAPON), askType(Type.SubType.PLAYER)))){
+            if(board.processTurn(new Suggest(InputUtil.askType(Type.SubType.WEAPON, board), InputUtil.askType(Type.SubType.PLAYER, board)))){
                 break;
             }
         }
-
-
     }
 
     private void processAccusation(){
-
-
+        while(true){
+            if(board.processTurn(new Accuse(InputUtil.askType(Type.SubType.WEAPON, board), InputUtil.askType(Type.SubType.PLAYER, board)))){
+                break;
+            }
+        }
     }
     //------------------------
     // INTERFACE
@@ -119,56 +119,7 @@ public class Cluedo {
         board = null;
     }
 
-    // line 54 "model.ump"
-    public Type askType(Type.SubType subType) {
-        String regex;
-        StringBuilder builder = new StringBuilder();
-
-        List<Type> types;
-        if(subType == Type.SubType.PLAYER){
-            types = board.getPlayers();
-        }else{
-            types = Type.getTypes(subType);
-        }
-
-        builder.append("^(");
-        types.forEach((t)->{
-            builder.append(t.getName().toLowerCase());
-
-            builder.append("|");
-        });
-        builder.delete(builder.length() - 1, builder.length());
-        builder.append(")$");
-
-        regex = builder.toString();
-        regex = regex.replaceAll("\\.","");
-
-        String input = InputUtil.requireString("Enter the " + subType + " you would like to suggest: ", regex);
-
-        for(Type t : types){
-            String name = t.getName().toLowerCase().replaceAll("\\.", "");
-            if(name.equals(input)){
-                return t;
-            }
-        }
-
-        throw new InvalidInputException();
-    }
-
-    public Turn.TurnType askTurnType(){
-        String input = InputUtil.requireString("What kind of turn would you like to do?: ", Turn.TurnType.REGEX);
-
-        switch (input){
-            case "move":
-                return Turn.TurnType.MOVE;
-            case "suggest":
-                return Turn.TurnType.SUGGESTION;
-            case "accuse":
-                return Turn.TurnType.ACCUSATION;
-            default:
-                throw new InvalidInputException();
-        }
-    }
+    // line 54 "model.ump
 
     public static void main(String[] args){
         new Cluedo();

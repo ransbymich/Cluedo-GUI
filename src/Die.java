@@ -26,8 +26,8 @@ public class Die {
 
     // line 123 "model.ump"
     static int roll() {
-        return MathUtil.randomInt(1, 6) + MathUtil.randomInt(1, 6);
-//        return 1000;
+//        return MathUtil.randomInt(1, 6) + MathUtil.randomInt(1, 6);
+        return 1000;
     }
 
 }
