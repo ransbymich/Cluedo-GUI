@@ -56,6 +56,9 @@ public class Board {
         board = RoomParse.makeRoom(room, rooms, players, aNPlayers);
     }
 
+    /**
+     * Completes the current players turn and changes it to the next players.
+     */
     public void completeTurn(){
         List<Type> types = Type.getTypes(Type.SubType.PLAYER);
         int index = types.indexOf(currentTurn) + 1;
@@ -63,16 +66,27 @@ public class Board {
         currentTurn = types.get(index % nPlayers);
     }
 
+    /**
+     * Sets the games solution
+     * @param solution  The games solution to set
+     */
     public void setSolution(Type[] solution) {
         this.solution = solution;
     }
 
+    /**
+     * Clears the hands of every player in play
+     */
     public void clearHands(){
         for(Player p : players.values()){
             p.clearHand();
         }
     }
 
+    /**
+     * Gets the map of all the rooms
+     * @return  The map of all the rooms
+     */
     public Map<Type, Room> getRooms(){
         return rooms;
     }
@@ -136,21 +150,35 @@ public class Board {
         hasWon = true;
     }
 
+    /**
+     * Returns whether or not the game has been won
+     * @return  Has the game been won?
+     */
     public boolean isHasWon() {
         return hasWon;
     }
 
+    /**
+     * Gives a player a certain type in their hand
+     * @param player    The player to give the type to
+     * @param type      The type to give them
+     */
     public void givePlayerType(Type player, Type type){
         players.get(player).addHand(type);
     }
 
     /**
-     * Deals out all of the types to their correct places, three random one as the solution and the rest evenly distributed to each player
+     * Checks if a certain player is in the game
+     * @param player    The player to check for
+     * @return          Whether or not that player is in play
      */
     public boolean hasPlayer(Type player){
         return players.containsKey(player);
     }
 
+    /**
+     * Deals out all of the types to their correct places, three random one as the solution and the rest evenly distributed to each player
+     */
     private void dealTypes() {
         solution = new Type[3];
 
@@ -220,7 +248,10 @@ public class Board {
     }
 
 
-
+    /**
+     * Returns the string for just the board output
+     * @return  Just the board output
+     */
     public String justBoard(){
         StringBuilder ret = new StringBuilder();
         int begin = 'A';
