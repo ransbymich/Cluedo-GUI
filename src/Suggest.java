@@ -31,7 +31,7 @@ public class Suggest extends Turn {
         players.remove(null);
 
         for (Player refutingPlayer : players) {
-            Set<Type> hand = refutingPlayer.getHand().stream().map(Card::getType).collect(Collectors.toSet());
+            Set<Type> hand = new HashSet<>(refutingPlayer.getHand());
             hand.retainAll(suggestions);
             System.out.println(hand.size() + " refutable cards from " + refutingPlayer.getType().getName());
 

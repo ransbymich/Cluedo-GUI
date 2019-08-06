@@ -8,7 +8,7 @@ public class Weapon extends Entity {
     public Weapon(Type aType, Position aPosition) {
         super(aType);
     }
-    // line 107 "model.ump"
+  
     public Type getType() {
         return type;
     }

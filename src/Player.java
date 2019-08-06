@@ -8,12 +8,12 @@ public class Player extends Entity {
 
     private boolean isInPlay = true;
 
-    private List<Card> hand;
+    private List<Type> hand;
 
 
     public Player(Type aType) {
         super(aType);
-        hand = new ArrayList<Card>();
+        hand = new ArrayList<Type>();
     }
 
     /**
@@ -37,7 +37,7 @@ public class Player extends Entity {
      * Gets the hand of the player
      * @return  The hand of the player
      */
-    public List<Card> getHand() {
+    public List<Type> getHand() {
         return Collections.unmodifiableList(hand);
     }
 
@@ -55,7 +55,7 @@ public class Player extends Entity {
      * Adds a card to the players card
      * @param aHand The card to add
      */
-    public boolean addHand(Card aHand) {
+    public boolean addHand(Type aHand) {
         boolean wasAdded = false;
         if (hand.contains(aHand)) {
             return false;

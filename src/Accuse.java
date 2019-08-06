@@ -30,9 +30,9 @@ public class Accuse extends Turn {
         );
 
         //WEAPON, PLAYER, ROOM
-        Card[] solution = board.getSolution();
+        Type[] solution = board.getSolution();
 
-        if(weapon == solution[0].getType() && this.player == solution[1].getType() && room == solution[2].getType()){
+        if(weapon == solution[0] && this.player == solution[1] && room == solution[2]){
             System.out.println("%s's accusation was correct! %s wins!");
             board.completeGame();
         }else{

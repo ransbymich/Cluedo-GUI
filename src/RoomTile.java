@@ -49,10 +49,6 @@ public class RoomTile extends Tile {
     return room;
   }
 
-  public void delete() {
-    super.delete();
-  }
-
 
   public String toString() {
     switch (room.getType()) {

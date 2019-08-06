@@ -26,8 +26,8 @@ public class Cluedo {
 
             //Printing out the players hand
             System.out.print("They have: \n");
-            for (Card card : board.getCurrentPlayer().getHand()) {
-                System.out.println("\t" + card.toString());
+            for (Type card : board.getCurrentPlayer().getHand()) {
+                System.out.println("\t" + card.getName());
             }
 
             Turn.TurnType turnType = InputUtil.askTurnType();
