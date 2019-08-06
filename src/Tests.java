@@ -296,6 +296,97 @@ public class Tests {
 
         assertEquals(solution, b.justBoard());
     }
+
+    @Test
+    public void test08(){
+
+        Board b = new Board(3);
+
+        b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
+        b.clearHands();
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
+        b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
+
+        assertTrue(b.isHasWon());
+    }
+
+    @Test
+    public void test09(){
+        Board b = new Board(3);
+
+        b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
+        b.clearHands();
+        b.givePlayerType(Type.COL_MUSTARD, Type.LOUNGE);
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
+
+        assertFalse(b.isHasWon());
+    }
+
+    @Test
+    public void test10(){
+        Board b = new Board(3);
+
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        b.completeTurn();
+
+        setInput("n");
+
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        b.completeTurn();
+
+        assertEquals(b.getRooms().get(Type.LOUNGE).getEntities().size(), 2);
+    }
+
+    @Test
+    public void test11(){
+        Board b = new Board(3);
+
+        b.setSolution(new Type[]{Type.LEAD_PIPE, Type.MISS_SCARLETT, Type.LOUNGE});
+        b.clearHands();
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
+        b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
+
+        assertFalse(b.isHasWon());
+
+    }
+
+    @Test
+    public void test12(){
+        Board b = new Board(3);
+
+        b.processTurn(new Suggest(Type.LEAD_PIPE, Type.MISS_SCARLETT));
+
+        assertEquals("You cannot make a suggestion without being in a room!\n", outContent.toString());
+    }
+
+    @Test
+    public void test13(){
+        Board b = new Board(3);
+
+        b.processTurn(new Move(Position.positionFromString("6,y"), 100));
+
+        assertEquals("Invalid path.\n", outContent.toString());
+    }
+
+    @Test
+    public void test14(){
+        Board b = new Board(3);
+
+        b.processTurn(new Move(Position.positionFromString("1,r"), 2));
+
+        assertEquals("You can't move that far!\n", outContent.toString());
+    }
+
     @Test
     public void test15(){
 
@@ -303,23 +394,34 @@ public class Tests {
 
     //making incorrect accusation
     @Test
-    public void test16(){
+    public void test16InvalidAccusation(){
 
     }
 
     //winning
     @Test
-    public void test17(){
+    public void test17TestValidtWin(){
 
     }
 
     //making accusations without being in a room
     @Test
-    public void test18(){
+    public void test18InvalidAccusations(){
+        Board b = new Board(3);
 
+        b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
+        b.clearHands();
+        setInput("n");
+        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
+        setInput("n");
+        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
+        b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
+
+        System.out.println(b.toString());
+        assertEquals(true, false);
     }
 
-    //maya not move on top another player
+    //may not move on top another player
     @Test
     public void test19(){
         Board b = new Board(3);
@@ -488,95 +590,5 @@ public class Tests {
         b.completeTurn();
 
         assertEquals(solution, b.toString());
-    }
-  
-    @Test
-    public void test08(){
-
-        Board b = new Board(3);
-
-        b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
-        b.clearHands();
-        setInput("n");
-        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
-        setInput("n");
-        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
-        b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
-
-        assertTrue(b.isHasWon());
-    }
-
-    @Test
-    public void test09(){
-        Board b = new Board(3);
-
-        b.setSolution(new Type[]{Type.REVOLVER, Type.MISS_SCARLETT, Type.LOUNGE});
-        b.clearHands();
-        b.givePlayerType(Type.COL_MUSTARD, Type.LOUNGE);
-        setInput("n");
-        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
-        setInput("n");
-        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
-
-        assertFalse(b.isHasWon());
-    }
-
-    @Test
-    public void test10(){
-        Board b = new Board(3);
-
-        setInput("n");
-        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
-        b.completeTurn();
-
-        setInput("n");
-
-        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
-        b.completeTurn();
-
-        assertEquals(b.getRooms().get(Type.LOUNGE).getEntities().size(), 2);
-    }
-
-    @Test
-    public void test11(){
-        Board b = new Board(3);
-
-        b.setSolution(new Type[]{Type.LEAD_PIPE, Type.MISS_SCARLETT, Type.LOUNGE});
-        b.clearHands();
-        setInput("n");
-        b.processTurn(new Move(Position.positionFromString("7,t"), 100));
-        setInput("n");
-        b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
-        b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
-
-        assertFalse(b.isHasWon());
-
-    }
-
-    @Test
-    public void test12(){
-        Board b = new Board(3);
-
-        b.processTurn(new Suggest(Type.LEAD_PIPE, Type.MISS_SCARLETT));
-
-        assertEquals("You cannot make a suggestion without being in a room!\n", outContent.toString());
-    }
-
-    @Test
-    public void test13(){
-        Board b = new Board(3);
-
-        b.processTurn(new Move(Position.positionFromString("6,y"), 100));
-
-        assertEquals("Invalid path.\n", outContent.toString());
-    }
-
-    @Test
-    public void test14(){
-        Board b = new Board(3);
-
-        b.processTurn(new Move(Position.positionFromString("1,r"), 2));
-
-        assertEquals("You can't move that far!\n", outContent.toString());
     }
 }
