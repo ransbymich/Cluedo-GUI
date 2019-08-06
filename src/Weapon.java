@@ -27,9 +27,6 @@ public class Weapon extends Entity {
     // INTERFACE
     //------------------------
 
-    public void delete() {
-        super.delete();
-    }
 
     // line 107 "model.ump"
     public Type getType() {

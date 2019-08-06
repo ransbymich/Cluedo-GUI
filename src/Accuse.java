@@ -24,9 +24,9 @@ public class Accuse extends Turn {
         System.out.printf("%s accuses %s of murdering Mr Black with a %s in the %s!\n", player.getName(), this.player.getName(), weapon.getName(), room.getName());
 
         //WEAPON, PLAYER, ROOM
-        Card[] solution = board.getSolution();
+        Type[] solution = board.getSolution();
 
-        if(weapon == solution[0].getType() && this.player == solution[1].getType() && room == solution[2].getType()){
+        if(weapon == solution[0] && this.player == solution[1] && room == solution[2]){
             System.out.println("%s's accusation was correct! %s wins!");
             board.completeGame();
         }else{

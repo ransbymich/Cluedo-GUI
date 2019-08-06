@@ -43,7 +43,7 @@ public class Board {
 
     private Map<Type, Room> rooms;
     private Map<Type, Player> players;
-    private Card[] solution;
+    private Type[] solution;
     private Tile[][] board;
 
     public Board(int aNPlayers) {
@@ -88,7 +88,7 @@ public class Board {
      * Gets the solution to the game
      * @return  The solution to the game
      */
-    public Card[] getSolution(){
+    public Type[] getSolution(){
         return this.solution;
     }
 
@@ -132,13 +132,13 @@ public class Board {
     }
 
     private void dealTypes() {
-        solution = new Card[3];
+        solution = new Type[3];
 
         //WEAPON, PLAYER, ROOM
         //Gets all of the weapons, players and rooms in play
-        List<WeaponCard> weapons = Type.getTypes(Type.SubType.WEAPON).stream().map(WeaponCard::new).collect(Collectors.toList());
-        List<PlayerCard> players = this.players.keySet().stream().map(PlayerCard::new).collect(Collectors.toList());
-        List<RoomCard> rooms = Type.getTypes(Type.SubType.ROOM).stream().map(RoomCard::new).collect(Collectors.toList());
+        List<Type> weapons = Type.getTypes(Type.SubType.WEAPON);
+        List<Type> players = new ArrayList<>(this.players.keySet());
+        List<Type> rooms = Type.getTypes(Type.SubType.ROOM);
 
         //Shuffle them all
         Collections.shuffle(weapons);
@@ -156,7 +156,7 @@ public class Board {
         rooms.remove(0);
 
         //Combine everything together and then shuffle
-        List<Card> everything = new ArrayList<>();
+        List<Type> everything = new ArrayList<>();
         everything.addAll(weapons);
         everything.addAll(players);
         everything.addAll(rooms);
