@@ -63,6 +63,10 @@ public class Board {
         currentTurn = types.get(index % nPlayers);
     }
 
+    public void setSolution(Type[] solution) {
+        this.solution = solution;
+    }
+
     /**
      *  Gets the current tile board
      * @return The tile board

@@ -12,7 +12,7 @@ public class Move extends Turn {
     boolean execute(Board board) {
         Player cPlayer = board.getCurrentPlayer();
 
-        return clearOldTile(board, cPlayer) && checkAssumptions(board, cPlayer) && setNewTile(board, cPlayer);
+        return checkAssumptions(board, cPlayer) && clearOldTile(board, cPlayer) && setNewTile(board, cPlayer);
     }
 
     /**
