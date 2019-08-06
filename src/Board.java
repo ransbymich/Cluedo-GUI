@@ -67,6 +67,16 @@ public class Board {
         this.solution = solution;
     }
 
+    public void clearHands(){
+        for(Player p : players.values()){
+            p.clearHand();
+        }
+    }
+
+    public Map<Type, Room> getRooms(){
+        return rooms;
+    }
+
     /**
      *  Gets the current tile board
      * @return The tile board
@@ -124,6 +134,14 @@ public class Board {
      */
     public void completeGame(){
         hasWon = true;
+    }
+
+    public boolean isHasWon() {
+        return hasWon;
+    }
+
+    public void givePlayerType(Type player, Type type){
+        players.get(player).addHand(type);
     }
 
     /**

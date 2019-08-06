@@ -16,6 +16,10 @@ public class Player extends Entity {
         hand = new ArrayList<Type>();
     }
 
+    public void clearHand(){
+        hand.clear();
+    }
+
     /**
      * Sets whether or not the player is in player or not
      * @param aIsInPlay The value to set it to
