@@ -35,8 +35,52 @@ public class Suggest extends Turn {
 //        System.out.println("In play: " + players.toString());
         players.remove(null);
 
-        boolean wasRefuted = false;
+        //If the player is not accusing themselves, move the accused to the position of the current player
+        if (board.getCurrentPlayer() != board.getPlayer(accused)){
+            Player player = board.getPlayer(accused);
+            Position pos = board.getCurrentPlayer().position;
 
+            //Set the new tile
+            Tile newTile = board.getBoard()[pos.getY()][pos.getX()];
+
+            if(newTile instanceof EmptyTile){
+                EmptyTile emptyTile = (EmptyTile)newTile;
+
+                if(emptyTile.getPlayer() != null) return false;
+
+                emptyTile.setPlayer(player);
+
+                player.setPosition(pos);
+                return true;
+            }else if(newTile instanceof RoomTile){
+                Room newRoom = ((RoomTile)newTile).getRoom();
+                newRoom.addEntity(player);
+                System.out.printf("%s enters %s.\n", player.getType(), room.getType());
+                player.setPosition(pos);
+
+                return true;
+            }
+
+            Position oldPosition = player.getPosition();
+
+            Tile oldTile = board.getBoard()[oldPosition.getY()][oldPosition.getX()];
+
+            if(oldTile instanceof EmptyTile){
+                EmptyTile emptyTile = (EmptyTile)oldTile;
+                emptyTile.setPlayer(null);
+                return true;
+            }else if(oldTile instanceof RoomTile){
+                Room oldRoom = ((RoomTile)oldTile).getRoom();
+                oldRoom.removeEntity(player);
+                System.out.printf("%s enters %s.\n", player.getName(), room.getName());
+
+                return true;
+            }
+
+            throw new InvalidInputException();
+        }
+
+        boolean wasRefuted = false;
         for (Player refutingPlayer : players) {
             Set<Type> hand = new HashSet<>(refutingPlayer.getHand());
             hand.retainAll(suggestions);
