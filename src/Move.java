@@ -33,6 +33,7 @@ public class Move extends Turn {
 
             emptyTile.setPlayer(cPlayer);
             ((EmptyTile)(board.getBoard()[cPlayer.getPosition().getY()][cPlayer.getPosition().getX()])).setPlayer(null);
+            cPlayer.setPosition(pos);
             return true;
         }else if((board.getBoard()[pos.getY()][pos.getX()] instanceof RoomTile)){
             Room room = ((RoomTile) board.getBoard()[pos.getY()][pos.getX()]).getRoom();

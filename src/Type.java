@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 enum Type{
-    CANDLE_STICK(SubType.WEAPON),
+    CANDLE_STICK(SubType.WEAPON, "Candle Stick"),
     DAGGER(SubType.WEAPON),
     LEAD_PIPE(SubType.WEAPON),
     REVOLVER(SubType.WEAPON),
@@ -45,9 +45,15 @@ enum Type{
     }
 
     private SubType type;
+    private String name;
 
-    Type(SubType type){
+    Type(SubType type, String name){
         this.type = type;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public SubType getType() {

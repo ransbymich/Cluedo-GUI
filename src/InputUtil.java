@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class InputUtil {
 
-    public static final String COORDINATE_REGEX = "[0-9],[A-Za-z]";
+    public static final String COORDINATE_REGEX = "[0-9]+,[A-Za-z]";
 
     public static int requireInt(String string, int min, int max){
         System.out.println(string);

@@ -41,7 +41,7 @@ public class Position {
     public static Position positionFromString(String s){
         String[] split = s.toLowerCase().split(",");
 
-        int x = Integer.valueOf(split[0]);
+        int x = Integer.valueOf(split[0]) - 1;
         int y = split[1].charAt(0) - 'a';
 
         return new Position(x, y);

@@ -21,12 +21,10 @@ public class RoomParse {
         while (scan.hasNext()) {
             String next = scan.next();
             if (x >= board[0].length){
-                System.out.println(":" + next + ":");
                 y++;
                 x = 0;
                 continue;
             }
-            System.out.print(":" + next + ":");
             board[y][x] = makeTile(next, x, y, rooms, players);
 
             if (playersMade >= nPlayers && board[y][x] != null && board[y][x] instanceof EmptyTile){
@@ -41,14 +39,6 @@ public class RoomParse {
 
 
             x++;
-        }
-
-
-        for (Tile[] row : board) {
-            for (Tile tile : row) {
-                System.out.print(tile.toString());
-            }
-            System.out.print("\n");
         }
 
         return board;
