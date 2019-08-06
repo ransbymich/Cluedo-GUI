@@ -197,15 +197,9 @@ public class Board {
         return currentTurn;
     }
 
-    /**
-     * Prints out and returns the board as a string!
-     * @return The board as a string
-     */
-    public String toString() {
-        char newline = '\n';
 
 
-
+    public String justBoard(){
         StringBuilder ret = new StringBuilder();
         int begin = 'A';
 
@@ -232,6 +226,17 @@ public class Board {
 
             ret.append("\n");
         }
+
+        return ret.toString();
+    }
+
+    /**
+     * Prints out and returns the board as a string!
+     * @return The board as a string
+     */
+    public String toString() {
+
+        StringBuilder ret = new StringBuilder(justBoard());
 
         for (Room room : rooms.values()) {
             if (!room.isEmpty()){
