@@ -5,6 +5,10 @@ public class EmptyTile extends Tile {
 
     private Player player;
 
+    /**
+     * @param aPosition the location (x,y) of the tile
+     * @param aPlayer pass the player object in here if there is supposed to be a player here, else null
+     */
     public EmptyTile(Position aPosition, Player aPlayer) {
         super(aPosition);
         player = aPlayer;

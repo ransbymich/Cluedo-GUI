@@ -11,12 +11,19 @@ public class RoomTile extends Tile {
 
     private Room room;
 
-
+    /**
+     * Default constructor
+     * @param aPosition where the tile is located
+     * @param aRoom the type of room it is
+     */
     public RoomTile(Position aPosition, Room aRoom) {
         super(aPosition);
         room = aRoom;
     }
 
+    /**
+     * @return true if there are players in this room
+     */
     public boolean hasPlayers() {
         List entities = room.getEntities().stream().filter((e) -> e instanceof Player).collect(Collectors.toList());
         return entities.size() > 0;
@@ -30,6 +37,10 @@ public class RoomTile extends Tile {
         return room;
     }
 
+    /**
+     * prints the correct two character combo for the given type of room
+     * @return
+     */
     public String toString() {
         switch (room.getType()) {
             case BALL_ROOM:
