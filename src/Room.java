@@ -60,6 +60,10 @@ public class Room {
         return entities.size() > 0;
     }
 
+    /**
+     * Adds an entity to the room
+     * @param aEntity   The entity to add to the room
+     */
     public boolean addEntity(Entity aEntity) {
         boolean wasAdded = false;
         if (entities.contains(aEntity)) {
@@ -70,6 +74,11 @@ public class Room {
         return wasAdded;
     }
 
+    /**
+     * removes an entity from the room
+     * @param aEntity   The entity to remove
+     * @return
+     */
     public boolean removeEntity(Entity aEntity) {
         boolean wasRemoved = false;
         if (entities.contains(aEntity)) {
@@ -77,23 +86,6 @@ public class Room {
             wasRemoved = true;
         }
         return wasRemoved;
-    }
-
-    /* Code from template association_AddIndexControlFunctions */
-    public boolean addEntityAt(Entity aEntity, int index) {
-        boolean wasAdded = false;
-        if (addEntity(aEntity)) {
-            if (index < 0) {
-                index = 0;
-            }
-            if (index > numberOfEntities()) {
-                index = numberOfEntities() - 1;
-            }
-            entities.remove(aEntity);
-            entities.add(index, aEntity);
-            wasAdded = true;
-        }
-        return wasAdded;
     }
 
     public String toString() {
