@@ -2,8 +2,6 @@
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
 
-import com.sun.jdi.InvalidTypeException;
-
 import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.stream.Collectors;
