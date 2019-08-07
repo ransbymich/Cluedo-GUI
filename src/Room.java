@@ -5,37 +5,22 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-// line 83 "model.ump"
-// line 176 "model.ump"
 public class Room {
 
-    //------------------------
-    // ENUMERATIONS
-    //------------------------
-
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //Room Attributes
     private Type type;
 
-    //Room Associations
     private List<Entity> entities;
 
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
 
     public Room(Type aType) {
         type = aType;
         entities = new ArrayList<Entity>();
     }
 
-    //------------------------
-    // INTERFACE
-    //------------------------
-
+    /**
+     * Sets the room type
+     * @param aType The room type to set it to
+     */
     public boolean setType(Type aType) {
         boolean wasSet = false;
         type = aType;
@@ -43,42 +28,38 @@ public class Room {
         return wasSet;
     }
 
+    /**
+     * Get the type of this room
+     * @return The type of this room
+     */
     public Type getType() {
         return type;
     }
 
-    /* Code from template association_GetMany */
-    public Entity getEntity(int index) {
-        Entity aEntity = entities.get(index);
-        return aEntity;
-    }
-
+    /**
+     * Gets the collection of entities inside of the room
+     * @return The entities in this room
+     */
     public List<Entity> getEntities() {
-        List<Entity> newEntities = Collections.unmodifiableList(entities);
-        return newEntities;
+        return Collections.unmodifiableList(entities);
     }
 
+    /**
+     * Gets the number of entities in this room
+     * @return
+     */
     public int numberOfEntities() {
-        int number = entities.size();
-        return number;
+        return entities.size();
     }
 
+    /**
+     * Checks whether or not the room has entities in it
+     * @return Whether or not the room has entities in it or not
+     */
     public boolean hasEntities() {
-        boolean has = entities.size() > 0;
-        return has;
+        return entities.size() > 0;
     }
 
-    public int indexOfEntity(Entity aEntity) {
-        int index = entities.indexOf(aEntity);
-        return index;
-    }
-
-    /* Code from template association_MinimumNumberOfMethod */
-    public static int minimumNumberOfEntities() {
-        return 0;
-    }
-
-    /* Code from template association_AddUnidirectionalMany */
     public boolean addEntity(Entity aEntity) {
         boolean wasAdded = false;
         if (entities.contains(aEntity)) {
@@ -114,29 +95,6 @@ public class Room {
         }
         return wasAdded;
     }
-
-    public boolean addOrMoveEntityAt(Entity aEntity, int index) {
-        boolean wasAdded = false;
-        if (entities.contains(aEntity)) {
-            if (index < 0) {
-                index = 0;
-            }
-            if (index > numberOfEntities()) {
-                index = numberOfEntities() - 1;
-            }
-            entities.remove(aEntity);
-            entities.add(index, aEntity);
-            wasAdded = true;
-        } else {
-            wasAdded = addEntityAt(aEntity, index);
-        }
-        return wasAdded;
-    }
-
-    public void delete() {
-        entities.clear();
-    }
-
 
     public String toString() {
         StringBuilder ret = new StringBuilder();

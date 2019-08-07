@@ -20,8 +20,7 @@ public class Suggest extends Turn {
     boolean execute(Board board) {
 
         //check assumptions
-        if (!checkAssumptions(board)){
-            System.out.println("You cannot make a suggestion without being in a room!");
+        if (!checkAssumptions(board)){           System.out.println("You cannot make a suggestion without being in a room!");
             return false;
         }
 

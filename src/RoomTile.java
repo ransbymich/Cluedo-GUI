@@ -7,70 +7,52 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// line 137 "model.ump"
-// line 221 "model.ump"
 public class RoomTile extends Tile {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
-  //RoomTile Attributes
-  private Room room;
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
-
-  public RoomTile(Position aPosition, Room aRoom) {
-    super(aPosition);
-    room = aRoom;
-  }
-
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-  public boolean setRoom(Room aRoom) {
-    boolean wasSet = false;
-    room = aRoom;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean hasPlayers(){
-    List entities = room.getEntities().stream().filter((e)-> e instanceof Player).collect(Collectors.toList());
-    return entities.size() > 0;
-  }
-
-  public Room getRoom() {
-    return room;
-  }
+    private Room room;
 
 
-  public String toString() {
-    switch (room.getType()) {
-      case BALL_ROOM:
-        return "BR";
-      case KITCHEN:
-        return "KT";
-      case DINING_ROOM:
-        return "DR";
-      case LOUNGE:
-        return "LG";
-      case HALL:
-        return "HL";
-      case CONSERVATORY:
-        return "CT";
-      case BILLARD_ROOM:
-        return "BL";
-      case STUDY:
-        return "ST";
-      case LIBRARY:
-        return "LB";
-      default:
-        return "er";
+    public RoomTile(Position aPosition, Room aRoom) {
+        super(aPosition);
+        room = aRoom;
     }
 
-  }
+    public boolean hasPlayers() {
+        List entities = room.getEntities().stream().filter((e) -> e instanceof Player).collect(Collectors.toList());
+        return entities.size() > 0;
+    }
+
+    /**
+     * Gets the room this tile represents
+     * @return The room this tile represents
+     */
+    public Room getRoom() {
+        return room;
+    }
+
+    public String toString() {
+        switch (room.getType()) {
+            case BALL_ROOM:
+                return "BR";
+            case KITCHEN:
+                return "KT";
+            case DINING_ROOM:
+                return "DR";
+            case LOUNGE:
+                return "LG";
+            case HALL:
+                return "HL";
+            case CONSERVATORY:
+                return "CT";
+            case BILLARD_ROOM:
+                return "BL";
+            case STUDY:
+                return "ST";
+            case LIBRARY:
+                return "LB";
+            default:
+                return "er";
+        }
+
+    }
 }
