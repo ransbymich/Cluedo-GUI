@@ -46,16 +46,21 @@ public class Suggest extends Turn {
             //Set the new tile
             Tile newTile = board.getBoard()[pos.getY()][pos.getX()];
 
-            if(newTile instanceof EmptyTile){
-                EmptyTile emptyTile = (EmptyTile)newTile;
-
-                if(emptyTile.getPlayer() != null) return false;
-
-                emptyTile.setPlayer(player);
-
-                player.setPosition(pos);
-                return true;
-            }else if(newTile instanceof RoomTile){
+//            if(newTile instanceof EmptyTile){
+//                EmptyTile emptyTile = (EmptyTile)newTile;
+//
+//                if(emptyTile.getPlayer() != null) return false;
+//
+//                emptyTile.setPlayer(player);
+//
+//                player.setPosition(pos);
+//                return true;
+//            }else
+            //Move the player
+            if (newTile instanceof EmptyTile){
+                //we must be moving to a room!
+                return false;
+            } else if(newTile instanceof RoomTile){
                 Room newRoom = ((RoomTile)newTile).getRoom();
                 newRoom.addEntity(player);
                 System.out.printf("%s enters %s.\n", player.getType(), room.getType());
@@ -65,9 +70,9 @@ public class Suggest extends Turn {
             }
 
             Position oldPosition = player.getPosition();
-
             Tile oldTile = board.getBoard()[oldPosition.getY()][oldPosition.getX()];
 
+            //remove the player from the old location
             if(oldTile instanceof EmptyTile){
                 EmptyTile emptyTile = (EmptyTile)oldTile;
                 emptyTile.setPlayer(null);
@@ -83,13 +88,19 @@ public class Suggest extends Turn {
             throw new InvalidInputException();
         }
 
+
+        //check if other players can refute using cards in their hand
         boolean wasRefuted = false;
         for (Player refutingPlayer : players) {
             Set<Type> hand = new HashSet<>(refutingPlayer.getHand());
             hand.retainAll(suggestions);
 //            System.out.println(hand.size() + " refutable cards from " + refutingPlayer.getType().getName());
 
+
+            //if someone refuted it, do nothing, end turn
+            //say who refuted it, if anyone
             if (hand.size() > 1){
+                //ask which card a player would like to refute with
                 while(true){
                     Type next = InputUtil.askType(new ArrayList<>(hand), board);
                     if (next != null){
@@ -98,6 +109,7 @@ public class Suggest extends Turn {
                         break;
                     }
                 }
+                //automatically refute if there is only one card
             } else if (hand.size() == 1){
                 wasRefuted = true;
                 System.out.println(refutingPlayer.getName() + " refutes with " + hand.iterator().next().getName());
@@ -105,6 +117,7 @@ public class Suggest extends Turn {
             }
         }
 
+        //is no player refutes, ask if they would like to accuse
         if(!wasRefuted){
             String input = InputUtil.requireString("Would you like to make an accusation? [y/n]", "y|n");
             if(input.equals("y")){
@@ -115,15 +128,14 @@ public class Suggest extends Turn {
                 }
             }
         }
-        //PLAYERS ARE MOVED IF THEY ARE ACCUSED
 
         //still returns true if the play is valid, but incorrect
         return true;
 
         //suggest solution
-        //say who refuted it, if anyone
-        //if someone refuted it, do nothing, finish turn
-        //is noone did, ask if they would like to accuse
+
+
+
 
     }
 

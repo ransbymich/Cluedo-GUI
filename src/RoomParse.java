@@ -6,7 +6,14 @@ import java.util.regex.Pattern;
 public class RoomParse {
 
 
-
+    /**
+     * Will return a 2d array of tiles object from a string defining the map
+     * @param roomIn the map
+     * @param rooms rooms available
+     * @param players players available
+     * @param nPlayers how many players should actually be made on the map
+     * @return the 2d array of tiles
+     */
     public static Tile[][] makeRoom(String roomIn, Map<Type, Room> rooms, Map<Type, Player> players, int nPlayers) {
         int playersMade = 0;
 
@@ -44,6 +51,15 @@ public class RoomParse {
         return board;
     }
 
+    /**
+     * Will return a Tile object from a string
+     * @param in the string
+     * @param x position in x dimension
+     * @param y position in y dimension
+     * @param rooms map of the rooms available
+     * @param players map of the players available
+     * @return the new tile object
+     */
     public static Tile makeTile(String in, int x, int y, Map<Type, Room> rooms, Map<Type, Player> players) {
         if (in.length() > 2) {
             System.out.println("Length greater than 2 in makeTile:" + in + ":");
@@ -68,10 +84,20 @@ public class RoomParse {
         throw new InvalidInputException();
     }
 
+    /**
+     * performs regex to check whether the given is a room
+     * @param in the string to check
+     * @return whether the string is a room or not
+     */
     public static boolean isEntrance(String in) {
         return Pattern.matches("BR|KT|DR|HL|CT|BL|ST|LB|LG", in);
     }
 
+    /**
+     * performs regex to check whether the given is a player
+     * @param in the string to check
+     * @return whether the string is a player or not
+     */
     public static boolean isPlayer(String in) {
         return Pattern.matches("WH|GR|PC|PL|MU|SC", in);
     }
