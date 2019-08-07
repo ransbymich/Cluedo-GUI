@@ -37,7 +37,7 @@ public class Move extends Turn {
         }else if(newTile instanceof RoomTile){
             Room room = ((RoomTile)newTile).getRoom();
             room.addEntity(player);
-            System.out.printf("%s enters %s.\n", player.getType(), room.getType());
+            System.out.printf("%s enters %s.\n", player.getName(), room.getType());
             player.setPosition(pos);
 
             String input = InputUtil.requireString("Would you like to make a suggestion? [y/n]", "y|n");
