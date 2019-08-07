@@ -313,7 +313,18 @@ public class Board {
         if (text.length() > 2) {
             throw new InvalidInputException();
         }
-        String padding = " ";
-        return padding.repeat(2 - text.length()) + text + "|";
+
+        String out;
+        if (text.length() == 2){
+            out = text + "|";
+        } else if (text.length() == 1){
+            out = " " + text + "|";
+        } else {
+            out = "  |";
+        }
+        //FIXME ecs systems get can't find the repeat method?
+//        String padding = " ";
+//        String out = padding.repeat(2 - text.length()) + text + "|";
+        return out;
     }
 }
