@@ -130,6 +130,12 @@ public class InputUtil {
         System.out.println("Options to refute with: " + regex);
         String input = InputUtil.requireString("Enter the card  you would like to refute with: ", regex);
 
+
+        return getTypeFromString(types, input);
+    }
+
+
+    public static Type getTypeFromString(List<Type> types, String input){
         for (Type t : types) {
             String name = t.getName().toLowerCase().replaceAll("\\.", "");
             if (name.equals(input)) {
