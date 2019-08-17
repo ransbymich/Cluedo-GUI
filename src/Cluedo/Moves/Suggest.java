@@ -1,3 +1,15 @@
+package Cluedo.Moves;
+
+import Cluedo.Board;
+import Cluedo.GameObjects.Player;
+import Cluedo.GameObjects.Room;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
+import Cluedo.Tiles.EmptyTile;
+import Cluedo.Tiles.RoomTile;
+import Cluedo.Tiles.Tile;
+import Cluedo.Util.InputUtil;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,11 +26,11 @@ public class Suggest extends Turn {
     /**
      * Actually makes the move on the board
      *
-     * @param board The board (provided from Cluedo class)
+     * @param board The board (provided from Cluedo.Text.Cluedo class)
      * @return returns whether or not the play is VALID, may be incorrect and still return true
      */
     @Override
-    boolean execute(Board board) {
+    public boolean execute(Board board) {
 
         //check assumptions
         if (!checkAssumptions(board)) {
@@ -43,7 +55,7 @@ public class Suggest extends Turn {
         //If the player is not accusing themselves, move the accused to the position of the current player
         if (board.getCurrentPlayer() != board.getPlayer(accused)) {
             Player player = board.getPlayer(accused);
-            Position pos = board.getCurrentPlayer().position;
+            Position pos = board.getCurrentPlayer().getPosition();
 
             //Set the tile we want to move to
             Tile newTile = board.getBoard()[pos.getY()][pos.getX()];

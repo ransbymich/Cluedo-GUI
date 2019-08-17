@@ -1,3 +1,5 @@
+package Cluedo.Util;
+
 public class MathUtil {
 
     /**

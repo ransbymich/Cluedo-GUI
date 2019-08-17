@@ -1,8 +1,6 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
+package Cluedo.Helpers;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
-
-import java.util.Objects;
 
 // line 96 "model.ump"
 // line 189 "model.ump"
@@ -79,7 +77,7 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
+        return "Cluedo.Helpers.Position{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';

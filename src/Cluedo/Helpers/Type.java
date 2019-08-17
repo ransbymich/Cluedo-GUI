@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package Cluedo.Helpers;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,7 +7,7 @@ import java.util.stream.Collectors;
 /**
  * Types for any card within the game, also note the presence of subtypes, which make filtering easier
  */
-enum Type{
+public enum Type{
     CANDLE_STICK(SubType.WEAPON, "Candle Stick"),
     DAGGER(SubType.WEAPON, "Dagger"),
     LEAD_PIPE(SubType.WEAPON, "Lead Pipe"),
@@ -14,14 +15,14 @@ enum Type{
     ROPE(SubType.WEAPON, "Rope"),
     SPANNER(SubType.WEAPON, "Spanner"),
 
-    BALL_ROOM(SubType.ROOM, "Ball Room"),
+    BALL_ROOM(SubType.ROOM, "Ball Cluedo.GameObjects.Room"),
     KITCHEN(SubType.ROOM, "Kitchen"),
-    DINING_ROOM(SubType.ROOM, "Dining Room"),
+    DINING_ROOM(SubType.ROOM, "Dining Cluedo.GameObjects.Room"),
     LOUNGE(SubType.ROOM, "Lounge"),
     HALL(SubType.ROOM, "Hall"),
     STUDY(SubType.ROOM, "Study"),
     LIBRARY(SubType.ROOM, "Library"),
-    BILLARD_ROOM(SubType.ROOM, "Billiard Room"),
+    BILLARD_ROOM(SubType.ROOM, "Billiard Cluedo.GameObjects.Room"),
     CONSERVATORY(SubType.ROOM, "Conservatory"),
 
     MISS_SCARLETT(SubType.PLAYER, "Miss Scarlett"),
@@ -31,7 +32,7 @@ enum Type{
     MRS_PEACOCK(SubType.PLAYER, "Mrs Peacock"),
     PROF_PLUM(SubType.PLAYER, "Prof. Plum");
 
-    enum SubType{
+    public enum SubType{
         WEAPON(6),
         ROOM(9),
         PLAYER(6);

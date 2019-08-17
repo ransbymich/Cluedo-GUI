@@ -1,4 +1,15 @@
-import java.util.HashMap;
+package Cluedo.Util;
+
+import Cluedo.Exceptions.InvalidInputException;
+import Cluedo.GameObjects.Player;
+import Cluedo.GameObjects.Room;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
+import Cluedo.Tiles.EmptyTile;
+import Cluedo.Tiles.RoomTile;
+import Cluedo.Tiles.Tile;
+import Cluedo.Tiles.VanityTile;
+
 import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -52,7 +63,7 @@ public class RoomParse {
     }
 
     /**
-     * Will return a Tile object from a string
+     * Will return a Cluedo.Tiles.Tile object from a string
      * @param in the string
      * @param x position in x dimension
      * @param y position in y dimension

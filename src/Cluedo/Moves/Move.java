@@ -1,3 +1,21 @@
+package Cluedo.Moves;
+
+import Cluedo.Board;
+import Cluedo.Exceptions.InvalidInputException;
+import Cluedo.GameObjects.Player;
+import Cluedo.GameObjects.Room;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
+import Cluedo.Helpers.Type.SubType;
+import Cluedo.Tiles.EmptyTile;
+import Cluedo.Tiles.RoomTile;
+import Cluedo.Tiles.Tile;
+import Cluedo.Util.InputUtil;
+import Cluedo.Util.PathfindingUtil;
+
+import static Cluedo.Helpers.Type.SubType.*;
+import static Cluedo.Helpers.Type.SubType.WEAPON;
+
 public class Move extends Turn {
 
     private Position pos;
@@ -9,7 +27,7 @@ public class Move extends Turn {
     }
 
     @Override
-    boolean execute(Board board) {
+    public boolean execute(Board board) {
         Player cPlayer = board.getCurrentPlayer();
 
         return checkAssumptions(board, cPlayer) && clearOldTile(board, cPlayer) && setNewTile(board, cPlayer);
@@ -43,7 +61,7 @@ public class Move extends Turn {
             String input = InputUtil.requireString("Would you like to make a suggestion? [y/n]", "y|n");
             if(input.equals("y")){
                 while(true){
-                    if(board.processTurn(new Suggest(InputUtil.askType(Type.SubType.WEAPON, board), InputUtil.askType(Type.SubType.PLAYER, board)))){
+                    if(board.processTurn(new Suggest(InputUtil.askType(WEAPON, board), InputUtil.askType(PLAYER, board)))){
                         break;
                     }
                 }
@@ -56,7 +74,7 @@ public class Move extends Turn {
 
     /**
      * Completes the logic for clearing the old tile a player once was on. If the player was in a room then we remove them from the room,
-     * otherwise we just clear the EmptyTile.
+     * otherwise we just clear the Cluedo.Tiles.EmptyTile.
      * @param board     The board in it's current state
      * @param player    The player making the move
      * @return          Whether or not it was successful or not

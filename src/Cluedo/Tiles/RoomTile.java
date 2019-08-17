@@ -1,11 +1,16 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
+package Cluedo.Tiles;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
 
-import java.security.InvalidParameterException;
+import Cluedo.GameObjects.Player;
+import Cluedo.GameObjects.Room;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
+
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static Cluedo.Helpers.Type.*;
 
 public class RoomTile extends Tile {
 

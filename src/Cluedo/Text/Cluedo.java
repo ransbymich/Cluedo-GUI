@@ -1,5 +1,17 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
+package Cluedo.Text;
+
+import Cluedo.Exceptions.InvalidInputException;
+import Cluedo.Helpers.Die;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
+import Cluedo.Moves.Accuse;
+import Cluedo.Moves.Move;
+import Cluedo.Moves.Suggest;
+import Cluedo.Moves.Turn;
+import Cluedo.Util.InputUtil;
+import Cluedo.*;
+
+import static Cluedo.Moves.Turn.TurnType.*;
 
 public class Cluedo {
 
@@ -13,7 +25,7 @@ public class Cluedo {
     }
 
     /**
-     * Starts the game of Cluedo
+     * Starts the game of Cluedo.Text.Cluedo
      */
     private void startGame(){
         playing = true;

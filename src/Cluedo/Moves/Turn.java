@@ -1,3 +1,7 @@
+package Cluedo.Moves;
+
+import Cluedo.Board;
+
 public abstract class Turn {
 
     /**
@@ -26,5 +30,5 @@ public abstract class Turn {
      * @param board The board in it's current state
      * @return      Whether or not the turn was successful or not
      */
-    abstract boolean execute(Board board);
+    public abstract boolean execute(Board board);
 }

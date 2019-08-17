@@ -1,5 +1,11 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
+package Cluedo.Tiles;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
+
+import Cluedo.GameObjects.Player;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
+
+import static Cluedo.Helpers.Type.*;
 
 public class EmptyTile extends Tile {
 

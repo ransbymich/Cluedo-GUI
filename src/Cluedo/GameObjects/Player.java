@@ -1,6 +1,10 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
+package Cluedo.GameObjects;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
+
+import Cluedo.Board;
+import Cluedo.Tiles.RoomTile;
+import Cluedo.Helpers.Type;
 
 import java.util.*;
 
@@ -51,7 +55,7 @@ public class Player extends Entity {
      * @return  Whether or not the player is in a room.
      */
     public boolean inRoom(Board board){
-        //Is the player on a RoomTile?
+        //Is the player on a Cluedo.Tiles.RoomTile?
         return board.getBoard()[position.getY()][position.getX()] instanceof RoomTile;
     }
 

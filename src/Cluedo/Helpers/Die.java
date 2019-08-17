@@ -1,5 +1,7 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
+package Cluedo.Helpers;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
+
+import Cluedo.Util.MathUtil;
 
 public class Die {
 
@@ -7,7 +9,7 @@ public class Die {
      * Generates two random numbers and then adds them together
      * @return The two randomly generated numbers adding together
      */
-    static int roll() {
+    public static int roll() {
         return MathUtil.randomInt(1, 6) + MathUtil.randomInt(1, 6);
     }
 

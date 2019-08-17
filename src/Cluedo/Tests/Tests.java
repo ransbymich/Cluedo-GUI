@@ -1,4 +1,15 @@
+package Cluedo.Tests;
+
+import Cluedo.Board;
+import Cluedo.Helpers.Die;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
+import Cluedo.Moves.Accuse;
+import Cluedo.Moves.Move;
+import Cluedo.Moves.Suggest;
+import Cluedo.Tiles.Tile;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +39,7 @@ public class Tests {
 
     @Test
     public void test01(){
-        //Tests simple movement of Miss Scarlet
+        //Cluedo.Tests.Tests simple movement of Miss Scarlet
         Board b = new Board(3);
         String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
                             "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
@@ -59,12 +70,12 @@ public class Tests {
 
         b.processTurn(new Move(Position.positionFromString("9,x"), 100));
 
-        assertEquals(solution, b.toString());
+        Assert.assertEquals(solution, b.toString());
     }
 
     @Test
     public void test02(){
-        //Tests simple movement of Miss Scarlet
+        //Cluedo.Tests.Tests simple movement of Miss Scarlet
         Board b = new Board(3);
         String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
                             "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
@@ -95,12 +106,12 @@ public class Tests {
 
         b.processTurn(new Move(Position.positionFromString("8,s"), 100));
 
-        assertEquals(solution, b.toString());
+        Assert.assertEquals(solution, b.toString());
     }
 
     @Test
     public void test03(){
-        //Tests room entrance
+        //Cluedo.Tests.Tests room entrance
         Board b = new Board(3);
         String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
                             "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
@@ -133,12 +144,12 @@ public class Tests {
         setInput("n");
         b.processTurn(new Move(Position.positionFromString("7,t"), 100));
 
-        assertEquals(solution, b.justBoard());
+        Assert.assertEquals(solution, b.justBoard());
     }
 
     @Test
     public void test04(){
-        //Tests room entrance and simple movement
+        //Cluedo.Tests.Tests room entrance and simple movement
         Board b = new Board(3);
         String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
                             "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
@@ -174,7 +185,7 @@ public class Tests {
 
         b.processTurn(new Move(Position.positionFromString("5,r"), 100));
 
-        assertEquals(solution, b.justBoard());
+        Assert.assertEquals(solution, b.justBoard());
     }
 
     @Test
@@ -211,7 +222,7 @@ public class Tests {
         b.completeTurn();
 
 
-        assertEquals(solution, b.toString());
+        Assert.assertEquals(solution, b.toString());
     }
 
     @Test
@@ -253,7 +264,7 @@ public class Tests {
 
         b.processTurn(new Move(Position.positionFromString("7,h"), 100));
 
-        assertEquals(solution, b.justBoard());
+        Assert.assertEquals(solution, b.justBoard());
     }
 
     @Test
@@ -294,7 +305,7 @@ public class Tests {
         b.processTurn(new Move(Position.positionFromString("7,t"), 100));
         b.completeTurn();
 
-        assertEquals(solution, b.justBoard());
+        Assert.assertEquals(solution, b.justBoard());
     }
 
     @Test
@@ -341,7 +352,7 @@ public class Tests {
         b.processTurn(new Move(Position.positionFromString("7,t"), 100));
         b.completeTurn();
 
-        assertEquals(b.getRooms().get(Type.LOUNGE).getEntities().size(), 2);
+        Assert.assertEquals(b.getRooms().get(Type.LOUNGE).getEntities().size(), 2);
     }
 
     @Test
@@ -404,7 +415,7 @@ public class Tests {
 
         System.out.println(b.toString());
         //check that the player is in the position of the room that they're supposedly in
-        assertEquals(room, b.getPlayer(Type.MISS_SCARLETT).getPosition());
+        Assert.assertEquals(room, b.getPlayer(Type.MISS_SCARLETT).getPosition());
 
     }
 
@@ -451,7 +462,7 @@ public class Tests {
         b.processTurn(new Move(Position.positionFromString("19,j"), 100));
         setInput("n");
         b.processTurn(new Suggest(Type.ROPE, Type.MISS_SCARLETT));
-//        b.processTurn(new Accuse(Type.ROPE, Type.COL_MUSTARD));
+//        b.processTurn(new Cluedo.Moves.Accuse(Cluedo.Helpers.Type.ROPE, Cluedo.Helpers.Type.COL_MUSTARD));
 
         assertFalse(b.isHasWon());
     }
@@ -490,7 +501,7 @@ public class Tests {
         b.processTurn(new Move(Position.positionFromString("1,r"), 1000));
 
 
-        assertEquals(solution, b.justBoard());
+        Assert.assertEquals(solution, b.justBoard());
     }
 
 
@@ -502,7 +513,7 @@ public class Tests {
         int rowLength = b.getBoard()[0].length;
 
         for (int y = 0; y < b.getBoard().length; y++) {
-            assertEquals(rowLength, b.getBoard()[y].length);
+            Assert.assertEquals(rowLength, b.getBoard()[y].length);
         }
     }
 
@@ -518,8 +529,8 @@ public class Tests {
 
                 Position pos = tile.getPosition();
 
-                assertEquals(x, pos.getX());
-                assertEquals(y, pos.getY());
+                Assert.assertEquals(x, pos.getX());
+                Assert.assertEquals(y, pos.getY());
             }
         }
 
@@ -537,15 +548,15 @@ public class Tests {
     @Test
     public void test23BoundaryNumberOfPlayers(){
         Board b = new Board(6);
-        assertEquals(6, b.getPlayers().size());
+        Assert.assertEquals(6, b.getPlayers().size());
 
         b = new Board(3);
-        assertEquals(3,b.getPlayers().size());
+        Assert.assertEquals(3,b.getPlayers().size());
     }
 
     @Test
     public void test24ValidMovement(){
-        //Tests room entrance and simple movement
+        //Cluedo.Tests.Tests room entrance and simple movement
         Board b = new Board(3);
         String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
                             "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
@@ -581,12 +592,12 @@ public class Tests {
 
         b.processTurn(new Move(Position.positionFromString("4,s"), 1000));
 
-        assertEquals(solution, b.justBoard());
+        Assert.assertEquals(solution, b.justBoard());
     }
 
     @Test
     public void test25InvalidMovement(){
-        //Tests room entrance and invalid simple movement
+        //Cluedo.Tests.Tests room entrance and invalid simple movement
         Board b = new Board(3);
         String solution =   "|  | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|\n" +
                 "| A|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|__|--|--|--|--|--|--|--|--|--|\n" +
@@ -614,7 +625,7 @@ public class Tests {
                 "| W|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
                 "| X|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
                 "| Y|  |  |  |  |  |  |--|SC|--|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |\n" +
-                "Dining Room: Col. Mustard\n";
+                "Dining Cluedo.GameObjects.Room: Col. Mustard\n";
 
 
         setInput("n");
@@ -624,6 +635,6 @@ public class Tests {
         b.processTurn(new Move(Position.positionFromString("7,p"), 100));
         b.completeTurn();
 
-        assertEquals(solution, b.toString());
+        Assert.assertEquals(solution, b.toString());
     }
 }

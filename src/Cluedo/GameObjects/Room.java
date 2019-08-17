@@ -1,6 +1,8 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
+package Cluedo.GameObjects;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
+
+import Cluedo.Helpers.Type;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,7 +16,7 @@ public class Room {
 
     public Room(Type aType) {
         type = aType;
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<>();
     }
 
     /**

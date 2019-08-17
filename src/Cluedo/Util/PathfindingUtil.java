@@ -1,3 +1,11 @@
+package Cluedo.Util;
+
+import Cluedo.Board;
+import Cluedo.Helpers.Position;
+import Cluedo.Tiles.EmptyTile;
+import Cluedo.Tiles.RoomTile;
+import Cluedo.Tiles.Tile;
+
 import java.util.*;
 
 public class PathfindingUtil {

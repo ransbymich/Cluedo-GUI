@@ -1,5 +1,10 @@
-import java.util.List;
-import java.util.stream.Collectors;
+package Cluedo.Moves;
+
+import Cluedo.Board;
+import Cluedo.GameObjects.Player;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
+import Cluedo.Tiles.RoomTile;
 
 public class Accuse extends Turn {
 
@@ -13,7 +18,7 @@ public class Accuse extends Turn {
     }
 
     @Override
-    boolean execute(Board board) {
+    public boolean execute(Board board) {
         Player player = board.getCurrentPlayer();
 
         if(!checkAssumptions(board, player)) return false;
@@ -53,12 +58,12 @@ public class Accuse extends Turn {
         Position playerPosition = player.getPosition();
 
         if(!(board.getBoard()[playerPosition.getY()][playerPosition.getX()] instanceof RoomTile)){
-            System.out.println("Player not in a room!");
+            System.out.println("Cluedo.GameObjects.Player not in a room!");
             return false;
         }
 
         if(!player.getIsInPlay()){
-            System.out.println("Player has already made an accusation!");
+            System.out.println("Cluedo.GameObjects.Player has already made an accusation!");
             return false;
         }
 

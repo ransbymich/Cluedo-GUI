@@ -1,4 +1,8 @@
-public class VanityTile extends Tile{
+package Cluedo.Tiles;
+
+import Cluedo.Helpers.Position;
+
+public class VanityTile extends Tile {
     private String label;
 
     /**

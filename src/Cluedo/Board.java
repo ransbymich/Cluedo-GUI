@@ -1,9 +1,16 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
+package Cluedo;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
 
+import Cluedo.Exceptions.InvalidInputException;
+import Cluedo.GameObjects.Player;
+import Cluedo.GameObjects.Room;
+import Cluedo.Helpers.Type;
+import Cluedo.Moves.Turn;
+import Cluedo.Tiles.Tile;
+import Cluedo.Util.RoomParse;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 // line 57 "model.ump"
 // line 166 "model.ump"
