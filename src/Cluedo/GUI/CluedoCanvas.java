@@ -77,7 +77,10 @@ public class CluedoCanvas extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
+        int x = (mouseEvent.getX() - xOffset)/TILE_SIZE;
+        int y = (mouseEvent.getY() - yOffset)/TILE_SIZE;
 
+        System.out.println(x + " : " + y);
     }
 
     @Override

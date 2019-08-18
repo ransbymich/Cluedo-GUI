@@ -13,6 +13,8 @@ public class InfoPanel extends JPanel {
     private JLabel pName;
     private JList<Type> list;
     private Board board;
+    private JLabel redDie;
+    private JLabel whiteDie;
 
 
     public InfoPanel(Board board) {
@@ -41,8 +43,8 @@ public class InfoPanel extends JPanel {
 
         this.add(scrollPane, GUIUtil.makeConstraints(0, 2, 2, 1, GridBagConstraints.CENTER));
 
-        JLabel redDie = new JLabel(new ImageIcon(GUI.RED_DIE[0]));
-        JLabel whiteDie = new JLabel(new ImageIcon(GUI.WHITE_DIE[0]));
+        redDie = new JLabel(new ImageIcon(GUI.RED_DIE[0]));
+        whiteDie = new JLabel(new ImageIcon(GUI.WHITE_DIE[0]));
 
         this.add(redDie, GUIUtil.makeConstraints(3, 2, 1, 1, GridBagConstraints.CENTER));
         this.add(whiteDie, GUIUtil.makeConstraints(4, 2, 1, 1, GridBagConstraints.CENTER));
@@ -55,5 +57,10 @@ public class InfoPanel extends JPanel {
         Player player = board.getCurrentPlayer();
         this.pName.setText(player.getName());
         this.list.setListData(player.getHand().toArray(new Type[0]));
+    }
+
+    public void changeDice(int redDice, int whiteDice){
+        redDie.setIcon(new ImageIcon(GUI.RED_DIE[redDice - 1]));
+        whiteDie.setIcon(new ImageIcon(GUI.WHITE_DIE[whiteDice - 1]));
     }
 }

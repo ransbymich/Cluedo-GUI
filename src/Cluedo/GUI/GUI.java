@@ -57,6 +57,8 @@ public class GUI extends JFrame implements WindowListener {
     private Board board;
 
     private CluedoCanvas canvas;
+    private ConsolePanel console;
+    private InfoPanel infoPanel;
 
     public GUI(){
         new CharacterSelection(this::initalize);
@@ -78,13 +80,21 @@ public class GUI extends JFrame implements WindowListener {
 
         initalizeInfo();
 
+        initalizeConsole();
+
         this.getContentPane().add(mPanel);
 
         this.pack();
     }
 
+    private void initalizeConsole(){
+        console = new ConsolePanel(board, this);
+
+        mPanel.add(console, GUIUtil.makeConstraints(1, 0, 1, 2, GridBagConstraints.CENTER));
+    }
+
     private void initalizeInfo(){
-        JPanel infoPanel = new InfoPanel(board);
+        infoPanel = new InfoPanel(board);
 
         mPanel.add(infoPanel, GUIUtil.makeConstraints(0, 1, 1, 1, GridBagConstraints.LINE_START));
     }
@@ -104,6 +114,9 @@ public class GUI extends JFrame implements WindowListener {
         mPanel.add(canvas, GUIUtil.makeConstraints(0, 0, 1, 1, GridBagConstraints.CENTER));
     }
 
+    public InfoPanel getInfoPanel() {
+        return infoPanel;
+    }
 
     @Override
     public void windowOpened(WindowEvent windowEvent) {

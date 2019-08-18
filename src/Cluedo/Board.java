@@ -94,6 +94,8 @@ public class Board {
     public Board(List<Type> players){
         nPlayers = players.size();
 
+        //TODO: Fucked card distribution
+
         currentTurn = Type.MISS_SCARLETT;
 
         generateRooms();
