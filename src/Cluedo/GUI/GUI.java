@@ -5,12 +5,14 @@ import Cluedo.Helpers.Type;
 import Cluedo.Util.GUIUtil;
 import Cluedo.Util.InputUtil;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +27,14 @@ public class GUI extends JFrame implements WindowListener {
         File[] files = assetDir.listFiles(file -> !file.isDirectory() && file.getName().contains(".jpg"));
 
         for(File file : files){
-//            ASSETS.put(InputUtil.getTypeFromString(Cluedo.Helpers.Type.getTypes(), ))
+            try{
+                Cluedo.Helpers.Type type = InputUtil.getTypeFromString(Cluedo.Helpers.Type.getTypes(), file.getName().replaceFirst("[.][^.]+$", "").toLowerCase());
+                ASSETS.put(type, ImageIO.read(file));
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
+
     }
 
     private JPanel mPanel; //Main panel
