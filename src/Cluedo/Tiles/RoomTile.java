@@ -6,11 +6,11 @@ import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.Position;
 
+import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RoomTile extends Tile {
-
     private Room room;
 
     /**
@@ -21,6 +21,11 @@ public class RoomTile extends Tile {
     public RoomTile(Position aPosition, Room aRoom) {
         super(aPosition);
         room = aRoom;
+    }
+
+    @Override
+    public void render(Graphics g) {
+
     }
 
     /**

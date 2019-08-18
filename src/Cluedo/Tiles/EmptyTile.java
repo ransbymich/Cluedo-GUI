@@ -4,6 +4,8 @@ package Cluedo.Tiles;/*PLEASE DO NOT EDIT THIS CODE*/
 import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Position;
 
+import java.awt.*;
+
 public class EmptyTile extends Tile {
 
     private Player player;
@@ -18,6 +20,11 @@ public class EmptyTile extends Tile {
         if(aPlayer != null){
             aPlayer.setPosition(aPosition);
         }
+    }
+
+    @Override
+    public void render(Graphics g) {
+
     }
 
     /**
