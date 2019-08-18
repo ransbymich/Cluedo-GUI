@@ -1,6 +1,8 @@
 package Cluedo.GUI;
 
 import Cluedo.Board;
+import Cluedo.GameObjects.Player;
+import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.Type;
 import Cluedo.Tiles.Tile;
 
@@ -52,11 +54,19 @@ public class CluedoCanvas extends JPanel implements MouseListener {
         }
 
         //render the image of each item which needs to be put ON TOP of the board
-        Tile[][] tiles = board.getBoard();
-        for (int y = 0; y < tiles.length; y++){
-            for (int x = 0; x < tiles[0].length; x++){
-                tiles[y][x].render(g);
-            }
+//        Tile[][] tiles = board.getBoard();
+//        for (int y = 0; y < tiles.length; y++){
+//            for (int x = 0; x < tiles[0].length; x++){
+//                tiles[y][x].render(g);
+//            }
+//        }
+
+        for (Room room : board.getRooms().values()) {
+            room.render(g);
+        }
+
+        for (Player player : board.getPlayerInstances()) {
+            player.render(g);
         }
     }
 

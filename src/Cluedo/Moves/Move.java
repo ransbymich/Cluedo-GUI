@@ -5,10 +5,8 @@ import Cluedo.Exceptions.InvalidInputException;
 import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.Position;
-import Cluedo.Helpers.Type;
-import Cluedo.Helpers.Type.SubType;
 import Cluedo.Tiles.EmptyTile;
-import Cluedo.Tiles.RoomTile;
+import Cluedo.Tiles.EntryTile;
 import Cluedo.Tiles.Tile;
 import Cluedo.Util.InputUtil;
 import Cluedo.Util.PathfindingUtil;
@@ -52,8 +50,8 @@ public class Move extends Turn {
 
             player.setPosition(pos);
             return true;
-        }else if(newTile instanceof RoomTile){
-            Room room = ((RoomTile)newTile).getRoom();
+        }else if(newTile instanceof EntryTile){
+            Room room = ((EntryTile)newTile).getRoom();
             room.addEntity(player);
             System.out.printf("%s enters %s.\n", player.getName(), room.getType());
             player.setPosition(pos);
@@ -88,8 +86,8 @@ public class Move extends Turn {
             EmptyTile emptyTile = (EmptyTile)oldTile;
             emptyTile.setPlayer(null);
             return true;
-        }else if(oldTile instanceof RoomTile){
-                Room room = ((RoomTile)oldTile).getRoom();
+        }else if(oldTile instanceof EntryTile){
+                Room room = ((EntryTile)oldTile).getRoom();
                 room.removeEntity(player);
             System.out.printf("%s enters %s.\n", player.getType(), room.getType());
 

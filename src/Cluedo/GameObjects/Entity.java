@@ -5,6 +5,8 @@ package Cluedo.GameObjects;/*PLEASE DO NOT EDIT THIS CODE*/
 import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
 
+import java.awt.*;
+
 // line 89 "model.ump"
 // line 182 "model.ump"
 public abstract class Entity {
@@ -62,4 +64,6 @@ public abstract class Entity {
                 "  " + "type" + "=" + (getType() != null ? !getType().equals(this) ? getType().toString().replaceAll("  ", "    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
                 "  " + "position = " + (getPosition() != null ? Integer.toHexString(System.identityHashCode(getPosition())) : "null");
     }
+
+    public abstract void render(Graphics g);
 }

@@ -16,7 +16,7 @@ import java.util.*;
 // line 166 "model.ump"
 public class Board {
 
-    //This giant string is the harded coded room map which is then parsed into a 2d array of tile objects
+    //This giant string is the hard coded room map which is then parsed into a 2d array of tile objects
     public static final String room =
                     "|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|GR|--|--|--|--|--|--|--|--|--|\n" +
                     "|  |  |  |  |  |  |--|__|__|__|  |  |  |  |__|__|__|--|  |  |  |  |  |  |\n" +
@@ -30,7 +30,7 @@ public class Board {
                     "|  |  |  |  |  |__|__|__|__|__|__|__|__|__|__|__|__|__|BL|  |  |  |  |  |\n" +
                     "|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
                     "|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
-                    "|  |  |  |  |  |  |  |DR|__|__|--|--|--|--|--|__|__|__|  |  |  |  |  |  |\n" +
+                    "|  |  |  |  |  |  |  |DR|__|__|--|--|--|--|--|__|__|__|  |  |  |  |BL|  |\n" +
                     "|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|__|__|__|__|__|--|\n" +
                     "|  |  |  |  |  |  |  |  |__|__|--|--|--|--|--|__|__|__|  |  |LB|  |  |--|\n" +
                     "|  |  |  |  |  |  |DR|  |__|__|--|--|--|--|--|__|__|  |  |  |  |  |  |  |\n" +
@@ -43,6 +43,34 @@ public class Board {
                     "|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
                     "|  |  |  |  |  |  |  |__|__|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
                     "|  |  |  |  |  |  |--|SC|--|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |";
+
+    //This giant string is the hard coded room map which is then parsed into a 2d array of tile objects
+    public static final String room2 =
+                    "|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|GR|--|--|--|--|--|--|--|--|--|\n" +
+                    "|kt|kt|kt|kt|kt|kt|--|__|__|__|  |  |  |  |__|__|__|--|ct|ct|ct|ct|ct|ct|\n" +
+                    "|kt|kt|kt|kt|kt|kt|__|__|  |  |  |  |  |  |  |  |__|__|ct|ct|ct|ct|ct|ct|\n" +
+                    "|kt|kt|kt|kt|kt|kt|__|__|  |  |  |  |  |  |  |  |__|__|ct|ct|ct|ct|ct|ct|\n" +
+                    "|kt|kt|kt|kt|kt|kt|__|__|  |  |  |  |  |  |  |  |__|__|CT|ct|ct|ct|ct|ct|\n" +
+                    "|kt|kt|kt|kt|kt|kt|__|__|BR|  |  |  |  |  |  |BR|__|__|__|ct|ct|ct|ct|--|\n" +
+                    "|--|kt|kt|kt|KT|kt|__|__|  |  |  |  |  |  |  |  |__|__|__|__|__|__|__|PC|\n" +
+                    "|__|__|__|__|__|__|__|__|  |BR|  |  |  |  |BR|  |__|__|__|__|__|__|__|--|\n" +
+                    "|--|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|bl|bl|bl|bl|bl|bl|\n" +
+                    "|dr|dr|dr|dr|dr|__|__|__|__|__|__|__|__|__|__|__|__|__|BL|bl|bl|bl|bl|bl|\n" +
+                    "|dr|dr|dr|dr|dr|dr|dr|dr|__|__|--|--|--|--|--|__|__|__|bl|bl|bl|bl|bl|bl|\n" +
+                    "|dr|dr|dr|dr|dr|dr|dr|dr|__|__|--|--|--|--|--|__|__|__|bl|bl|bl|bl|bl|bl|\n" +
+                    "|dr|dr|dr|dr|dr|dr|dr|DR|__|__|--|--|--|--|--|__|__|__|bl|bl|bl|bl|bl|bl|\n" +
+                    "|dr|dr|dr|dr|dr|dr|dr|dr|__|__|--|--|--|--|--|__|__|__|__|__|__|__|__|--|\n" +
+                    "|dr|dr|dr|dr|dr|dr|dr|dr|__|__|--|--|--|--|--|__|__|__|lb|lb|LB|lb|lb|--|\n" +
+                    "|dr|dr|dr|dr|dr|dr|DR|dr|__|__|--|--|--|--|--|__|__|lb|lb|lb|lb|lb|lb|lb|\n" +
+                    "|--|__|__|__|__|__|__|__|__|__|--|--|--|--|--|__|__|LB|lb|lb|lb|lb|lb|lb|\n" +
+                    "|MU|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|lb|lb|lb|lb|lb|lb|lb|\n" +
+                    "|--|__|__|__|__|__|__|__|__|hl|hl|HL|HL|hl|hl|__|__|__|lb|lb|lb|lb|lb|--|\n" +
+                    "|lg|lg|lg|lg|lg|lg|LG|__|__|hl|hl|hl|hl|hl|hl|__|__|__|__|__|__|__|__|PL|\n" +
+                    "|lg|lg|lg|lg|lg|lg|lg|__|__|hl|hl|hl|hl|hl|HL|__|__|__|__|__|__|__|__|--|\n" +
+                    "|lg|lg|lg|lg|lg|lg|lg|__|__|hl|hl|hl|hl|hl|hl|__|__|ST|st|st|st|st|st|st|\n" +
+                    "|lg|lg|lg|lg|lg|lg|lg|__|__|hl|hl|hl|hl|hl|hl|__|__|st|st|st|st|st|st|st|\n" +
+                    "|lg|lg|lg|lg|lg|lg|lg|__|__|hl|hl|hl|hl|hl|hl|__|__|st|st|st|st|st|st|st|\n" +
+                    "|lg|lg|lg|lg|lg|lg|--|SC|--|hl|hl|hl|hl|hl|hl|--|__|--|st|st|st|st|st|st|";
 
     private final int nPlayers;
     private Type currentTurn; //Who's player is currently in turn
@@ -157,9 +185,15 @@ public class Board {
      * Gets a list of all players in play.
      * @return  The players in play
      */
-    public List<Type> getPlayers(){
+    public List<Type> getPlayerTypes(){
         return new ArrayList<>(players.keySet());
     }
+
+    /**
+     * Gets a list of all player instances that are in play
+     * @return  as an ArrayList
+     */
+    public List<Player> getPlayerInstances(){return new ArrayList<>(players.values());}
 
     /**
      * Completes the game!

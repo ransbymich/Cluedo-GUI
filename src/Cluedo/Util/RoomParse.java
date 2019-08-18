@@ -5,10 +5,7 @@ import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
-import Cluedo.Tiles.EmptyTile;
-import Cluedo.Tiles.RoomTile;
-import Cluedo.Tiles.Tile;
-import Cluedo.Tiles.VanityTile;
+import Cluedo.Tiles.*;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -80,9 +77,11 @@ public class RoomParse {
         Position pos = new Position(x, y);
 
         if (isEntrance(in)) {
-            return new RoomTile(pos, roomFromString(in, rooms));
+            return new EntryTile(pos, roomFromString(in, rooms));
         } else if (isPlayer(in)) {
             return new EmptyTile(pos, playerFromString(in, players));
+        }else if (isRoomTile(in)){
+            return new RoomTile(pos, roomFromString(in.toUpperCase(), rooms));
         } else if (in.equals("__")){
             return new EmptyTile(pos, null);
         } else if (in.equals("  ") | in.equals("--")){
@@ -100,7 +99,7 @@ public class RoomParse {
      * @param in the string to check
      * @return whether the string is a room or not
      */
-    public static boolean isEntrance(String in) {
+    private static boolean isEntrance(String in) {
         return Pattern.matches("BR|KT|DR|HL|CT|BL|ST|LB|LG", in);
     }
 
@@ -109,9 +108,16 @@ public class RoomParse {
      * @param in the string to check
      * @return whether the string is a player or not
      */
-    public static boolean isPlayer(String in) {
+    private static boolean isPlayer(String in) {
         return Pattern.matches("WH|GR|PC|PL|MU|SC", in);
     }
+
+    /**
+     * performs regex to check whether the given string is a RoomTile
+     * @param in
+     * @return
+     */
+    private static boolean isRoomTile(String in){return Pattern.matches("br|kt|dr|hl|ct|bl|st|lb|lg", in);}
 
     /**
      * needs to be thrown in a util class
