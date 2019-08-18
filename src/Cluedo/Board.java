@@ -63,6 +63,10 @@ public class Board {
         board = RoomParse.makeRoom(room, rooms, players, aNPlayers);
     }
 
+    public Board(List<Type> players){
+        nPlayers = players.size();
+    }
+
     /**
      * Completes the current players turn and changes it to the next players.
      */

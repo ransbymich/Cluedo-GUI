@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,8 @@ import Cluedo.Util.InputUtil;
 
 
 public class CharacterSelection extends JFrame {
+
+    private static final int MINIMUM_PLAYERS = 3;
 
     private Consumer<List<Cluedo.Helpers.Type>> onCompletion;
     private JPanel mPanel; //Main panel
@@ -63,7 +66,12 @@ public class CharacterSelection extends JFrame {
                 }
             }
 
-            onCompletion.accept(players);
+            if(players.size() >= MINIMUM_PLAYERS){
+                this.setVisible(false);
+                onCompletion.accept(players);
+            }else{
+                JOptionPane.showMessageDialog(this, "Must have three or more players!");
+            }
         });
     }
 }
