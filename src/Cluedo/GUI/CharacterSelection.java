@@ -67,7 +67,7 @@ public class CharacterSelection extends JFrame {
             }
 
             if(players.size() >= MINIMUM_PLAYERS){
-                this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+                this.setVisible(false);
                 onCompletion.accept(players);
             }else{
                 JOptionPane.showMessageDialog(this, "Must have three or more players!");
