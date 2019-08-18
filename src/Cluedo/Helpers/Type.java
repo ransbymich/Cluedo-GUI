@@ -1,5 +1,6 @@
 package Cluedo.Helpers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,19 +16,19 @@ public enum Type{
     ROPE(SubType.WEAPON, "Rope"),
     WRENCH(SubType.WEAPON, "Wrench"),
 
-    BALL_ROOM(SubType.ROOM, "Ball Cluedo.GameObjects.Room"),
+    BALL_ROOM(SubType.ROOM, "Ball Room"),
     KITCHEN(SubType.ROOM, "Kitchen"),
-    DINING_ROOM(SubType.ROOM, "Dining Cluedo.GameObjects.Room"),
+    DINING_ROOM(SubType.ROOM, "Dining Room"),
     LOUNGE(SubType.ROOM, "Lounge"),
     HALL(SubType.ROOM, "Hall"),
     STUDY(SubType.ROOM, "Study"),
     LIBRARY(SubType.ROOM, "Library"),
-    BILLARD_ROOM(SubType.ROOM, "Billiard Cluedo.GameObjects.Room"),
+    BILLIARD_ROOM(SubType.ROOM, "Billiard Room"),
     CONSERVATORY(SubType.ROOM, "Conservatory"),
 
     MISS_SCARLETT(SubType.PLAYER, "Miss Scarlett"),
     COL_MUSTARD(SubType.PLAYER, "Col. Mustard"),
-    MRS_WHITE(SubType.PLAYER, "Mrs White"),
+    MR_WHITE(SubType.PLAYER, "Mr White"),
     DR_GREEN(SubType.PLAYER, "Dr Green"),
     MRS_PEACOCK(SubType.PLAYER, "Mrs Peacock"),
     PROF_PLUM(SubType.PLAYER, "Prof. Plum");
@@ -70,5 +71,9 @@ public enum Type{
      */
     public static List<Type> getTypes(SubType type){
         return Arrays.stream(Type.values()).filter((t)->t.getType() == type).collect(Collectors.toList());
+    }
+
+    public static List<Type> getTypes(){
+        return Arrays.asList(Type.values());
     }
 }

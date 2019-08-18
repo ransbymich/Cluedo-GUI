@@ -59,12 +59,19 @@ public class Board {
 
         generateRooms();
         generatePlayers();
-        dealTypes();
+        dealTypes(Type.getTypes(Type.SubType.PLAYER));
         board = RoomParse.makeRoom(room, rooms, players, aNPlayers);
     }
 
     public Board(List<Type> players){
         nPlayers = players.size();
+
+        currentTurn = Type.MISS_SCARLETT;
+
+        generateRooms();
+        generatePlayers();
+        dealTypes(players);
+        board = RoomParse.makeRoom(room, rooms, this.players, nPlayers);
     }
 
     /**
@@ -190,13 +197,12 @@ public class Board {
     /**
      * Deals out all of the types to their correct places, three random one as the solution and the rest evenly distributed to each player
      */
-    private void dealTypes() {
+    private void dealTypes(List<Type> players) {
         solution = new Type[3];
 
         //WEAPON, PLAYER, ROOM
         //Gets all of the weapons, players and rooms in play
         List<Type> weapons = Type.getTypes(Type.SubType.WEAPON);
-        List<Type> players = new ArrayList<>(this.players.keySet());
         List<Type> rooms = Type.getTypes(Type.SubType.ROOM);
 
         //Shuffle them all
