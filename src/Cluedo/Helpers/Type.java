@@ -1,5 +1,6 @@
 package Cluedo.Helpers;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,29 +10,29 @@ import java.util.stream.Collectors;
  * Types for any card within the game, also note the presence of subtypes, which make filtering easier
  */
 public enum Type{
-    CANDLE_STICK(SubType.WEAPON, "Candle Stick"),
-    KNIFE(SubType.WEAPON, "Knife"),
-    LEAD_PIPE(SubType.WEAPON, "Lead Pipe"),
-    REVOLVER(SubType.WEAPON, "Revolver"),
-    ROPE(SubType.WEAPON, "Rope"),
-    WRENCH(SubType.WEAPON, "Wrench"),
+    CANDLE_STICK(SubType.WEAPON, "Candle Stick", null),
+    KNIFE(SubType.WEAPON, "Knife", null),
+    LEAD_PIPE(SubType.WEAPON, "Lead Pipe", null),
+    REVOLVER(SubType.WEAPON, "Revolver", null),
+    ROPE(SubType.WEAPON, "Rope", null),
+    WRENCH(SubType.WEAPON, "Wrench", null),
 
-    BALL_ROOM(SubType.ROOM, "Ball Room"),
-    KITCHEN(SubType.ROOM, "Kitchen"),
-    DINING_ROOM(SubType.ROOM, "Dining Room"),
-    LOUNGE(SubType.ROOM, "Lounge"),
-    HALL(SubType.ROOM, "Hall"),
-    STUDY(SubType.ROOM, "Study"),
-    LIBRARY(SubType.ROOM, "Library"),
-    BILLIARD_ROOM(SubType.ROOM, "Billiard Room"),
-    CONSERVATORY(SubType.ROOM, "Conservatory"),
+    BALL_ROOM(SubType.ROOM, "Ball Room", null),
+    KITCHEN(SubType.ROOM, "Kitchen", null),
+    DINING_ROOM(SubType.ROOM, "Dining Room", null),
+    LOUNGE(SubType.ROOM, "Lounge", null),
+    HALL(SubType.ROOM, "Hall", null),
+    STUDY(SubType.ROOM, "Study", null),
+    LIBRARY(SubType.ROOM, "Library", null),
+    BILLIARD_ROOM(SubType.ROOM, "Billiard Room", null),
+    CONSERVATORY(SubType.ROOM, "Conservatory", null),
 
-    MISS_SCARLETT(SubType.PLAYER, "Miss Scarlett"),
-    COL_MUSTARD(SubType.PLAYER, "Col. Mustard"),
-    MR_WHITE(SubType.PLAYER, "Mr White"),
-    DR_GREEN(SubType.PLAYER, "Dr Green"),
-    MRS_PEACOCK(SubType.PLAYER, "Mrs Peacock"),
-    PROF_PLUM(SubType.PLAYER, "Prof. Plum");
+    MISS_SCARLETT(SubType.PLAYER, "Miss Scarlett", Color.RED),
+    COL_MUSTARD(SubType.PLAYER, "Col. Mustard", Color.YELLOW),
+    MR_WHITE(SubType.PLAYER, "Mr White", Color.WHITE),
+    DR_GREEN(SubType.PLAYER, "Dr Green", Color.GREEN),
+    MRS_PEACOCK(SubType.PLAYER, "Mrs Peacock", Color.BLUE),
+    PROF_PLUM(SubType.PLAYER, "Prof. Plum", new Color(128, 0, 128));
 
     public enum SubType{
         WEAPON(6),
@@ -51,10 +52,12 @@ public enum Type{
 
     private SubType type;
     private String name;
+    private Color color;
 
-    Type(SubType type, String name){
+    Type(SubType type, String name, Color color){
         this.type = type;
         this.name = name;
+        this.color = color;
     }
 
     public String getName(){
@@ -63,6 +66,7 @@ public enum Type{
     public SubType getType() {
         return type;
     }
+    public Color getColor(){return color;}
 
     /**
      * Gets all of the types within a provided subtype

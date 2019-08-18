@@ -34,7 +34,8 @@ public class EmptyTile extends Tile {
 
         Image myImage;
         if (player == null){
-            myImage = GUI.ASSETS.get(Type.CANDLE_STICK);
+//            myImage = GUI.ASSETS.get(Type.CANDLE_STICK);
+            return;
         } else {
             myImage = GUI.ASSETS.get(player.getType());
         }
