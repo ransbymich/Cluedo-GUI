@@ -24,16 +24,6 @@ public class VanityTile extends Tile {
 
     @Override
     public void render(Graphics g) {
-        Position pos = getPosition();
-
-        Image myImage  = GUI.ASSETS.get(Type.LOUNGE);
-
-        int size = CluedoCanvas.TILE_SIZE;
-
-        g.drawImage(myImage,
-                (pos.getX() * size) + xOffset,
-                (pos.getY() * size) + yOffset,
-                size, size, null);
     }
 
     /**
