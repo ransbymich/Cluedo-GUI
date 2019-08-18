@@ -124,7 +124,7 @@ public class RoomParse {
             case "WH":
                 return players.get(Type.MRS_WHITE);
             case "GR":
-                return players.get(Type.MR_GREEN);
+                return players.get(Type.DR_GREEN);
             case "PC":
                 return players.get(Type.MRS_PEACOCK);
             case "PL":
