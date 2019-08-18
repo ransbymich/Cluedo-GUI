@@ -9,19 +9,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class CluedoCanvas extends JPanel implements MouseListener {
 
-    private static final int WIDTH = 400;
-    private static final int HEIGHT = 400;
+    private static final int WIDTH = 1200;
+    private static final int HEIGHT = 700;
 
-    public final static int TILE_SIZE = 14;
-    public final static int yOffset = 15;
-    public final static int xOffset = 25;
+    public final static int TILE_SIZE = 23;
+    public final static int yOffset = 23;
+    public final static int xOffset = 42;
 
-    private static Image  boardImg = null;
+    private static BufferedImage boardImg = null;
 
     static {
         try {
@@ -47,7 +48,7 @@ public class CluedoCanvas extends JPanel implements MouseListener {
         //image of the board was taken from https://github.com/oisinq/Cluedo/blob/master/src/cluedo_board.jpg
 
         if (boardImg != null){
-            g.drawImage(boardImg, 0, 0, getWidth(), getHeight(), null);
+            g.drawImage(boardImg, 0, 0, this);
         }
 
         //render the image of each item which needs to be put ON TOP of the board
