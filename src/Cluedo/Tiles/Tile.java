@@ -4,9 +4,11 @@ package Cluedo.Tiles;/*PLEASE DO NOT EDIT THIS CODE*/
 
 import Cluedo.Helpers.Position;
 
+import java.awt.*;
+
 // line 126 "model.ump"
 // line 211 "model.ump"
-public class Tile {
+public abstract class Tile {
 
     private Position position;
 
@@ -32,6 +34,8 @@ public class Tile {
     public Position getPosition() {
         return position;
     }
+
+    public abstract void render(Graphics g);
 
     /**
      * Checks whether or not a tile contains a player.

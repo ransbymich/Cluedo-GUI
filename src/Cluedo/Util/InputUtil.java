@@ -108,7 +108,6 @@ public class InputUtil {
 
     /**
      * Asks the user for a turn type
-     *
      * @return The turn type returned
      */
     public static Type askType(List<Type> types, Board board) {

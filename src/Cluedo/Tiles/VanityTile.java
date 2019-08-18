@@ -2,6 +2,8 @@ package Cluedo.Tiles;
 
 import Cluedo.Helpers.Position;
 
+import java.awt.*;
+
 public class VanityTile extends Tile {
     private String label;
 
@@ -12,6 +14,11 @@ public class VanityTile extends Tile {
     public VanityTile(Position aPosition, String label) {
         super(aPosition);
         this.label = label;
+    }
+
+    @Override
+    public void render(Graphics g) {
+
     }
 
     /**
