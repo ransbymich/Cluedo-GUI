@@ -3,9 +3,6 @@ package Cluedo.Tiles;/*PLEASE DO NOT EDIT THIS CODE*/
 
 import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Position;
-import Cluedo.Helpers.Type;
-
-import static Cluedo.Helpers.Type.*;
 
 public class EmptyTile extends Tile {
 
@@ -47,7 +44,7 @@ public class EmptyTile extends Tile {
                 return "MU";
             case MRS_WHITE:
                 return "WH";
-            case MR_GREEN:
+            case DR_GREEN:
                 return "GR";
             case MRS_PEACOCK:
                 return "PC";

@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
  */
 public enum Type{
     CANDLE_STICK(SubType.WEAPON, "Candle Stick"),
-    DAGGER(SubType.WEAPON, "Dagger"),
+    KNIFE(SubType.WEAPON, "Knife"),
     LEAD_PIPE(SubType.WEAPON, "Lead Pipe"),
     REVOLVER(SubType.WEAPON, "Revolver"),
     ROPE(SubType.WEAPON, "Rope"),
-    SPANNER(SubType.WEAPON, "Spanner"),
+    WRENCH(SubType.WEAPON, "Wrench"),
 
     BALL_ROOM(SubType.ROOM, "Ball Cluedo.GameObjects.Room"),
     KITCHEN(SubType.ROOM, "Kitchen"),
@@ -28,7 +28,7 @@ public enum Type{
     MISS_SCARLETT(SubType.PLAYER, "Miss Scarlett"),
     COL_MUSTARD(SubType.PLAYER, "Col. Mustard"),
     MRS_WHITE(SubType.PLAYER, "Mrs White"),
-    MR_GREEN(SubType.PLAYER, "Mrs Green"),
+    DR_GREEN(SubType.PLAYER, "Dr Green"),
     MRS_PEACOCK(SubType.PLAYER, "Mrs Peacock"),
     PROF_PLUM(SubType.PLAYER, "Prof. Plum");
 
