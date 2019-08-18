@@ -321,7 +321,7 @@ public class Tests {
         b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
         b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
 
-        assertTrue(b.isHasWon());
+        assertTrue(b.hasWon());
     }
 
     @Test
@@ -336,7 +336,7 @@ public class Tests {
         setInput("n");
         b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
 
-        assertFalse(b.isHasWon());
+        assertFalse(b.hasWon());
     }
 
     @Test
@@ -367,7 +367,7 @@ public class Tests {
         b.processTurn(new Suggest(Type.REVOLVER, Type.MISS_SCARLETT));
         b.processTurn(new Accuse(Type.REVOLVER, Type.MISS_SCARLETT));
 
-        assertFalse(b.isHasWon());
+        assertFalse(b.hasWon());
 
     }
 
@@ -433,7 +433,7 @@ public class Tests {
         b.processTurn(new Accuse(Type.ROPE, Type.COL_MUSTARD));
 
         //wasn't in a room, therefore can't suggest/accuse -> win
-        assertFalse(b.isHasWon());
+        assertFalse(b.hasWon());
     }
 
     //winning
@@ -449,7 +449,7 @@ public class Tests {
         b.processTurn(new Suggest(Type.ROPE, Type.COL_MUSTARD));
         b.processTurn(new Accuse(Type.ROPE, Type.COL_MUSTARD));
 
-        assertTrue(b.isHasWon());
+        assertTrue(b.hasWon());
     }
 
     @Test
@@ -464,7 +464,7 @@ public class Tests {
         b.processTurn(new Suggest(Type.ROPE, Type.MISS_SCARLETT));
 //        b.processTurn(new Cluedo.Moves.Accuse(Cluedo.Helpers.Type.ROPE, Cluedo.Helpers.Type.COL_MUSTARD));
 
-        assertFalse(b.isHasWon());
+        assertFalse(b.hasWon());
     }
 
     //may not move on top another player
