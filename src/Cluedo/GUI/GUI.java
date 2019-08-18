@@ -64,11 +64,20 @@ public class GUI extends JFrame implements WindowListener {
 
         initalizeCanvas();
 
+        initalizeInfo();
+
         this.getContentPane().add(mPanel);
 
         this.pack();
     }
 
+    private void initalizeInfo(){
+        JPanel infoPanel = new InfoPanel(board);
+
+        mPanel.add(infoPanel, GUIUtil.makeConstraints(0, 1, 1, 1, GridBagConstraints.LINE_START));
+
+
+    }
 
     private void initalizeMenu(){
         JMenuBar menuBar = new JMenuBar();
