@@ -424,7 +424,7 @@ public class Tests {
     public void test16AccusationNotInRoom(){
         Board b = new Board(3);
 
-        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLARD_ROOM});
+        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLIARD_ROOM});
         b.clearHands();
         setInput("n");
         b.processTurn(new Move(Position.positionFromString("17,j"), 100));
@@ -441,7 +441,7 @@ public class Tests {
     public void test17TestValidWin(){
         Board b = new Board(3);
 
-        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLARD_ROOM});
+        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLIARD_ROOM});
         b.clearHands();
         setInput("n");
         b.processTurn(new Move(Position.positionFromString("19,j"), 100));
@@ -456,7 +456,7 @@ public class Tests {
     public void test18IncorrectAccusation(){
         Board b = new Board(3);
 
-        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLARD_ROOM});
+        b.setSolution(new Type[]{Type.ROPE, Type.COL_MUSTARD, Type.BILLIARD_ROOM});
         b.clearHands();
         setInput("n");
         b.processTurn(new Move(Position.positionFromString("19,j"), 100));
