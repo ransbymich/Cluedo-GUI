@@ -26,6 +26,7 @@ public class GUI extends JFrame implements WindowListener {
         File assetDir = new File("Assets/");
         File[] files = assetDir.listFiles(file -> !file.isDirectory() && file.getName().contains(".jpg"));
 
+        assert files != null;
         for(File file : files){
             try{
                 Cluedo.Helpers.Type type = InputUtil.getTypeFromString(Cluedo.Helpers.Type.getTypes(), file.getName().replaceFirst("[.][^.]+$", "").toLowerCase());
@@ -36,6 +37,8 @@ public class GUI extends JFrame implements WindowListener {
         }
 
     }
+
+    public final static int TILE_SIZE = 20;
 
     private JPanel mPanel; //Main panel
 
