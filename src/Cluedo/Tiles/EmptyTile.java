@@ -6,6 +6,8 @@ import Cluedo.GUI.GUI;
 import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
+import Cluedo.Text.Cluedo;
+import javafx.scene.shape.Ellipse;
 
 import java.awt.*;
 
@@ -31,6 +33,7 @@ public class EmptyTile extends Tile {
     @Override
     public void render(Graphics g) {
         Position pos = getPosition();
+        int size = CluedoCanvas.TILE_SIZE;
 
         Image myImage;
         if (player == null){
@@ -40,12 +43,15 @@ public class EmptyTile extends Tile {
             myImage = GUI.ASSETS.get(player.getType());
         }
 
-        int size = CluedoCanvas.TILE_SIZE;
-
-        g.drawImage(myImage,
-                (pos.getX() * size) + xOffset,
+        g.setColor(player.getType().getColor());
+        g.fillOval((pos.getX() * size) + xOffset,
                 (pos.getY() * size) + yOffset,
-                size, size, null);
+                size, size);
+
+//        g.drawImage(myImage,
+//                (pos.getX() * size) + xOffset,
+//                (pos.getY() * size) + yOffset,
+//                size, size, null);
     }
 
     /**
