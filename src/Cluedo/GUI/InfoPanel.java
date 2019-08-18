@@ -15,11 +15,13 @@ public class InfoPanel extends JPanel {
     private Board board;
     private JLabel redDie;
     private JLabel whiteDie;
+    private GUI gui;
 
 
-    public InfoPanel(Board board) {
+    public InfoPanel(Board board, GUI gui) {
         super(new GridBagLayout());
         this.board = board;
+        this.gui = gui;
         this.pName = new JLabel();
         this.list = new JList<>();
 
@@ -48,6 +50,16 @@ public class InfoPanel extends JPanel {
 
         this.add(redDie, GUIUtil.makeConstraints(3, 2, 1, 1, GridBagConstraints.CENTER));
         this.add(whiteDie, GUIUtil.makeConstraints(4, 2, 1, 1, GridBagConstraints.CENTER));
+
+        JButton completeTurn = new JButton("Complete Turn");
+
+        this.add(completeTurn, GUIUtil.makeConstraints(5, 2, 1, 1, GridBagConstraints.CENTER));
+
+        completeTurn.addActionListener((e)->{
+            board.completeTurn();
+            gui.getConsole().setInputConsumer(null);
+            this.update();
+        });
 
         update();
     }

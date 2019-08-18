@@ -68,7 +68,6 @@ public class Tests {
                             "| X|  |  |  |  |  |  |  |__|SC|  |  |  |  |  |  |__|__|  |  |  |  |  |  |  |\n" +
                             "| Y|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |--|__|--|  |  |  |  |  |  |\n";
 
-        b.processTurn(new Move(Position.positionFromString("9,x"), 100));
 
         Assert.assertEquals(solution, b.toString());
     }

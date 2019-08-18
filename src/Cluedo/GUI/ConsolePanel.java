@@ -2,17 +2,23 @@ package Cluedo.GUI;
 
 import Cluedo.Board;
 import Cluedo.Helpers.Die;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.State;
+import Cluedo.Moves.GUIMove;
+import Cluedo.Util.InputUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PipedInputStream;
-import java.io.PrintStream;
+import java.util.function.Consumer;
+import java.util.regex.Pattern;
+
+import static Cluedo.Helpers.State.MOVE;
 
 public class ConsolePanel extends JPanel implements ActionListener {
+
+    private Consumer<String> inputConsumer;
 
     private Board board;
     private GUI gui;
@@ -42,10 +48,17 @@ public class ConsolePanel extends JPanel implements ActionListener {
         String command = actionEvent.getActionCommand();
 
         println(">" + command);
-        processCommand(command);
-
+        if(inputConsumer != null){
+            inputConsumer.accept(command);
+        }else{
+            processCommand(command);
+        }
 
         input.setText("");
+    }
+
+    public void setInputConsumer(Consumer<String> inputConsumer) {
+        this.inputConsumer = inputConsumer;
     }
 
     private void processCommand(String command){
@@ -58,7 +71,31 @@ public class ConsolePanel extends JPanel implements ActionListener {
     }
 
     private void processMove(){
-        gui.getInfoPanel().changeDice(Die.roll(), Die.roll());
+        if(board.getState() != MOVE){
+            println("Unable to move right now.");
+            return;
+        }
+        int diceRollOne = Die.roll();
+        int diceRollTwo = Die.roll();
+        gui.getInfoPanel().changeDice(diceRollOne, diceRollTwo);
+
+        println("You rolled a " + (diceRollOne + diceRollTwo));
+        println("Entered the coordinate to go to: ");
+
+        this.setInputConsumer((s)->{
+
+            if(!Pattern.matches(InputUtil.COORDINATE_REGEX, s)){
+                println("Input does not match an option: " + InputUtil.COORDINATE_REGEX);
+                return;
+            }
+
+            Position movePosition = Position.positionFromString(s);
+
+            if(board.processTurn(new GUIMove(movePosition, diceRollOne + diceRollTwo, this))){
+                this.setInputConsumer(null);
+                gui.getCanvas().repaint();
+            }
+        });
     }
 
     @Override

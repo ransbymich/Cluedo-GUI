@@ -5,6 +5,7 @@ package Cluedo;/*PLEASE DO NOT EDIT THIS CODE*/
 import Cluedo.Exceptions.InvalidInputException;
 import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
+import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
 import Cluedo.Moves.Turn;
 import Cluedo.Tiles.Tile;
@@ -74,6 +75,7 @@ public class Board {
 
     private final int nPlayers;
     private Type currentTurn; //Who's player is currently in turn
+    private State state;
     private boolean hasWon;
 
     private Map<Type, Room> rooms;
@@ -83,6 +85,7 @@ public class Board {
 
     public Board(int aNPlayers) {
         currentTurn = Type.MISS_SCARLETT;
+        state = State.MOVE;
         nPlayers = aNPlayers;
 
         generateRooms();
@@ -97,11 +100,20 @@ public class Board {
         //TODO: Fucked card distribution
 
         currentTurn = Type.MISS_SCARLETT;
+        state = State.MOVE;
 
         generateRooms();
         generatePlayers();
         dealTypes(players);
         board = RoomParse.makeRoom(room, rooms, this.players, nPlayers);
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     /**
@@ -112,6 +124,7 @@ public class Board {
         int index = types.indexOf(currentTurn) + 1;
 
         currentTurn = types.get(index % nPlayers);
+        setState(State.MOVE);
     }
 
     /**
