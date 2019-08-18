@@ -5,12 +5,9 @@ package Cluedo.Tiles;/*PLEASE DO NOT EDIT THIS CODE*/
 import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.Position;
-import Cluedo.Helpers.Type;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static Cluedo.Helpers.Type.*;
 
 public class RoomTile extends Tile {
 
@@ -60,7 +57,7 @@ public class RoomTile extends Tile {
                 return "HL";
             case CONSERVATORY:
                 return "CT";
-            case BILLARD_ROOM:
+            case BILLIARD_ROOM:
                 return "BL";
             case STUDY:
                 return "ST";

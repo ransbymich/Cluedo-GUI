@@ -1,15 +1,33 @@
 package Cluedo.GUI;
 
 import Cluedo.Board;
+import Cluedo.Helpers.Type;
 import Cluedo.Util.GUIUtil;
+import Cluedo.Util.InputUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileFilter;
+import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GUI extends JFrame implements WindowListener {
+
+    public static Map<Cluedo.Helpers.Type, Image> ASSETS;
+    static {
+        ASSETS = new HashMap<>();
+        File assetDir = new File("Assets/");
+        File[] files = assetDir.listFiles(file -> !file.isDirectory() && file.getName().contains(".jpg"));
+
+        for(File file : files){
+//            ASSETS.put(InputUtil.getTypeFromString(Cluedo.Helpers.Type.getTypes(), ))
+        }
+    }
 
     private JPanel mPanel; //Main panel
 

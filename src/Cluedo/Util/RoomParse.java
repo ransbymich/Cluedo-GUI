@@ -122,7 +122,7 @@ public class RoomParse {
     public static Player playerFromString(String in, Map<Type, Player> players) {
         switch (in) {
             case "WH":
-                return players.get(Type.MRS_WHITE);
+                return players.get(Type.MR_WHITE);
             case "GR":
                 return players.get(Type.DR_GREEN);
             case "PC":
@@ -160,7 +160,7 @@ public class RoomParse {
             case "CT":
                 return rooms.get(Type.CONSERVATORY);
             case "BL":
-                return rooms.get(Type.BILLARD_ROOM);
+                return rooms.get(Type.BILLIARD_ROOM);
             case "ST":
                 return rooms.get(Type.STUDY);
             case "LB":

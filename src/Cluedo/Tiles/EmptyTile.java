@@ -42,7 +42,7 @@ public class EmptyTile extends Tile {
         switch (player.getType()) {
             case COL_MUSTARD:
                 return "MU";
-            case MRS_WHITE:
+            case MR_WHITE:
                 return "WH";
             case DR_GREEN:
                 return "GR";
