@@ -29,11 +29,13 @@ public class GUI extends JFrame implements WindowListener {
 
         board = new Board(players);
 
-        mPanel = new JPanel(new GridBagLayout());
-        this.getContentPane().add(mPanel);
-
         initalizeMenu();
+
+        mPanel = new JPanel(new GridBagLayout());
+
         initalizeCanvas();
+
+        this.getContentPane().add(mPanel);
 
         this.pack();
     }
