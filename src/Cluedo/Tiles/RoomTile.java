@@ -2,11 +2,13 @@ package Cluedo.Tiles;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
 
+import Cluedo.GUI.GUI;
 import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.Position;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,9 +25,17 @@ public class RoomTile extends Tile {
         room = aRoom;
     }
 
+
+    //drawImage(Image img, int x, int y, int width, int height, Color bgcolor, ImageObserver observer)
     @Override
     public void render(Graphics g) {
+        List<Image> images = new ArrayList<>(GUI.ASSETS.values());
 
+        Position pos = getPosition();
+
+        Image myImage = GUI.ASSETS.get(room.getType());
+
+        g.drawImage(myImage, pos.getX() * GUI.TILE_SIZE,pos.getY() * GUI.TILE_SIZE, GUI.TILE_SIZE, GUI.TILE_SIZE, null);
     }
 
     /**
