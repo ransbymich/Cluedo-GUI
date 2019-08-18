@@ -172,7 +172,7 @@ public class Board {
      * Returns whether or not the game has been won
      * @return  Has the game been won?
      */
-    public boolean isHasWon() {
+    public boolean hasWon() {
         return hasWon;
     }
 

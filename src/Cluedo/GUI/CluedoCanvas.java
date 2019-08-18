@@ -1,6 +1,7 @@
 package Cluedo.GUI;
 
 import Cluedo.Board;
+import Cluedo.Tiles.Tile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +23,18 @@ public class CluedoCanvas extends JPanel implements MouseListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        //board is in format [y][x]
+        Tile[][] tiles = board.getBoard();
+        for (int y = 0; y < tiles.length; y++){
+            for (int x = 0; x < tiles[0].length; x++){
+
+
+
+
+            }
+        }
+
 
 
     }
