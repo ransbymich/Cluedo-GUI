@@ -23,7 +23,7 @@ public class GUI extends JFrame implements WindowListener {
     public static Map<Cluedo.Helpers.Type, Image> ASSETS;
     static {
         ASSETS = new HashMap<>();
-        File assetDir = new File("Assets/");
+        File assetDir = new File("Assets/cards");
         File[] files = assetDir.listFiles(file -> !file.isDirectory() && file.getName().contains(".jpg"));
 
         assert files != null;
@@ -37,8 +37,6 @@ public class GUI extends JFrame implements WindowListener {
         }
 
     }
-
-    public final static int TILE_SIZE = 20;
 
     private JPanel mPanel; //Main panel
 

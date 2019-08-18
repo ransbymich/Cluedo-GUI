@@ -1,10 +1,16 @@
 package Cluedo.Tiles;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
+import Cluedo.GUI.CluedoCanvas;
+import Cluedo.GUI.GUI;
 import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Position;
+import Cluedo.Helpers.Type;
 
 import java.awt.*;
+
+import static Cluedo.GUI.CluedoCanvas.xOffset;
+import static Cluedo.GUI.CluedoCanvas.yOffset;
 
 public class EmptyTile extends Tile {
 
@@ -24,7 +30,21 @@ public class EmptyTile extends Tile {
 
     @Override
     public void render(Graphics g) {
+        Position pos = getPosition();
 
+        Image myImage;
+        if (player == null){
+            myImage = GUI.ASSETS.get(Type.CANDLE_STICK);
+        } else {
+            myImage = GUI.ASSETS.get(player.getType());
+        }
+
+        int size = CluedoCanvas.TILE_SIZE;
+
+        g.drawImage(myImage,
+                (pos.getX() * size) + xOffset,
+                (pos.getY() * size) + yOffset,
+                size, size, null);
     }
 
     /**
