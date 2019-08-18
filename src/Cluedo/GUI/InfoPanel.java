@@ -16,6 +16,7 @@ public class InfoPanel extends JPanel {
     public InfoPanel(Board board) {
         super(new GridBagLayout());
         this.board = board;
+        pName = new JLabel();
 
         this.add(pName, GUIUtil.makeConstraints(0, 0, 1, 1, GridBagConstraints.LINE_START));
 
@@ -26,7 +27,6 @@ public class InfoPanel extends JPanel {
 
 
     public void update(){
-        pName = new JLabel(board.getCurrentPlayer().getName());
 
     }
 }
