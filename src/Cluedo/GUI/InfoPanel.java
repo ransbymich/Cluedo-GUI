@@ -37,9 +37,15 @@ public class InfoPanel extends JPanel {
         list.setVisibleRowCount(1);
 
         JScrollPane scrollPane = new JScrollPane(list, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(250, 120));
+        scrollPane.setPreferredSize(new Dimension(CluedoCanvas.WIDTH/2, 145));
 
         this.add(scrollPane, GUIUtil.makeConstraints(0, 2, 2, 1, GridBagConstraints.CENTER));
+
+        JLabel redDie = new JLabel(new ImageIcon(GUI.RED_DIE[0]));
+        JLabel whiteDie = new JLabel(new ImageIcon(GUI.WHITE_DIE[0]));
+
+        this.add(redDie, GUIUtil.makeConstraints(3, 2, 1, 1, GridBagConstraints.CENTER));
+        this.add(whiteDie, GUIUtil.makeConstraints(4, 2, 1, 1, GridBagConstraints.CENTER));
 
         update();
     }
