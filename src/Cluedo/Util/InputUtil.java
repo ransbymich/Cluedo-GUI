@@ -75,7 +75,7 @@ public class InputUtil {
 
         List<Type> types;
         if (subType == Type.SubType.PLAYER) {
-            types = board.getPlayers();
+            types = board.getPlayerTypes();
         } else {
             types = Type.getTypes(subType);
         }

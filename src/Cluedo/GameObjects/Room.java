@@ -2,21 +2,44 @@ package Cluedo.GameObjects;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
 
+import Cluedo.GUI.CluedoCanvas;
+import Cluedo.GUI.GUI;
+import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
+import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.RoomTile;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import static Cluedo.GUI.CluedoCanvas.xOffset;
+import static Cluedo.GUI.CluedoCanvas.yOffset;
 
 public class Room {
 
     private Type type;
 
     private List<Entity> entities;
+    private List<RoomTile> internalTiles;
+    private List<EntryTile> entryTiles;
 
 
     public Room(Type aType) {
         type = aType;
         entities = new ArrayList<>();
+        internalTiles = new ArrayList<>();
+        entryTiles = new ArrayList<>();
+    }
+
+    public void addDisplayTile(RoomTile tile){
+        internalTiles.add(tile);
+    }
+
+    public void addEntryTile(EntryTile tile){
+        entryTiles.add(tile);
     }
 
     /**
@@ -28,6 +51,48 @@ public class Room {
         type = aType;
         wasSet = true;
         return wasSet;
+    }
+
+
+    /**
+     * Render the items related to this room
+     * @param g the graphics pane to draw on
+     */
+    public void render(Graphics g) {
+        int size = CluedoCanvas.TILE_SIZE;
+
+        for (EntryTile entryTile : entryTiles) {
+            Position pos = entryTile.getPosition();
+            Image img = GUI.ASSETS.get(Type.REVOLVER);
+
+            g.drawImage(img,
+                (pos.getX() * size) + xOffset,
+                (pos.getY() * size) + yOffset,
+                size, size, null);
+        }
+
+
+
+//        Position pos = getPosition();
+//        int size = CluedoCanvas.TILE_SIZE;
+//
+//        Image myImage;
+//        if (player == null){
+////            myImage = GUI.ASSETS.get(Type.CANDLE_STICK);
+//            return;
+//        } else {
+//            myImage = GUI.ASSETS.get(player.getType());
+//        }
+//
+//        g.setColor(player.getType().getColor());
+//        g.fillOval((pos.getX() * size) + xOffset,
+//                (pos.getY() * size) + yOffset,
+//                size, size);
+
+//        g.drawImage(myImage,
+//                (pos.getX() * size) + xOffset,
+//                (pos.getY() * size) + yOffset,
+//                size, size, null);
     }
 
     /**

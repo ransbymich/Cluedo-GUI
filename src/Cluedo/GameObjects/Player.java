@@ -3,17 +3,24 @@ package Cluedo.GameObjects;/*PLEASE DO NOT EDIT THIS CODE*/
 
 
 import Cluedo.Board;
-import Cluedo.Tiles.RoomTile;
+import Cluedo.GUI.CluedoCanvas;
+import Cluedo.GUI.GUI;
+import Cluedo.Helpers.Position;
+import Cluedo.Tiles.EntryTile;
 import Cluedo.Helpers.Type;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
+
+import static Cluedo.GUI.CluedoCanvas.xOffset;
+import static Cluedo.GUI.CluedoCanvas.yOffset;
 
 public class Player extends Entity {
 
     private boolean isInPlay = true;
 
     private List<Type> hand;
-
 
     public Player(Type aType) {
         super(aType);
@@ -56,7 +63,7 @@ public class Player extends Entity {
      */
     public boolean inRoom(Board board){
         //Is the player on a Cluedo.Tiles.RoomTile?
-        return board.getBoard()[position.getY()][position.getX()] instanceof RoomTile;
+        return board.getBoard()[position.getY()][position.getX()] instanceof EntryTile;
     }
 
     /**
@@ -85,5 +92,16 @@ public class Player extends Entity {
 
     public String toString() {
         return super.toString() + "[" + "isInPlay" + ":" + getIsInPlay() + "]";
+    }
+
+    @Override
+    public void render(Graphics g) {
+        Position pos = getPosition();
+        int size = CluedoCanvas.TILE_SIZE;
+
+        g.setColor(this.getType().getColor());
+        g.fillOval((pos.getX() * size) + xOffset,
+                (pos.getY() * size) + yOffset,
+                size, size);
     }
 }

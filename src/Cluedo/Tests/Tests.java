@@ -548,10 +548,10 @@ public class Tests {
     @Test
     public void test23BoundaryNumberOfPlayers(){
         Board b = new Board(6);
-        Assert.assertEquals(6, b.getPlayers().size());
+        Assert.assertEquals(6, b.getPlayerTypes().size());
 
         b = new Board(3);
-        Assert.assertEquals(3,b.getPlayers().size());
+        Assert.assertEquals(3,b.getPlayerTypes().size());
     }
 
     @Test
