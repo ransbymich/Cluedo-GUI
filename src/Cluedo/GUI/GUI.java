@@ -1,6 +1,8 @@
 package Cluedo.GUI;
 
 import Cluedo.Board;
+import Cluedo.Helpers.Position;
+import Cluedo.Moves.Move;
 import Cluedo.Util.GUIUtil;
 import Cluedo.Util.InputUtil;
 
@@ -94,7 +96,7 @@ public class GUI extends JFrame implements WindowListener {
     }
 
     private void initalizeInfo(){
-        infoPanel = new InfoPanel(board);
+        infoPanel = new InfoPanel(board, this);
 
         mPanel.add(infoPanel, GUIUtil.makeConstraints(0, 1, 1, 1, GridBagConstraints.LINE_START));
     }
@@ -116,6 +118,14 @@ public class GUI extends JFrame implements WindowListener {
 
     public InfoPanel getInfoPanel() {
         return infoPanel;
+    }
+
+    public CluedoCanvas getCanvas() {
+        return canvas;
+    }
+
+    public ConsolePanel getConsole() {
+        return console;
     }
 
     @Override
