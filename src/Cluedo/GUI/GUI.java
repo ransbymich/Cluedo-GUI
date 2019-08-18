@@ -1,7 +1,6 @@
 package Cluedo.GUI;
 
 import Cluedo.Board;
-import Cluedo.Helpers.Type;
 import Cluedo.Util.GUIUtil;
 import Cluedo.Util.InputUtil;
 
@@ -11,9 +10,7 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +18,8 @@ import java.util.Map;
 public class GUI extends JFrame implements WindowListener {
 
     public static Map<Cluedo.Helpers.Type, Image> ASSETS;
+    public static Image[] RED_DIE;
+    public static Image[] WHITE_DIE;
     static {
         ASSETS = new HashMap<>();
         File assetDir = new File("Assets/cards");
@@ -31,7 +30,21 @@ public class GUI extends JFrame implements WindowListener {
             try{
                 Cluedo.Helpers.Type type = InputUtil.getTypeFromString(Cluedo.Helpers.Type.getTypes(), file.getName().replaceFirst("[.][^.]+$", "").toLowerCase());
                 Image img = ImageIO.read(file);
-                ASSETS.put(type, img.getScaledInstance(75, 100, Image.SCALE_SMOOTH));
+                ASSETS.put(type, img.getScaledInstance(100, 125, Image.SCALE_SMOOTH));
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        RED_DIE = new Image[6];
+        WHITE_DIE = new Image[6];
+
+        String dicePath = "Assets/dice";
+        for(int i = 0; i < 6; i++){
+
+            try{
+                RED_DIE[i] = ImageIO.read(new File(dicePath + "/red-" + (i + 1) + ".png"));
+                WHITE_DIE[i] = ImageIO.read(new File(dicePath + "/white-" + (i + 1) + ".png"));
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -39,8 +52,6 @@ public class GUI extends JFrame implements WindowListener {
 
     }
 
-    public final static int TILE_SIZE = 30;
-  
     private JPanel mPanel; //Main panel
 
     private Board board;
@@ -76,8 +87,6 @@ public class GUI extends JFrame implements WindowListener {
         JPanel infoPanel = new InfoPanel(board);
 
         mPanel.add(infoPanel, GUIUtil.makeConstraints(0, 1, 1, 1, GridBagConstraints.LINE_START));
-
-
     }
 
     private void initalizeMenu(){
@@ -93,7 +102,6 @@ public class GUI extends JFrame implements WindowListener {
         canvas = new CluedoCanvas(board);
 
         mPanel.add(canvas, GUIUtil.makeConstraints(0, 0, 1, 1, GridBagConstraints.CENTER));
-
     }
 
 
