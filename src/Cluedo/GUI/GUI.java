@@ -30,7 +30,8 @@ public class GUI extends JFrame implements WindowListener {
         for(File file : files){
             try{
                 Cluedo.Helpers.Type type = InputUtil.getTypeFromString(Cluedo.Helpers.Type.getTypes(), file.getName().replaceFirst("[.][^.]+$", "").toLowerCase());
-                ASSETS.put(type, ImageIO.read(file));
+                Image img = ImageIO.read(file);
+                ASSETS.put(type, img.getScaledInstance(75, 100, Image.SCALE_SMOOTH));
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -38,6 +39,8 @@ public class GUI extends JFrame implements WindowListener {
 
     }
 
+    public final static int TILE_SIZE = 30;
+  
     private JPanel mPanel; //Main panel
 
     private Board board;
