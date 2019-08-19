@@ -4,7 +4,6 @@ package Cluedo.GUI;
 import Cluedo.Board;
 import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.State;
-import Cluedo.Helpers.Type;
 import Cluedo.Helpers.TypeCellRender;
 import Cluedo.Util.GUIUtil;
 

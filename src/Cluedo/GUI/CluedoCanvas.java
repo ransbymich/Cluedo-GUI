@@ -55,9 +55,6 @@ public class CluedoCanvas extends JPanel implements MouseListener{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        System.out.println("Render");
-
-
         //render the image of the board
         //image of the board was taken from https://github.com/oisinq/Cluedo/blob/master/src/cluedo_board.jpg
 
@@ -72,7 +69,6 @@ public class CluedoCanvas extends JPanel implements MouseListener{
         }
 
         for (Player player : board.getPlayerInstances()) {
-            System.out.println("R: " + player.getName() + " = " + player.getPosition());
             player.render(g);
         }
     }
