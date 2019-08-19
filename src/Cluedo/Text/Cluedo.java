@@ -11,8 +11,6 @@ import Cluedo.Moves.Turn;
 import Cluedo.Util.InputUtil;
 import Cluedo.*;
 
-import static Cluedo.Moves.Turn.TurnType.*;
-
 public class Cluedo {
 
     private Board board;

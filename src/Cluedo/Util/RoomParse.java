@@ -70,7 +70,6 @@ public class RoomParse {
      */
     public static Tile makeTile(String in, int x, int y, Map<Type, Room> rooms, Map<Type, Player> players) {
         if (in.length() > 2) {
-//            System.out.println("Length greater than 2 in makeTile:" + in + ":");
             throw new InvalidInputException();
         }
 
@@ -90,7 +89,6 @@ public class RoomParse {
             return new VanityTile(pos, "A");
         }
 
-        System.out.println("Invalid parameters provided to makeTile! :" + in + ":");
         throw new InvalidInputException();
     }
 
