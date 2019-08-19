@@ -78,6 +78,7 @@ public class Room {
         }
 
         List<RoomTile> tempInternal = internalTiles;
+        if (tempInternal.isEmpty()) return;
 
         for (Entity entity : entities) {
             //LET US HOPE THAT WE DO NOT RUN OUT OF TILES HAHAHAH
