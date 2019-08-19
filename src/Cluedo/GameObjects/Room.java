@@ -24,7 +24,7 @@ public class Room {
     private List<Entity> entities;
     private List<RoomTile> internalTiles;
     private List<DoorTile> doorTiles;
-    private Set<Position> allocatedPositions;
+    private List<Position> allocatedPositions;
 
 
     public Room(Type aType) {
@@ -32,17 +32,17 @@ public class Room {
         entities = new ArrayList<>();
         internalTiles = new ArrayList<>();
         doorTiles = new ArrayList<>();
-        allocatedPositions = new HashSet<>();
+        allocatedPositions = new ArrayList<>();
     }
 
     public void addInternalTile(RoomTile tile){
         internalTiles.add(tile);
-        System.out.println(getName() + " internalTiles: " + internalTiles.size());
+//        System.out.println(getName() + " internalTiles: " + internalTiles.size());
     }
 
     public void addEntryTile(DoorTile tile){
         doorTiles.add(tile);
-        System.out.println(getName() + " entryTiles: " + doorTiles.size());
+//        System.out.println(getName() + " entryTiles: " + doorTiles.size());
     }
 
     public String getName(){
@@ -127,6 +127,14 @@ public class Room {
         entities.add(entity);
 
         if (entity instanceof Player){
+            //get a position from the internal tiles list
+            Position pos = internalTiles.get(0).getPosition();
+
+            //move the player to that position
+            entity.position = pos;
+
+            //add that position to the list of allocated positions
+            allocatedPositions.add(pos);
         }
 
 
@@ -137,13 +145,22 @@ public class Room {
 
     /**
      * removes an entity from the room
-     * @param aEntity   The entity to remove
+     * @param entity   The entity to remove
      * @return
      */
-    public boolean removeEntity(Entity aEntity) {
+    public boolean removeEntity(Entity entity) {
         boolean wasRemoved = false;
-        if (entities.contains(aEntity)) {
-            entities.remove(aEntity);
+        if (entities.contains(entity)) {
+
+
+            entities.remove(entity);
+            if (entity instanceof Player){
+                //remove the
+                Position pos = entity.position;
+
+                allocatedPositions.remove(pos);
+            }
+
             wasRemoved = true;
         }
         return wasRemoved;
