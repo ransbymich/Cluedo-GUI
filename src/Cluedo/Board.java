@@ -101,6 +101,19 @@ public class Board {
         this.state = state;
     }
 
+    public void resetGame(){
+        currentTurn = Type.MISS_SCARLETT;
+        state = State.MOVE;
+
+        generateRooms();
+        generatePlayers();
+        dealTypes(Type.getTypes(Type.SubType.PLAYER));
+        board = RoomParse.makeRoom(room2, rooms, players, nPlayers);
+
+        BOARD_HEIGHT = board.length;
+        BOARD_WIDTH = board[0].length;
+    }
+
     /**
      * Completes the current players turn and changes it to the next players.
      */

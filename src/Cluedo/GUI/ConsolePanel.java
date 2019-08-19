@@ -77,6 +77,10 @@ public class ConsolePanel extends JPanel implements ActionListener {
         }
     }
 
+    public void clearText(){
+        console.setText("");
+    }
+
     private void processMove(){
         if(board.getState() != MOVE && board.getState() != SUGGEST_MOVE){
             println("Unable to move right now.");

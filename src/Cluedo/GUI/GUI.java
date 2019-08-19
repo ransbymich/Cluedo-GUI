@@ -112,6 +112,32 @@ public class GUI extends JFrame implements WindowListener {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu mainMenu = new JMenu("Menu");
+        JMenuItem reset = new JMenuItem("Reset");
+//        JMenuItem newGame = new JMenuItem("New Game");
+        JMenuItem quit = new JMenuItem("Quit");
+        mainMenu.add(reset);
+//        mainMenu.add(newGame);
+        mainMenu.add(quit);
+
+        reset.addActionListener((l)->{
+            board.resetGame();
+            canvas.repaint();
+            infoPanel.update();
+            getConsole().clearText();
+        });
+
+//        newGame.addActionListener((l)->{
+//            this.setVisible(false);
+//            board.resetGame();
+//            canvas.repaint();
+//            infoPanel.update();
+//            getConsole().clearText();
+//            new CharacterSelection(this::initalize);
+//        });
+
+        quit.addActionListener((l)->{
+            System.exit(0);
+        });
 
         menuBar.add(mainMenu);
         this.setJMenuBar(menuBar);
