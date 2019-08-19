@@ -90,6 +90,14 @@ public class InfoPanel extends JPanel {
             this.update();
         });
 
+
+        Frame suggestFrame = new JFrame();
+
+
+        suggestBtn.addActionListener((e)->{
+            suggestFrame.setVisible(true);
+        });
+
         moveBtn.addActionListener(this::processMove);
 
         stateLabel = new JLabel();

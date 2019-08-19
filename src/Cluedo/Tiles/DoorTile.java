@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import static Cluedo.GUI.CluedoCanvas.xOffset;
 import static Cluedo.GUI.CluedoCanvas.yOffset;
 
-public class EntryTile extends Tile {
+public class DoorTile extends Tile {
     private Room room;
 
     /**
@@ -25,7 +25,7 @@ public class EntryTile extends Tile {
      * @param aPosition where the tile is located
      * @param aRoom the type of room it is
      */
-    public EntryTile(Position aPosition, Room aRoom) {
+    public DoorTile(Position aPosition, Room aRoom) {
         super(aPosition);
         room = aRoom;
         room.addEntryTile(this);

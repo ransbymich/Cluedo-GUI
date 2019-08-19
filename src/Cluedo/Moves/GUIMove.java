@@ -8,14 +8,11 @@ import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.Position;
 import Cluedo.Helpers.State;
 import Cluedo.Tiles.EmptyTile;
-import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.Tile;
-import Cluedo.Util.InputUtil;
 import Cluedo.Util.PathfindingUtil;
 
 public class GUIMove extends Turn {
-
-
     private Position pos;
     private ConsolePanel cp;
     private int diceRoll;
@@ -60,8 +57,8 @@ public class GUIMove extends Turn {
             cp.println("Turn complete.");
             board.setState(State.END_TURN);
             return true;
-        }else if(newTile instanceof EntryTile){
-            Room room = ((EntryTile)newTile).getRoom();
+        }else if(newTile instanceof DoorTile){
+            Room room = ((DoorTile)newTile).getRoom();
             room.addEntity(player);
             player.setPosition(pos);
             cp.println(player.getName() + " enters " + room.getType().getName() + ".");
@@ -89,8 +86,8 @@ public class GUIMove extends Turn {
             EmptyTile emptyTile = (EmptyTile)oldTile;
             emptyTile.setPlayer(null);
             return true;
-        }else if(oldTile instanceof EntryTile){
-            Room room = ((EntryTile)oldTile).getRoom();
+        }else if(oldTile instanceof DoorTile){
+            Room room = ((DoorTile)oldTile).getRoom();
             room.removeEntity(player);
             cp.println(player.getName() + " leaves " + room.getType().getName());
             return true;

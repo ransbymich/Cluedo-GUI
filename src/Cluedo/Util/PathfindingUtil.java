@@ -3,7 +3,7 @@ package Cluedo.Util;
 import Cluedo.Board;
 import Cluedo.Helpers.Position;
 import Cluedo.Tiles.EmptyTile;
-import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.Tile;
 
 import java.util.*;
@@ -27,7 +27,7 @@ public class PathfindingUtil {
         //First add everything to the frontier queue
         for(int y = 0; y < tiles.length; y++){
             for(int x = 0; x < tiles[0].length; x++){
-                if(tiles[y][x] instanceof EmptyTile || tiles[y][x] instanceof EntryTile){
+                if(tiles[y][x] instanceof EmptyTile || tiles[y][x] instanceof DoorTile){
                     Node node;
                     if(tiles[y][x].getPosition().equals(start)){
                         node = new Node(tiles[y][x], 0);

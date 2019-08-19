@@ -6,7 +6,7 @@ import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
 import Cluedo.Tiles.EmptyTile;
-import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.Tile;
 import Cluedo.Util.InputUtil;
 
@@ -40,7 +40,7 @@ public class Suggest extends Turn {
 
         Position pPos = board.getCurrentPlayer().getPosition();
 
-        Type room = ((EntryTile) board.getBoard()[pPos.getY()][pPos.getX()]).getRoom().getType();
+        Type room = ((DoorTile) board.getBoard()[pPos.getY()][pPos.getX()]).getRoom().getType();
         Set<Type> suggestions = new HashSet<>(Arrays.asList(weapon, accused, room));
 
         //if a single player has any of the three solutions return false
@@ -70,8 +70,8 @@ public class Suggest extends Turn {
 
                 player.setPosition(pos);
 
-            } else if (newTile instanceof EntryTile) {
-                Room newRoom = ((EntryTile) newTile).getRoom();
+            } else if (newTile instanceof DoorTile) {
+                Room newRoom = ((DoorTile) newTile).getRoom();
                 newRoom.addEntity(player);
                 System.out.printf("%s enters %s.\n", player.getName(), room.getName());
                 player.setPosition(pos);
@@ -85,8 +85,8 @@ public class Suggest extends Turn {
                 EmptyTile emptyTile = (EmptyTile) oldTile;
                 emptyTile.setPlayer(null);
 
-            } else if (oldTile instanceof EntryTile) {
-                Room oldRoom = ((EntryTile) oldTile).getRoom();
+            } else if (oldTile instanceof DoorTile) {
+                Room oldRoom = ((DoorTile) oldTile).getRoom();
                 oldRoom.removeEntity(player);
                 System.out.printf("%s enters %s.\n", player.getName(), room.getName());
             }
