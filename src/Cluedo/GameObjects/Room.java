@@ -8,6 +8,7 @@ import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
 import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.RoomTile;
+import Cluedo.Tiles.Tile;
 
 import java.awt.*;
 import java.util.*;
@@ -130,6 +131,11 @@ public class Room {
             //get a position from the internal tiles list
             Position pos = internalTiles.get(0).getPosition();
 
+
+            List<Position> tilesAvailable = internalTiles.stream().map(Tile::getPosition).collect(Collectors.toList());
+
+            tilesAvailable.removeAll(allocatedPositions);
+
             //move the player to that position
             entity.position = pos;
 
@@ -155,7 +161,7 @@ public class Room {
 
             entities.remove(entity);
             if (entity instanceof Player){
-                //remove the
+                //remove the position from the list of allocated position, it is no longer allocated
                 Position pos = entity.position;
 
                 allocatedPositions.remove(pos);
