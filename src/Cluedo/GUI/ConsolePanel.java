@@ -15,6 +15,7 @@ import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import static Cluedo.Helpers.State.MOVE;
+import static Cluedo.Helpers.State.SUGGEST_MOVE;
 
 public class ConsolePanel extends JPanel implements ActionListener {
 
@@ -40,6 +41,9 @@ public class ConsolePanel extends JPanel implements ActionListener {
 
         this.add(input);
         input.addActionListener(this);
+
+        console.setBackground(Color.BLACK);
+        console.setForeground(Color.WHITE);
 
     }
 
@@ -71,15 +75,13 @@ public class ConsolePanel extends JPanel implements ActionListener {
     }
 
     private void processMove(){
-        if(board.getState() != MOVE){
+        if(board.getState() != MOVE || board.getState() != SUGGEST_MOVE){
             println("Unable to move right now.");
             return;
         }
-        int diceRollOne = Die.roll();
-        int diceRollTwo = Die.roll();
-        gui.getInfoPanel().changeDice(diceRollOne, diceRollTwo);
 
-        println("You rolled a " + (diceRollOne + diceRollTwo));
+        int diceRoll = gui.getInfoPanel().changeDice();
+
         println("Entered the coordinate to go to: ");
 
         this.setInputConsumer((s)->{
@@ -91,9 +93,10 @@ public class ConsolePanel extends JPanel implements ActionListener {
 
             Position movePosition = Position.positionFromString(s);
 
-            if(board.processTurn(new GUIMove(movePosition, diceRollOne + diceRollTwo, this))){
+            if(board.processTurn(new GUIMove(movePosition, diceRoll, this))){
                 this.setInputConsumer(null);
                 gui.getCanvas().repaint();
+                gui.getInfoPanel().update();
             }
         });
     }

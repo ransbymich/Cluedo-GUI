@@ -4,5 +4,6 @@ public enum State {
     MOVE,
     ACCUSE,
     END_TURN,
-    SUGGEST
+    SUGGEST,
+    SUGGEST_MOVE,
 }
