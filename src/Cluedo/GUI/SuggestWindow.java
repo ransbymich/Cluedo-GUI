@@ -75,6 +75,8 @@ public class SuggestWindow extends JFrame {
             gui.getInfoPanel().update();
             if(board.getState() == State.REFUTING){
                 new RefuteWindow(gui, room, person, weapon, board);
+            }else if(board.getState() == State.ACCUSE){
+                gui.getConsole().println("Nobody was able to refute your suggestion!");
             }
         }
 
@@ -91,8 +93,6 @@ public class SuggestWindow extends JFrame {
         list.setVisibleRowCount(1);
 
         list.setCellRenderer(new TypeCellRender());
-
-
 
         mPanel.add(sp, GUIUtil.makeConstraints(x, y, 1, 1, GridBagConstraints.CENTER));
     }

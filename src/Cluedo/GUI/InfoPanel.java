@@ -29,6 +29,7 @@ public class InfoPanel extends JPanel {
     private JButton suggestBtn;
     private JButton accuseBtn;
     private JButton moveBtn;
+    private JButton completeBtn;
 
     private int diceRoll = 2;
 
@@ -70,7 +71,7 @@ public class InfoPanel extends JPanel {
 
         sidePanel.add(btnPanel, GUIUtil.makeConstraints(1, 0, 1, 2, GridBagConstraints.CENTER));
 
-        JButton completeBtn = new JButton("Complete Turn (c)");
+        completeBtn = new JButton("Complete Turn (c)");
         suggestBtn = new JButton("Suggest (s)");
         accuseBtn = new JButton("Accuse (a)");
         moveBtn = new JButton("Move (m)");
@@ -139,29 +140,34 @@ public class InfoPanel extends JPanel {
         //changed this for easy debug
         switch (board.getState()) {
             case END_TURN:
-                suggestBtn.setEnabled(true);//false
+                suggestBtn.setEnabled(false);//false
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(false);
+                completeBtn.setEnabled(true);
                 break;
             case SUGGEST:
                 suggestBtn.setEnabled(true);
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(false);
+                completeBtn.setEnabled(true);
                 break;
             case ACCUSE:
-                suggestBtn.setEnabled(true);//false
+                suggestBtn.setEnabled(false);//false
                 accuseBtn.setEnabled(true);
                 moveBtn.setEnabled(false);
+                completeBtn.setEnabled(true);
                 break;
             case MOVE:
-                suggestBtn.setEnabled(true);//false
+                suggestBtn.setEnabled(false);//false
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(true);
+                completeBtn.setEnabled(true);
                 break;
             case SUGGEST_MOVE:
                 suggestBtn.setEnabled(true);
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(true);
+                completeBtn.setEnabled(true);
                 break;
             case SUGGESTING:
             case MOVING:
@@ -169,6 +175,7 @@ public class InfoPanel extends JPanel {
                 suggestBtn.setEnabled(false);
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(false);
+                completeBtn.setEnabled(false);
                 break;
         }
     }
