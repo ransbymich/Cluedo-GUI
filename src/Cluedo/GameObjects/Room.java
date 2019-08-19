@@ -2,6 +2,7 @@ package Cluedo.GameObjects;/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4597.b7ac3a910 modeling language!*/
 
 
+import Cluedo.Exceptions.OutOfTilesException;
 import Cluedo.GUI.CluedoCanvas;
 import Cluedo.GUI.GUI;
 import Cluedo.Helpers.Position;
@@ -39,12 +40,11 @@ public class Room {
 
     public void addInternalTile(RoomTile tile){
         internalTiles.add(tile);
-//        System.out.println(getName() + " internalTiles: " + internalTiles.size());
     }
 
     public void addEntryTile(DoorTile tile){
         doorTiles.add(tile);
-//        System.out.println(getName() + " entryTiles: " + doorTiles.size());
+
     }
 
     public String getName(){
@@ -131,18 +131,15 @@ public class Room {
 
         //Entities are players only at this point
         entities.add(entity);
-//        if(internalTiles.isEmpty()) return false;
 
-        System.out.println("moving entity to place within room");
+
         if (entity instanceof Player){
             List<Position> tilesAvailable = internalTiles.stream().map(Tile::getPosition).collect(Collectors.toList());
-//            System.out.println(tilesAvailable);
 
             tilesAvailable.removeAll(allocatedPositions);
 
             if (tilesAvailable.isEmpty()){
-                System.out.println("NO TILES!");
-                return false;
+                throw new OutOfTilesException();
             }
 
             Collections.shuffle(tilesAvailable);
@@ -152,7 +149,7 @@ public class Room {
             //move the player to that position
             entity.setPosition(pos);
 
-            System.out.println(entity.getName() + " = " + entity.position);
+
 
             //add that position to the list of allocated positions
             allocatedPositions.add(pos);
