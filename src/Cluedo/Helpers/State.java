@@ -10,4 +10,5 @@ public enum State {
     SUGGESTING,
     REFUTING,
     SUGGEST_MOVE,
+    GAME_FINISHED
 }

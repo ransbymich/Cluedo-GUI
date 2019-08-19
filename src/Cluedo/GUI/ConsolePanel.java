@@ -48,7 +48,6 @@ public class ConsolePanel extends JPanel implements ActionListener {
 
         console.setBackground(Color.BLACK);
         console.setForeground(Color.WHITE);
-
     }
 
     @Override
