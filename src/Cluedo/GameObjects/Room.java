@@ -126,18 +126,28 @@ public class Room {
 
         //Entities are players only at this point
         entities.add(entity);
+//        if(internalTiles.isEmpty()) return false;
 
+        System.out.println("moving entity to place within room");
         if (entity instanceof Player){
-            //get a position from the internal tiles list
-            Position pos = internalTiles.get(0).getPosition();
-
-
             List<Position> tilesAvailable = internalTiles.stream().map(Tile::getPosition).collect(Collectors.toList());
+//            System.out.println(tilesAvailable);
 
             tilesAvailable.removeAll(allocatedPositions);
 
+            if (tilesAvailable.isEmpty()){
+                System.out.println("NO TILES!");
+                return false;
+            }
+
+            Collections.shuffle(tilesAvailable);
+            //get a position from the internal tiles list
+            Position pos = tilesAvailable.get(0);
+
             //move the player to that position
-            entity.position = pos;
+            entity.setPosition(pos);
+
+            System.out.println(entity.getName() + " = " + entity.position);
 
             //add that position to the list of allocated positions
             allocatedPositions.add(pos);

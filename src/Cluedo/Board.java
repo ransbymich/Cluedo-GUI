@@ -51,13 +51,13 @@ public class Board {
     //This giant string is the hard coded room map which is then parsed into a 2d array of tile objects
     public static final String room2 =
                     "|--|--|--|--|--|--|--|--|--|WH|--|--|--|--|GR|--|--|--|--|--|--|--|--|--|\n" +
-                    "|kt|kt|kt|kt|kt|kt|--|__|__|__|  |  |  |  |__|__|__|--|ct|ct|ct|ct|ct|ct|\n" +
-                    "|kt|kt|kt|kt|kt|kt|__|__|  |  |  |  |  |  |  |  |__|__|ct|ct|ct|ct|ct|ct|\n" +
-                    "|kt|kt|kt|kt|kt|kt|__|__|  |  |  |  |  |  |  |  |__|__|ct|ct|ct|ct|ct|ct|\n" +
-                    "|kt|kt|kt|kt|kt|kt|__|__|  |  |  |  |  |  |  |  |__|__|CT|ct|ct|ct|ct|ct|\n" +
-                    "|kt|kt|kt|kt|kt|kt|__|__|BR|  |  |  |  |  |  |BR|__|__|__|ct|ct|ct|ct|--|\n" +
-                    "|--|kt|kt|kt|KT|kt|__|__|  |  |  |  |  |  |  |  |__|__|__|__|__|__|__|PC|\n" +
-                    "|__|__|__|__|__|__|__|__|  |BR|  |  |  |  |BR|  |__|__|__|__|__|__|__|--|\n" +
+                    "|kt|kt|kt|kt|kt|kt|--|__|__|__|br|br|br|br|__|__|__|--|ct|ct|ct|ct|ct|ct|\n" +
+                    "|kt|kt|kt|kt|kt|kt|__|__|br|br|br|br|br|br|br|br|__|__|ct|ct|ct|ct|ct|ct|\n" +
+                    "|kt|kt|kt|kt|kt|kt|__|__|br|br|br|br|br|br|br|br|__|__|ct|ct|ct|ct|ct|ct|\n" +
+                    "|kt|kt|kt|kt|kt|kt|__|__|br|br|br|br|br|br|br|br|__|__|CT|ct|ct|ct|ct|ct|\n" +
+                    "|kt|kt|kt|kt|kt|kt|__|__|BR|br|br|br|br|br|br|BR|__|__|__|ct|ct|ct|ct|--|\n" +
+                    "|--|kt|kt|kt|KT|kt|__|__|br|br|br|br|br|br|br|br|__|__|__|__|__|__|__|PC|\n" +
+                    "|__|__|__|__|__|__|__|__|br|BR|br|br|br|br|BR|br|__|__|__|__|__|__|__|--|\n" +
                     "|--|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|bl|bl|bl|bl|bl|bl|\n" +
                     "|dr|dr|dr|dr|dr|__|__|__|__|__|__|__|__|__|__|__|__|__|BL|bl|bl|bl|bl|bl|\n" +
                     "|dr|dr|dr|dr|dr|dr|dr|dr|__|__|--|--|--|--|--|__|__|__|bl|bl|bl|bl|bl|bl|\n" +

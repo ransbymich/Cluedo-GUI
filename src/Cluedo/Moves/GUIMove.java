@@ -59,8 +59,8 @@ public class GUIMove extends Turn {
             return true;
         }else if(newTile instanceof DoorTile){
             Room room = ((DoorTile)newTile).getRoom();
+//            player.setPosition(pos);
             room.addEntity(player);
-            player.setPosition(pos);
             cp.println(player.getName() + " enters " + room.getType().getName() + ".");
             cp.println("You may make a suggestion.");
             board.setState(State.SUGGEST);
