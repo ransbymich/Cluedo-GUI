@@ -77,7 +77,7 @@ public class RoomParse {
         Position pos = new Position(x, y);
 
         if (isEntrance(in)) {
-            return new EntryTile(pos, roomFromString(in, rooms));
+            return new DoorTile(pos, roomFromString(in, rooms));
         } else if (isPlayer(in)) {
             return new EmptyTile(pos, playerFromString(in, players));
         }else if (isRoomTile(in)){

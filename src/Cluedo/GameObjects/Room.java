@@ -6,11 +6,10 @@ import Cluedo.GUI.CluedoCanvas;
 import Cluedo.GUI.GUI;
 import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
-import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.RoomTile;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,28 +23,30 @@ public class Room {
 
     private List<Entity> entities;
     private List<RoomTile> internalTiles;
-    private List<EntryTile> entryTiles;
+    private List<DoorTile> doorTiles;
+    private Set<Position> allocatedPositions;
 
 
     public Room(Type aType) {
         type = aType;
         entities = new ArrayList<>();
         internalTiles = new ArrayList<>();
-        entryTiles = new ArrayList<>();
-
-        entities.add(new Player(Type.MISS_SCARLETT));
-        entities.add(new Player(Type.COL_MUSTARD));
-        entities.add(new Player(Type.DR_GREEN));
-        entities.add(new Player(Type.PROF_PLUM));
-        entities.add(new Player(Type.MRS_PEACOCK));
+        doorTiles = new ArrayList<>();
+        allocatedPositions = new HashSet<>();
     }
 
-    public void addDisplayTile(RoomTile tile){
+    public void addInternalTile(RoomTile tile){
         internalTiles.add(tile);
+        System.out.println(getName() + " internalTiles: " + internalTiles.size());
     }
 
-    public void addEntryTile(EntryTile tile){
-        entryTiles.add(tile);
+    public void addEntryTile(DoorTile tile){
+        doorTiles.add(tile);
+        System.out.println(getName() + " entryTiles: " + doorTiles.size());
+    }
+
+    public String getName(){
+        return this.getType().getName();
     }
 
     /**
@@ -67,9 +68,9 @@ public class Room {
     public void render(Graphics g) {
         int size = CluedoCanvas.TILE_SIZE;
 
-        for (EntryTile entryTile : entryTiles) {
-            Position pos = entryTile.getPosition();
-            Image img = GUI.ASSETS.get(Type.REVOLVER);
+        for (DoorTile doorTile : doorTiles) {
+            Position pos = doorTile.getPosition();
+            Image img = GUI.ASSETS.get(type);
 
             g.drawImage(img,
                 (pos.getX() * size) + xOffset,
@@ -77,20 +78,6 @@ public class Room {
                 size, size, null);
         }
 
-        List<RoomTile> tempInternal = internalTiles;
-        if (tempInternal.isEmpty()) return;
-
-        for (Entity entity : entities) {
-            //LET US HOPE THAT WE DO NOT RUN OUT OF TILES HAHAHAH
-            Position pos = tempInternal.get(0).getPosition();
-
-            g.setColor(entity.getType().getColor());
-            g.fillOval((pos.getX() * size) + xOffset,
-                    (pos.getY() * size) + yOffset,
-                    size, size);
-
-            tempInternal.remove(0);
-        }
     }
 
     /**
@@ -127,17 +114,26 @@ public class Room {
 
     /**
      * Adds an entity to the room
-     * @param aEntity   The entity to add to the room
+     * @param entity   The entity to add to the room
      */
-    public boolean addEntity(Entity aEntity) {
+    public boolean addEntity(Entity entity) {
         boolean wasAdded = false;
-        if (entities.contains(aEntity)) {
+
+        if (entities.contains(entity)) {
             return false;
         }
-        entities.add(aEntity);
+
+        //Entities are players only at this point
+        entities.add(entity);
+
+        if (entity instanceof Player){
+        }
+
+
         wasAdded = true;
         return wasAdded;
     }
+
 
     /**
      * removes an entity from the room

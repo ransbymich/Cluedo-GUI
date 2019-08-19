@@ -4,9 +4,8 @@ package Cluedo.GameObjects;/*PLEASE DO NOT EDIT THIS CODE*/
 
 import Cluedo.Board;
 import Cluedo.GUI.CluedoCanvas;
-import Cluedo.GUI.GUI;
 import Cluedo.Helpers.Position;
-import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.DoorTile;
 import Cluedo.Helpers.Type;
 
 import java.awt.*;
@@ -63,7 +62,7 @@ public class Player extends Entity {
      */
     public boolean inRoom(Board board){
         //Is the player on a Cluedo.Tiles.RoomTile?
-        return board.getBoard()[position.getY()][position.getX()] instanceof EntryTile;
+        return board.getBoard()[position.getY()][position.getX()] instanceof DoorTile;
     }
 
     /**

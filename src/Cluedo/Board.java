@@ -9,7 +9,7 @@ import Cluedo.Helpers.Position;
 import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
 import Cluedo.Moves.Turn;
-import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.Tile;
 import Cluedo.Util.RoomParse;
 
@@ -96,7 +96,7 @@ public class Board {
         generateRooms();
         generatePlayers();
         dealTypes(Type.getTypes(Type.SubType.PLAYER));
-        board = RoomParse.makeRoom(room, rooms, players, aNPlayers);
+        board = RoomParse.makeRoom(room2, rooms, players, aNPlayers);
 
         BOARD_HEIGHT = board.length;
         BOARD_WIDTH = board[0].length;
@@ -113,7 +113,7 @@ public class Board {
         generateRooms();
         generatePlayers();
         dealTypes(players);
-        board = RoomParse.makeRoom(room, rooms, this.players, nPlayers);
+        board = RoomParse.makeRoom(room2, rooms, this.players, nPlayers);
 
         BOARD_HEIGHT = board.length;
         BOARD_WIDTH = board[0].length;
@@ -144,7 +144,7 @@ public class Board {
 
         Tile pTile = board[pPos.getY()][pPos.getX()];
 
-        if (pTile instanceof EntryTile) {
+        if (pTile instanceof DoorTile) {
             return State.SUGGEST_MOVE;
         }else{
             return State.MOVE;

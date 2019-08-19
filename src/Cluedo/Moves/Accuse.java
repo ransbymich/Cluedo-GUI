@@ -4,7 +4,7 @@ import Cluedo.Board;
 import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
-import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.DoorTile;
 
 public class Accuse extends Turn {
 
@@ -25,7 +25,7 @@ public class Accuse extends Turn {
 
         Position pPos = player.getPosition();
 
-        room = ((EntryTile)(board.getBoard()[pPos.getY()][pPos.getX()])).getRoom().getType();
+        room = ((DoorTile)(board.getBoard()[pPos.getY()][pPos.getX()])).getRoom().getType();
         System.out.printf(
                 "%s accuses %s of murdering Mr Black with a %s in the %s!\n",
                 player.getName(),
@@ -57,7 +57,7 @@ public class Accuse extends Turn {
     private boolean checkAssumptions(Board board, Player player){
         Position playerPosition = player.getPosition();
 
-        if(!(board.getBoard()[playerPosition.getY()][playerPosition.getX()] instanceof EntryTile)){
+        if(!(board.getBoard()[playerPosition.getY()][playerPosition.getX()] instanceof DoorTile)){
             System.out.println("Cluedo.GameObjects.Player not in a room!");
             return false;
         }

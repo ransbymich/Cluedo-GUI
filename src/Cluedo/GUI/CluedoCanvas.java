@@ -3,16 +3,13 @@ package Cluedo.GUI;
 import Cluedo.Board;
 import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
-import Cluedo.Helpers.Die;
 import Cluedo.Helpers.Position;
 import Cluedo.Helpers.State;
-import Cluedo.Helpers.Type;
 import Cluedo.Moves.GUIMove;
 import Cluedo.Tiles.EmptyTile;
-import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.RoomTile;
 import Cluedo.Tiles.Tile;
-import com.sun.source.doctree.EndElementTree;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -66,12 +63,6 @@ public class CluedoCanvas extends JPanel implements MouseListener {
         }
 
         //render the image of each item which needs to be put ON TOP of the board
-//        Tile[][] tiles = board.getBoard();
-//        for (int y = 0; y < tiles.length; y++){
-//            for (int x = 0; x < tiles[0].length; x++){
-//                tiles[y][x].render(g);
-//            }
-//        }
 
         for (Room room : board.getRooms().values()) {
             room.render(g);
@@ -84,6 +75,7 @@ public class CluedoCanvas extends JPanel implements MouseListener {
 
     @Override
     public String getToolTipText(MouseEvent mouseEvent) {
+
         int x = (mouseEvent.getX() - xOffset)/TILE_SIZE;
         int y = (mouseEvent.getY() - yOffset)/TILE_SIZE;
         if(x < 0 || x >= Board.BOARD_WIDTH || y < 0 || y >= Board.BOARD_HEIGHT) return null;
@@ -95,8 +87,8 @@ public class CluedoCanvas extends JPanel implements MouseListener {
             tooltip += "<br>" + ((EmptyTile)t).getPlayer().getName();
         }else if(t instanceof RoomTile){
             tooltip += "<br>" + ((RoomTile)t).getRoom().getType().getName();
-        }else if(t instanceof EntryTile){
-            tooltip += "<br>" + ((EntryTile)t).getRoom().getType().getName();
+        }else if(t instanceof DoorTile){
+            tooltip += "<br>" + ((DoorTile)t).getRoom().getType().getName();
         }
 
         Position playerPos = board.getCurrentPlayer().getPosition();
