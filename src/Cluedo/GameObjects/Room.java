@@ -32,6 +32,12 @@ public class Room {
         entities = new ArrayList<>();
         internalTiles = new ArrayList<>();
         entryTiles = new ArrayList<>();
+
+        entities.add(new Player(Type.MISS_SCARLETT));
+        entities.add(new Player(Type.COL_MUSTARD));
+        entities.add(new Player(Type.DR_GREEN));
+        entities.add(new Player(Type.PROF_PLUM));
+        entities.add(new Player(Type.MRS_PEACOCK));
     }
 
     public void addDisplayTile(RoomTile tile){
@@ -71,28 +77,19 @@ public class Room {
                 size, size, null);
         }
 
+        List<RoomTile> tempInternal = internalTiles;
 
+        for (Entity entity : entities) {
+            //LET US HOPE THAT WE DO NOT RUN OUT OF TILES HAHAHAH
+            Position pos = tempInternal.get(0).getPosition();
 
-//        Position pos = getPosition();
-//        int size = CluedoCanvas.TILE_SIZE;
-//
-//        Image myImage;
-//        if (player == null){
-////            myImage = GUI.ASSETS.get(Type.CANDLE_STICK);
-//            return;
-//        } else {
-//            myImage = GUI.ASSETS.get(player.getType());
-//        }
-//
-//        g.setColor(player.getType().getColor());
-//        g.fillOval((pos.getX() * size) + xOffset,
-//                (pos.getY() * size) + yOffset,
-//                size, size);
+            g.setColor(entity.getType().getColor());
+            g.fillOval((pos.getX() * size) + xOffset,
+                    (pos.getY() * size) + yOffset,
+                    size, size);
 
-//        g.drawImage(myImage,
-//                (pos.getX() * size) + xOffset,
-//                (pos.getY() * size) + yOffset,
-//                size, size, null);
+            tempInternal.remove(0);
+        }
     }
 
     /**
@@ -176,6 +173,6 @@ public class Room {
     }
 
     public boolean isEmpty() {
-        return getEntities().stream().filter((e) -> e instanceof Player).count() == 0;
+        return getEntities().stream().noneMatch((e) -> e instanceof Player);
     }
 }
