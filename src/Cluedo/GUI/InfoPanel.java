@@ -44,11 +44,17 @@ public class InfoPanel extends JPanel {
             Image img = GUI.ASSETS.get(type);
             jl.setSize(img.getWidth(null), img.getHeight(null));
             jl.setIcon(new ImageIcon(GUI.ASSETS.get(type)));
+            if(b){
+                jl.setBackground(Color.RED);
+                System.out.println(type);
+            }
             return jl;
         });
 
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(1);
+
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(list, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(CluedoCanvas.WIDTH/2, 145));
@@ -69,10 +75,10 @@ public class InfoPanel extends JPanel {
 
         sidePanel.add(btnPanel, GUIUtil.makeConstraints(1, 0, 1, 2, GridBagConstraints.CENTER));
 
-        JButton completeBtn = new JButton("Complete Turn");
-        suggestBtn = new JButton("Suggest");
-        accuseBtn = new JButton("Accuse");
-        moveBtn = new JButton("Move");
+        JButton completeBtn = new JButton("Complete Turn (c)");
+        suggestBtn = new JButton("Suggest (s)");
+        accuseBtn = new JButton("Accuse (a)");
+        moveBtn = new JButton("Move (m)");
 
         completeBtn.setPreferredSize(new Dimension(150, 37));
         suggestBtn.setPreferredSize(new Dimension(150, 37));
