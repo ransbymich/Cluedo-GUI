@@ -5,6 +5,7 @@ import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Die;
 import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
+import Cluedo.Text.Cluedo;
 import Cluedo.Util.GUIUtil;
 
 import javax.swing.*;
@@ -45,8 +46,8 @@ public class InfoPanel extends JPanel {
             jl.setSize(img.getWidth(null), img.getHeight(null));
             jl.setIcon(new ImageIcon(GUI.ASSETS.get(type)));
             if(b){
+                jl.setOpaque(true);
                 jl.setBackground(Color.RED);
-                System.out.println(type);
             }
             return jl;
         });
@@ -54,7 +55,7 @@ public class InfoPanel extends JPanel {
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(1);
 
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(list, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(CluedoCanvas.WIDTH/2, 145));
@@ -164,6 +165,10 @@ public class InfoPanel extends JPanel {
         diceRoll = redDice + whiteDice;
         gui.getConsole().println("You rolled a " + diceRoll);
         return diceRoll;
+    }
+
+    public java.util.List<Type> getSelected(){
+        return list.getSelectedValuesList();
     }
 
     public int getDiceRoll() {
