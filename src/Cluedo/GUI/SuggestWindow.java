@@ -81,7 +81,8 @@ public class SuggestWindow extends JFrame {
             }
         }
 
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.setVisible(false);
+        this.dispose();
     }
 
     private void initalizeList(JList<Cluedo.Helpers.Type> list, int x, int y){

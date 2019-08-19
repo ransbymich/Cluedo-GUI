@@ -282,9 +282,10 @@ public class Board {
         }
 
 //        System.out.println(solution[0] + " " + solution[1] + " " + solution[2]);
-        clearHands();
-        getPlayer(players.get(0)).addHand(solution[0]);
-        getPlayer(players.get(0)).addHand(solution[1]);
+
+//        clearHands();
+//        getPlayer(players.get(0)).addHand(solution[0]);
+//        getPlayer(players.get(0)).addHand(solution[1]);
 
     }
 
