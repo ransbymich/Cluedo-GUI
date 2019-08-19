@@ -5,12 +5,15 @@ import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Die;
 import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
-import Cluedo.Text.Cluedo;
+import Cluedo.Moves.GUISuggest;
+import Cluedo.Moves.Suggest;
 import Cluedo.Util.GUIUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class InfoPanel extends JPanel {
 
@@ -100,7 +103,17 @@ public class InfoPanel extends JPanel {
         Frame suggestFrame = new JFrame();
 
         suggestBtn.addActionListener((e)->{
-            suggestFrame.setVisible(true);
+            List<Type> cards = getSelected();
+            if (!checkAssumptions(cards)){
+                return;
+            }
+
+            List<Type> weapons = cards.stream().filter(t -> t.getSubType() == Type.SubType.WEAPON).collect(Collectors.toList());
+            List<Type> players = cards.stream().filter(t -> t.getSubType() == Type.SubType.PLAYER).collect(Collectors.toList());
+
+            Suggest move = new Suggest(weapons.get(0), players.get(0));
+            GUISuggest suggestion = new GUISuggest(gui, weapons.get(0), players.get(0));
+
         });
 
         moveBtn.addActionListener(this::processMove);
@@ -110,6 +123,22 @@ public class InfoPanel extends JPanel {
         sidePanel.add(stateLabel, GUIUtil.makeConstraints(2, 0, 1, 1, GridBagConstraints.CENTER));
 
         update();
+    }
+
+    public boolean checkAssumptions(List<Type> cards){
+        if (cards.size() != 2) {
+            gui.getConsole().println("Must select exactly two cards..\n Invalid Move!");
+            return false;
+        }
+        List<Type> weapons = cards.stream().filter(t -> t.getSubType() == Type.SubType.WEAPON).collect(Collectors.toList());
+        List<Type> players = cards.stream().filter(t -> t.getSubType() == Type.SubType.PLAYER).collect(Collectors.toList());
+
+        if (weapons.size() != 1 || players.size() != 1){
+            gui.getConsole().println("Cards invalid.\n Invalid Move!");
+            return false;
+        }
+
+        return true;
     }
 
     public void processMove(ActionEvent e){
@@ -126,9 +155,10 @@ public class InfoPanel extends JPanel {
         this.pName.setText(player.getName());
         this.list.setListData(player.getHand().toArray(new Type[0]));
 
+        //changed this for easy debug
         switch (board.getState()) {
             case END_TURN:
-                suggestBtn.setEnabled(false);
+                suggestBtn.setEnabled(true);//false
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(false);
                 break;
@@ -138,12 +168,12 @@ public class InfoPanel extends JPanel {
                 moveBtn.setEnabled(false);
                 break;
             case ACCUSE:
-                suggestBtn.setEnabled(false);
+                suggestBtn.setEnabled(true);//false
                 accuseBtn.setEnabled(true);
                 moveBtn.setEnabled(false);
                 break;
             case MOVE:
-                suggestBtn.setEnabled(false);
+                suggestBtn.setEnabled(true);//false
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(true);
                 break;

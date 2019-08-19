@@ -1,7 +1,6 @@
 package Cluedo.Helpers;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,7 +62,7 @@ public enum Type{
     public String getName(){
       return name;
     }
-    public SubType getType() {
+    public SubType getSubType() {
         return type;
     }
     public Color getColor(){return color;}
@@ -74,7 +73,7 @@ public enum Type{
      * @return      The list of types
      */
     public static List<Type> getTypes(SubType type){
-        return Arrays.stream(Type.values()).filter((t)->t.getType() == type).collect(Collectors.toList());
+        return Arrays.stream(Type.values()).filter((t)->t.getSubType() == type).collect(Collectors.toList());
     }
 
     public static List<Type> getTypes(){
