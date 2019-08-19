@@ -74,7 +74,6 @@ public class GUI extends JFrame implements WindowListener {
             e.printStackTrace();
         }
         this.addWindowListener(this);
-        this.setVisible(true);
         this.setTitle("Cluedo - Tim Salisbury, Mike Ransby");
 
         board = new Board(players);
@@ -94,6 +93,7 @@ public class GUI extends JFrame implements WindowListener {
         this.getContentPane().add(mPanel);
 
         this.pack();
+        this.setVisible(true);
     }
 
     private void initalizeConsole(){
