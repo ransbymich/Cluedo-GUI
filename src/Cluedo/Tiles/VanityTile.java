@@ -1,14 +1,7 @@
 package Cluedo.Tiles;
 
-import Cluedo.GUI.CluedoCanvas;
-import Cluedo.GUI.GUI;
 import Cluedo.Helpers.Position;
-import Cluedo.Helpers.Type;
-
 import java.awt.*;
-
-import static Cluedo.GUI.CluedoCanvas.xOffset;
-import static Cluedo.GUI.CluedoCanvas.yOffset;
 
 public class VanityTile extends Tile {
     private String label;
