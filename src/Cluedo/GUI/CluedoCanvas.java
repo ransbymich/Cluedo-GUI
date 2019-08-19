@@ -17,13 +17,15 @@ import com.sun.source.doctree.EndElementTree;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class CluedoCanvas extends JPanel implements MouseListener {
+public class CluedoCanvas extends JPanel implements MouseListener{
 
     public static final int WIDTH = 625;
     public static final int HEIGHT = 650;
@@ -50,7 +52,7 @@ public class CluedoCanvas extends JPanel implements MouseListener {
         this.gui = gui;
         this.addMouseListener(this);
         this.setToolTipText("");
-        ToolTipManager.sharedInstance().setInitialDelay(1000);
+        ToolTipManager.sharedInstance().setInitialDelay(500);
     }
 
     @Override
@@ -122,6 +124,7 @@ public class CluedoCanvas extends JPanel implements MouseListener {
             if(board.processTurn(new GUIMove(new Position(x, y), gui.getInfoPanel().getDiceRoll(), gui.getConsole()))){
                repaint();
                gui.getInfoPanel().update();
+               gui.getConsole().setInputConsumer(null);
             }
         }
     }

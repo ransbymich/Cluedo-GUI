@@ -1,14 +1,13 @@
 package Cluedo.GUI;
 
 import Cluedo.Board;
-import Cluedo.Helpers.Position;
-import Cluedo.Moves.Move;
 import Cluedo.Util.GUIUtil;
 import Cluedo.Util.InputUtil;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -25,7 +24,7 @@ public class GUI extends JFrame implements WindowListener {
     static {
         ASSETS = new HashMap<>();
         File assetDir = new File("Assets/cards");
-        File[] files = assetDir.listFiles(file -> !file.isDirectory() && file.getName().contains(".jpg"));
+        File[] files = assetDir.listFiles(file -> !file.isDirectory() && file.getName().contains(".png"));
 
         assert files != null;
         for(File file : files){
@@ -90,6 +89,8 @@ public class GUI extends JFrame implements WindowListener {
 
         initalizeConsole();
 
+        initalizeKeyBindings();
+
         this.getContentPane().add(mPanel);
 
         this.pack();
@@ -120,6 +121,20 @@ public class GUI extends JFrame implements WindowListener {
         canvas = new CluedoCanvas(board, this);
 
         mPanel.add(canvas, GUIUtil.makeConstraints(0, 0, 1, 1, GridBagConstraints.CENTER));
+    }
+
+    private void initalizeKeyBindings(){
+        InputMap inputMap = mPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke("C"), "completeTurn");
+        ActionMap actionMap = mPanel.getActionMap();
+        actionMap.put("completeTurn", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                board.completeTurn();
+                infoPanel.update();
+                console.println("Completed Turn.");
+            }
+        });
     }
 
     public InfoPanel getInfoPanel() {

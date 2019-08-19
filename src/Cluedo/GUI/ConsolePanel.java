@@ -34,9 +34,13 @@ public class ConsolePanel extends JPanel implements ActionListener {
         this.gui = gui;
 
         console = new JTextArea(5, 20);
-        console.setPreferredSize(new Dimension(250, 800));
+//        console.setPreferredSize(new Dimension(250, 800));
         console.setEditable(false);
-        this.add(console, BorderLayout.NORTH);
+
+        JScrollPane scrollPane = new JScrollPane(console);
+        scrollPane.setPreferredSize(new Dimension(250, 800));
+
+        this.add(scrollPane, BorderLayout.NORTH);
         input = new JTextField();
 
         this.add(input);
@@ -75,7 +79,7 @@ public class ConsolePanel extends JPanel implements ActionListener {
     }
 
     private void processMove(){
-        if(board.getState() != MOVE || board.getState() != SUGGEST_MOVE){
+        if(board.getState() != MOVE && board.getState() != SUGGEST_MOVE){
             println("Unable to move right now.");
             return;
         }
