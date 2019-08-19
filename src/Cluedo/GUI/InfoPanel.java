@@ -100,20 +100,8 @@ public class InfoPanel extends JPanel {
             this.update();
         });
 
-        Frame suggestFrame = new JFrame();
-
         suggestBtn.addActionListener((e)->{
-            List<Type> cards = getSelected();
-            if (!checkAssumptions(cards)){
-                return;
-            }
-
-            List<Type> weapons = cards.stream().filter(t -> t.getSubType() == Type.SubType.WEAPON).collect(Collectors.toList());
-            List<Type> players = cards.stream().filter(t -> t.getSubType() == Type.SubType.PLAYER).collect(Collectors.toList());
-
-            Suggest move = new Suggest(weapons.get(0), players.get(0));
-            GUISuggest suggestion = new GUISuggest(gui, weapons.get(0), players.get(0));
-
+            new SuggestWindow(gui, board);
         });
 
         moveBtn.addActionListener(this::processMove);
