@@ -309,10 +309,10 @@ public class Board {
             tempPlayers.get(i % nPlayers).addHand(everything.get(i));
         }
 
-        System.out.println(solution[0] + " " + solution[1] + " " + solution[2]);
-        clearHands();
-        getPlayer(players.get(0)).addHand(solution[0]);
-        getPlayer(players.get(0)).addHand(solution[1]);
+//        System.out.println(solution[0] + " " + solution[1] + " " + solution[2]);
+//        clearHands();
+//        getPlayer(players.get(0)).addHand(solution[0]);
+//        getPlayer(players.get(0)).addHand(solution[1]);
 
     }
 

@@ -11,6 +11,7 @@ import Cluedo.Util.GUIUtil;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -109,6 +110,8 @@ public class RefuteWindow extends JFrame {
             Cluedo.Helpers.Type refutingCard = refutingCards.getSelectedValue();
             cp.println(refutingPlayer.getName() + " refutes the suggestion with " + refutingCard.getName());
             board.setState(State.END_TURN);
+            this.setVisible(false);
+            this.dispose();
         }
     }
 }
