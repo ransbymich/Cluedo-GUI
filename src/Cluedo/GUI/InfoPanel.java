@@ -6,15 +6,12 @@ import Cluedo.Helpers.Die;
 import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
 import Cluedo.Helpers.TypeCellRender;
-import Cluedo.Moves.GUISuggest;
-import Cluedo.Moves.Suggest;
+
 import Cluedo.Util.GUIUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class InfoPanel extends JPanel {
 
@@ -95,7 +92,13 @@ public class InfoPanel extends JPanel {
         suggestBtn.addActionListener((e)->{
             board.setState(State.SUGGESTING);
             update();
-            new SuggestWindow(gui, board);
+            new SuggestWindow(gui, board, true);
+        });
+
+        accuseBtn.addActionListener((e)->{
+            board.setState(State.ACCUSING);
+            update();
+            new SuggestWindow(gui, board, false);
         });
 
         moveBtn.addActionListener(this::processMove);
@@ -107,21 +110,21 @@ public class InfoPanel extends JPanel {
         update();
     }
 
-    public boolean checkAssumptions(List<Type> cards){
-        if (cards.size() != 2) {
-            gui.getConsole().println("Must select exactly two cards..\n Invalid Move!");
-            return false;
-        }
-        List<Type> weapons = cards.stream().filter(t -> t.getSubType() == Type.SubType.WEAPON).collect(Collectors.toList());
-        List<Type> players = cards.stream().filter(t -> t.getSubType() == Type.SubType.PLAYER).collect(Collectors.toList());
-
-        if (weapons.size() != 1 || players.size() != 1){
-            gui.getConsole().println("Cards invalid.\n Invalid Move!");
-            return false;
-        }
-
-        return true;
-    }
+//    public boolean checkAssumptions(List<Type> cards){
+//        if (cards.size() != 2) {
+//            gui.getConsole().println("Must select exactly two cards..\n Invalid Move!");
+//            return false;
+//        }
+//        List<Type> weapons = cards.stream().filter(t -> t.getSubType() == Type.SubType.WEAPON).collect(Collectors.toList());
+//        List<Type> players = cards.stream().filter(t -> t.getSubType() == Type.SubType.PLAYER).collect(Collectors.toList());
+//
+//        if (weapons.size() != 1 || players.size() != 1){
+//            gui.getConsole().println("Cards invalid.\n Invalid Move!");
+//            return false;
+//        }
+//
+//        return true;
+//    }
 
     public void processMove(ActionEvent e){
         if(board.getState() == State.MOVE || board.getState() == State.SUGGEST_MOVE){
@@ -172,6 +175,7 @@ public class InfoPanel extends JPanel {
             case SUGGESTING:
             case MOVING:
             case REFUTING:
+            case ACCUSING:
                 suggestBtn.setEnabled(false);
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(false);

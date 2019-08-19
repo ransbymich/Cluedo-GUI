@@ -280,13 +280,6 @@ public class Board {
         for (int i = 0; i < everything.size(); i++) {   //And finally we evenly distribute all of the types
             tempPlayers.get(i % nPlayers).addHand(everything.get(i));
         }
-
-//        System.out.println(solution[0] + " " + solution[1] + " " + solution[2]);
-
-//        clearHands();
-//        getPlayer(players.get(0)).addHand(solution[0]);
-//        getPlayer(players.get(0)).addHand(solution[1]);
-
     }
 
     /**
