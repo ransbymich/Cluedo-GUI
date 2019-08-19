@@ -34,6 +34,7 @@ public class SuggestWindow extends JFrame {
     }
 
     private void initalize(){
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Make a suggestion");
 
         mPanel = new JPanel(new GridBagLayout());
