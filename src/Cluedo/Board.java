@@ -14,6 +14,7 @@ import Cluedo.Tiles.Tile;
 import Cluedo.Util.RoomParse;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // line 57 "model.ump"
 // line 166 "model.ump"
@@ -88,6 +89,8 @@ public class Board {
     private Type[] solution;
     private Tile[][] board;
 
+    private List<Type> orderedPlayers;
+
     public Board(int aNPlayers) {
         currentTurn = Type.MISS_SCARLETT;
         state = State.MOVE;
@@ -105,15 +108,14 @@ public class Board {
     public Board(List<Type> players){
         nPlayers = players.size();
 
-        //TODO: Fucked card distribution
-
-        currentTurn = Type.MISS_SCARLETT;
         state = State.MOVE;
 
         generateRooms();
-        generatePlayers();
+        generatePlayers(players);
         dealTypes(players);
         board = RoomParse.makeRoom(room2, rooms, this.players, nPlayers);
+
+        currentTurn = orderedPlayers.get(0);
 
         BOARD_HEIGHT = board.length;
         BOARD_WIDTH = board[0].length;
@@ -131,10 +133,10 @@ public class Board {
      * Completes the current players turn and changes it to the next players.
      */
     public void completeTurn(){
-        List<Type> types = Type.getTypes(Type.SubType.PLAYER);
-        int index = types.indexOf(currentTurn) + 1;
 
-        currentTurn = types.get(index % nPlayers);
+        int index = orderedPlayers.indexOf(currentTurn) + 1;
+
+        currentTurn = orderedPlayers.get(index % orderedPlayers.size());
         setState(calculateState());
     }
 
@@ -314,8 +316,21 @@ public class Board {
     private void generatePlayers() {
         players = new HashMap<>();
         List<Type> tempPlayers = Type.getTypes(Type.SubType.PLAYER);
+        this.orderedPlayers = new ArrayList<>();
         for (int i = 0; i < nPlayers; i++) {
             players.put(tempPlayers.get(i), new Player(tempPlayers.get(i)));
+            orderedPlayers.add(tempPlayers.get(i));
+        }
+    }
+
+    /**
+     * Generates all of the players required
+     */
+    private void generatePlayers(List<Type> players) {
+        this.orderedPlayers = Type.getTypes(Type.SubType.PLAYER).stream().filter(players::contains).collect(Collectors.toList());
+        this.players = new HashMap<>();
+        for (Type type : players) {
+            this.players.put(type, new Player(type));
         }
     }
 

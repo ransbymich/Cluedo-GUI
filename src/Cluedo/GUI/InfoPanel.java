@@ -97,9 +97,7 @@ public class InfoPanel extends JPanel {
             this.update();
         });
 
-
         Frame suggestFrame = new JFrame();
-
 
         suggestBtn.addActionListener((e)->{
             suggestFrame.setVisible(true);
@@ -158,6 +156,7 @@ public class InfoPanel extends JPanel {
     }
 
     public int changeDice(){
+        //TODO: Player can reroll dice
         int redDice = Die.roll();
         int whiteDice = Die.roll();
         redDie.setIcon(new ImageIcon(GUI.RED_DIE[redDice - 1]));
