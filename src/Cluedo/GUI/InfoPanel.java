@@ -5,6 +5,7 @@ import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Die;
 import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
+import Cluedo.Helpers.TypeCellRender;
 import Cluedo.Moves.GUISuggest;
 import Cluedo.Moves.Suggest;
 import Cluedo.Util.GUIUtil;
@@ -43,17 +44,7 @@ public class InfoPanel extends JPanel {
 
         this.add(new JLabel("Hand"), GUIUtil.makeConstraints(0, 1, 1, 1, GridBagConstraints.LINE_START));
 
-        list.setCellRenderer((jList, type, i, b, b1) -> {
-            JLabel jl = new JLabel();
-            Image img = GUI.ASSETS.get(type);
-            jl.setSize(img.getWidth(null), img.getHeight(null));
-            jl.setIcon(new ImageIcon(GUI.ASSETS.get(type)));
-            if(b){
-                jl.setOpaque(true);
-                jl.setBackground(Color.RED);
-            }
-            return jl;
-        });
+        list.setCellRenderer(new TypeCellRender());
 
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(1);
@@ -101,6 +92,8 @@ public class InfoPanel extends JPanel {
         });
 
         suggestBtn.addActionListener((e)->{
+            board.setState(State.SUGGESTING);
+            update();
             new SuggestWindow(gui, board);
         });
 
@@ -132,7 +125,7 @@ public class InfoPanel extends JPanel {
     public void processMove(ActionEvent e){
         if(board.getState() == State.MOVE || board.getState() == State.SUGGEST_MOVE){
             changeDice();
-            board.setState(State.MOVE);
+            board.setState(State.MOVING);
             update();
         }
     }
@@ -169,6 +162,13 @@ public class InfoPanel extends JPanel {
                 suggestBtn.setEnabled(true);
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(true);
+                break;
+            case SUGGESTING:
+            case MOVING:
+            case REFUTING:
+                suggestBtn.setEnabled(false);
+                accuseBtn.setEnabled(false);
+                moveBtn.setEnabled(false);
                 break;
         }
     }

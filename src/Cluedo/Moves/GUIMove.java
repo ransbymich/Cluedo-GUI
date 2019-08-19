@@ -25,7 +25,7 @@ public class GUIMove extends Turn {
 
     @Override
     public boolean execute(Board board) {
-        if(board.getState() != State.MOVE && board.getState() != State.SUGGEST_MOVE){
+        if(board.getState() != State.MOVING){
             cp.println("You can not move right now!");
             return false;
         }

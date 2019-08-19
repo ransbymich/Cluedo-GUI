@@ -25,7 +25,7 @@ import java.io.IOException;
 public class CluedoCanvas extends JPanel implements MouseListener{
 
     public static final int WIDTH = 625;
-    public static final int HEIGHT = 650;
+    public static final int HEIGHT = 625;
 
     public final static int TILE_SIZE = 23;
     public final static int yOffset = 23;
@@ -110,7 +110,7 @@ public class CluedoCanvas extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        if(mouseEvent.getButton() == MouseEvent.BUTTON1 && board.getState() == State.MOVE){
+        if(mouseEvent.getButton() == MouseEvent.BUTTON1 && board.getState() == State.MOVING){
             int x = (mouseEvent.getX() - xOffset)/TILE_SIZE;
             int y = (mouseEvent.getY() - yOffset)/TILE_SIZE;
             if(x < 0 || x >= Board.BOARD_WIDTH || y < 0 || y >= Board.BOARD_HEIGHT) return;
