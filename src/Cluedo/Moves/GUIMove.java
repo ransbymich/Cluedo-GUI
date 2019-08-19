@@ -9,8 +9,12 @@ import Cluedo.Helpers.Position;
 import Cluedo.Helpers.State;
 import Cluedo.Tiles.EmptyTile;
 import Cluedo.Tiles.DoorTile;
+import Cluedo.Tiles.RoomTile;
 import Cluedo.Tiles.Tile;
 import Cluedo.Util.PathfindingUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GUIMove extends Turn {
     private Position pos;
@@ -44,8 +48,27 @@ public class GUIMove extends Turn {
      */
     private boolean setNewTile(Board board, Player player){
         Tile newTile = board.getBoard()[pos.getY()][pos.getX()];
+        Position cPos = board.getCurrentPlayer().getPosition();
+        Tile oldTile = board.getBoard()[cPos.getY()][cPos.getX()];
 
-        if(newTile instanceof EmptyTile){
+        //If we're exiting a room
+        if (oldTile instanceof RoomTile && newTile instanceof EmptyTile) {
+            EmptyTile emptyTile = (EmptyTile)newTile;
+
+            if(emptyTile.getPlayer() != null) return false;
+
+
+
+
+            emptyTile.setPlayer(player);
+
+            player.setPosition(pos);
+
+            cp.println("Turn complete.");
+            board.setState(State.END_TURN);
+            return true;
+        //If we're moving to an empty tile in the hallway
+        }else if(newTile instanceof EmptyTile){
             EmptyTile emptyTile = (EmptyTile)newTile;
 
             if(emptyTile.getPlayer() != null) return false;
@@ -57,9 +80,9 @@ public class GUIMove extends Turn {
             cp.println("Turn complete.");
             board.setState(State.END_TURN);
             return true;
+        //If we're entering a room
         }else if(newTile instanceof DoorTile){
             Room room = ((DoorTile)newTile).getRoom();
-//            player.setPosition(pos);
             room.addEntity(player);
             cp.println(player.getName() + " enters " + room.getType().getName() + ".");
             cp.println("You may make a suggestion.");
@@ -91,6 +114,11 @@ public class GUIMove extends Turn {
             room.removeEntity(player);
             cp.println(player.getName() + " leaves " + room.getType().getName());
             return true;
+        } else if (oldTile instanceof RoomTile){
+            Room room = ((RoomTile)oldTile).getRoom();
+            room.removeEntity(player);
+            cp.println(player.getName() + " leaves " + room.getType().getName());
+            return true;
         }
 
         throw new InvalidInputException();
@@ -104,11 +132,34 @@ public class GUIMove extends Turn {
      * @return          Whether or not the assumptions are met or not
      */
     private boolean checkAssumptions(Board board, Player player){
-        if(pos.distTo(player.getPosition()) > diceRoll){
-            cp.println("You can not move that far!");
-            return false;
-        }
+        Tile newTile = board.getBoard()[pos.getY()][pos.getX()];
+        Position cPos = board.getCurrentPlayer().getPosition();
+        Tile oldTile = board.getBoard()[cPos.getY()][cPos.getX()];
 
+        //If we're exiting a room
+        if (oldTile instanceof RoomTile && newTile instanceof EmptyTile) {
+            Room oldRoom = ((RoomTile) oldTile).getRoom();
+
+            //Get the positions of all exits
+            List<Position> exitPositions = oldRoom.getDoorwayPositions();
+
+            //If even a SINGLE doorway can make it to the target, we can make it(exiting through that door)
+            boolean canMakeIt = false;
+            for (Position exitPosition : exitPositions) {
+                if (exitPosition.distTo(newTile.getPosition()) <= diceRoll){
+                    canMakeIt = true;
+                }
+            }
+            if (!canMakeIt){
+                return false;
+            }
+
+        }else {
+            if(pos.distTo(player.getPosition()) > diceRoll){
+                cp.println("You can not move that far!");
+                return false;
+            }
+        }
         Tile tile = board.getBoard()[pos.getY()][pos.getX()];
         if(tile instanceof EmptyTile && ((EmptyTile)tile).getPlayer() != null){
             cp.println("You can not move on top of another player!");

@@ -13,6 +13,7 @@ import Cluedo.Tiles.Tile;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static Cluedo.GUI.CluedoCanvas.xOffset;
@@ -48,6 +49,10 @@ public class Room {
 
     public String getName(){
         return this.getType().getName();
+    }
+
+    public List<Position> getDoorwayPositions(){
+        return doorTiles.stream().map(Tile::getPosition).collect(Collectors.toList());
     }
 
     /**
