@@ -5,9 +5,11 @@ package Cluedo;/*PLEASE DO NOT EDIT THIS CODE*/
 import Cluedo.Exceptions.InvalidInputException;
 import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
+import Cluedo.Helpers.Position;
 import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
 import Cluedo.Moves.Turn;
+import Cluedo.Tiles.EntryTile;
 import Cluedo.Tiles.Tile;
 import Cluedo.Util.RoomParse;
 
@@ -73,6 +75,9 @@ public class Board {
                     "|lg|lg|lg|lg|lg|lg|lg|__|__|hl|hl|hl|hl|hl|hl|__|__|st|st|st|st|st|st|st|\n" +
                     "|lg|lg|lg|lg|lg|lg|--|SC|--|hl|hl|hl|hl|hl|hl|--|__|--|st|st|st|st|st|st|";
 
+    public static int BOARD_HEIGHT;
+    public static int BOARD_WIDTH;
+
     private final int nPlayers;
     private Type currentTurn; //Who's player is currently in turn
     private State state;
@@ -92,6 +97,9 @@ public class Board {
         generatePlayers();
         dealTypes(Type.getTypes(Type.SubType.PLAYER));
         board = RoomParse.makeRoom(room, rooms, players, aNPlayers);
+
+        BOARD_HEIGHT = board.length;
+        BOARD_WIDTH = board[0].length;
     }
 
     public Board(List<Type> players){
@@ -106,6 +114,9 @@ public class Board {
         generatePlayers();
         dealTypes(players);
         board = RoomParse.makeRoom(room, rooms, this.players, nPlayers);
+
+        BOARD_HEIGHT = board.length;
+        BOARD_WIDTH = board[0].length;
     }
 
     public State getState() {
@@ -124,7 +135,20 @@ public class Board {
         int index = types.indexOf(currentTurn) + 1;
 
         currentTurn = types.get(index % nPlayers);
-        setState(State.MOVE);
+        setState(calculateState());
+    }
+
+    private State calculateState() {
+        Player p = getCurrentPlayer();
+        Position pPos = p.getPosition();
+
+        Tile pTile = board[pPos.getY()][pPos.getX()];
+
+        if (pTile instanceof EntryTile) {
+            return State.SUGGEST_MOVE;
+        }else{
+            return State.MOVE;
+        }
     }
 
     /**

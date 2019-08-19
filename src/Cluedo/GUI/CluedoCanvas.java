@@ -3,8 +3,16 @@ package Cluedo.GUI;
 import Cluedo.Board;
 import Cluedo.GameObjects.Player;
 import Cluedo.GameObjects.Room;
+import Cluedo.Helpers.Die;
+import Cluedo.Helpers.Position;
+import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
+import Cluedo.Moves.GUIMove;
+import Cluedo.Tiles.EmptyTile;
+import Cluedo.Tiles.EntryTile;
+import Cluedo.Tiles.RoomTile;
 import Cluedo.Tiles.Tile;
+import com.sun.source.doctree.EndElementTree;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,7 +25,7 @@ import java.io.IOException;
 
 public class CluedoCanvas extends JPanel implements MouseListener {
 
-    public static final int WIDTH = 650;
+    public static final int WIDTH = 625;
     public static final int HEIGHT = 650;
 
     public final static int TILE_SIZE = 23;
@@ -35,10 +43,14 @@ public class CluedoCanvas extends JPanel implements MouseListener {
     }
 
     private Board board;
+    private GUI gui;
 
-    public CluedoCanvas(Board board) {
+    public CluedoCanvas(Board board, GUI gui) {
         this.board = board;
+        this.gui = gui;
         this.addMouseListener(this);
+        this.setToolTipText("");
+        ToolTipManager.sharedInstance().setInitialDelay(1000);
     }
 
     @Override
@@ -71,16 +83,47 @@ public class CluedoCanvas extends JPanel implements MouseListener {
     }
 
     @Override
+    public String getToolTipText(MouseEvent mouseEvent) {
+        int x = (mouseEvent.getX() - xOffset)/TILE_SIZE;
+        int y = (mouseEvent.getY() - yOffset)/TILE_SIZE;
+        if(x < 0 || x >= Board.BOARD_WIDTH || y < 0 || y >= Board.BOARD_HEIGHT) return null;
+        Tile t = board.getBoard()[y][x];
+
+        String tooltip = "<html>" + (x + 1) + "," + (char)(y + 'A');
+
+        if(t instanceof EmptyTile && ((EmptyTile)t).getPlayer() != null){
+            tooltip += "<br>" + ((EmptyTile)t).getPlayer().getName();
+        }else if(t instanceof RoomTile){
+            tooltip += "<br>" + ((RoomTile)t).getRoom().getType().getName();
+        }else if(t instanceof EntryTile){
+            tooltip += "<br>" + ((EntryTile)t).getRoom().getType().getName();
+        }
+
+        Position playerPos = board.getCurrentPlayer().getPosition();
+        int distance = Math.abs(x - playerPos.getX()) + Math.abs(y - playerPos.getY());
+
+        tooltip += "<br>Distance : " + distance;
+
+        return tooltip + "</html>";
+    }
+
+    @Override
     public Dimension getPreferredSize() {
         return new Dimension(WIDTH, HEIGHT);
     }
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        int x = (mouseEvent.getX() - xOffset)/TILE_SIZE;
-        int y = (mouseEvent.getY() - yOffset)/TILE_SIZE;
+        if(mouseEvent.getButton() == MouseEvent.BUTTON1 && board.getState() == State.MOVE){
+            int x = (mouseEvent.getX() - xOffset)/TILE_SIZE;
+            int y = (mouseEvent.getY() - yOffset)/TILE_SIZE;
+            if(x < 0 || x >= Board.BOARD_WIDTH || y < 0 || y >= Board.BOARD_HEIGHT) return;
 
-        System.out.println(x + " : " + y);
+            if(board.processTurn(new GUIMove(new Position(x, y), gui.getInfoPanel().getDiceRoll(), gui.getConsole()))){
+               repaint();
+               gui.getInfoPanel().update();
+            }
+        }
     }
 
     @Override

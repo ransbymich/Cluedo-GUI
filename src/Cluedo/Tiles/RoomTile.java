@@ -13,6 +13,8 @@ import static Cluedo.GUI.CluedoCanvas.yOffset;
 
 public class RoomTile extends Tile {
 
+    private Room room;
+
     /**
      * @param aPosition The location of the tile.
      * @param room the room this roomTile is linked to
@@ -20,6 +22,11 @@ public class RoomTile extends Tile {
     public RoomTile(Position aPosition, Room room) {
         super(aPosition);
         room.addDisplayTile(this);
+        this.room = room;
+    }
+
+    public Room getRoom() {
+        return room;
     }
 
     /**

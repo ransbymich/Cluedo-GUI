@@ -28,6 +28,11 @@ public class GUIMove extends Turn {
 
     @Override
     public boolean execute(Board board) {
+        if(board.getState() != State.MOVE && board.getState() != State.SUGGEST_MOVE){
+            cp.println("You can not move right now!");
+            return false;
+        }
+
         Player cPlayer = board.getCurrentPlayer();
 
         return checkAssumptions(board, cPlayer) && clearOldTile(board, cPlayer) && setNewTile(board, cPlayer);
@@ -59,6 +64,7 @@ public class GUIMove extends Turn {
             Room room = ((EntryTile)newTile).getRoom();
             room.addEntity(player);
             player.setPosition(pos);
+            cp.println(player.getName() + " enters " + room.getType().getName() + ".");
             cp.println("You may make a suggestion.");
             board.setState(State.SUGGEST);
             return true;
@@ -86,7 +92,7 @@ public class GUIMove extends Turn {
         }else if(oldTile instanceof EntryTile){
             Room room = ((EntryTile)oldTile).getRoom();
             room.removeEntity(player);
-
+            cp.println(player.getName() + " leaves " + room.getType().getName());
             return true;
         }
 

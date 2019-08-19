@@ -68,6 +68,12 @@ public class GUI extends JFrame implements WindowListener {
 
 
     private void initalize(List<Cluedo.Helpers.Type> players){
+        try{
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+        }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e){
+            e.printStackTrace();
+        }
         this.addWindowListener(this);
         this.setVisible(true);
         this.setTitle("Cluedo - Tim Salisbury, Mike Ransby");
@@ -111,7 +117,7 @@ public class GUI extends JFrame implements WindowListener {
     }
 
     private void initalizeCanvas(){
-        canvas = new CluedoCanvas(board);
+        canvas = new CluedoCanvas(board, this);
 
         mPanel.add(canvas, GUIUtil.makeConstraints(0, 0, 1, 1, GridBagConstraints.CENTER));
     }
