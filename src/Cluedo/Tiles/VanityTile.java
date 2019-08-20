@@ -15,6 +15,10 @@ public class VanityTile extends Tile {
         this.label = label;
     }
 
+    /**
+     * @deprecated
+     * @param g the graphics pane
+     */
     @Override
     public void render(Graphics g) {
     }
