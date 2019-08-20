@@ -37,20 +37,42 @@ public class Room {
         allocatedPositions = new ArrayList<>();
     }
 
+    /**
+     * Adds a tile that isn't a door, but is part of the room itself
+     * @param tile the internal tile to be added
+     */
     public void addInternalTile(RoomTile tile){
         internalTiles.add(tile);
     }
 
-    public void addEntryTile(DoorTile tile){
-        doorTiles.add(tile);
-
+    /**
+     * Checks whether a given player is in the room
+     * @param player the player that we're querying
+     * @return if the player is in the room
+     */
+    public boolean hasPlayer(Player player){
+        return entities.contains(player);
     }
 
+    /**
+     * Adds a doorway tile
+     * @param tile the tile to be added
+     */
+    public void addDoorTile(DoorTile tile){
+        doorTiles.add(tile);
+    }
+
+    /**
+     * @return the name of this room
+     */
     public String getName(){
         return this.getType().getName();
     }
 
-    public List<Position> getDoorwayPositions(){
+    /**
+     * @return the doors for this room
+     */
+    public List<Position> getDoorPositions(){
         return doorTiles.stream().map(Tile::getPosition).collect(Collectors.toList());
     }
 

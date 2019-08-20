@@ -5,8 +5,11 @@ import Cluedo.GUI.CluedoCanvas;
 import Cluedo.GUI.ConsolePanel;
 import Cluedo.GUI.GUI;
 import Cluedo.GameObjects.Player;
+import Cluedo.GameObjects.Room;
 import Cluedo.Helpers.State;
 import Cluedo.Helpers.Type;
+import Cluedo.Tiles.DoorTile;
+import Cluedo.Tiles.EmptyTile;
 import Cluedo.Tiles.RoomTile;
 
 import javax.swing.*;
@@ -52,8 +55,30 @@ public class GUISuggest extends Turn{
             return false;
         }
 
-        java.util.List<Player> players = Type.getTypes(Type.SubType.PLAYER).stream().filter(board::hasPlayer).map(board::getPlayer).collect(Collectors.toList());
 
+        //Teleport the accused player to the room of accusal
+        Room roomOfAccusal = null;
+        for (Room room : board.getRooms().values()) {
+            if (room.hasPlayer(cPlayer)){
+                roomOfAccusal = room;
+            }
+        }
+        if(roomOfAccusal != null){
+            Player accusedPlayer = board.getPlayer(accused);
+
+            EmptyTile tile = (EmptyTile) board.getBoard()[accusedPlayer.getPosition().getY()][accusedPlayer.getPosition().getX()];
+
+            tile.setPlayer(null);
+
+            roomOfAccusal.addEntity(accusedPlayer);
+            cp.println(accusedPlayer.getName() + " enters " + room.getName() + ".");
+            gui.repaint();
+        }
+
+
+
+
+        java.util.List<Player> players = Type.getTypes(Type.SubType.PLAYER).stream().filter(board::hasPlayer).map(board::getPlayer).collect(Collectors.toList());
         Set<Type> suggestion = new HashSet<>(Arrays.asList(room, accused, weapon));
 
         for(Player p : players){

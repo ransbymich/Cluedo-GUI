@@ -13,7 +13,6 @@ import Cluedo.Tiles.RoomTile;
 import Cluedo.Tiles.Tile;
 import Cluedo.Util.PathfindingUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GUIMove extends Turn {
@@ -61,9 +60,6 @@ public class GUIMove extends Turn {
             EmptyTile emptyTile = (EmptyTile)newTile;
 
             if(emptyTile.getPlayer() != null) return false;
-
-
-
 
             emptyTile.setPlayer(player);
 
@@ -146,7 +142,7 @@ public class GUIMove extends Turn {
             Room oldRoom = ((RoomTile) oldTile).getRoom();
 
             //Get the positions of all exits
-            List<Position> exitPositions = oldRoom.getDoorwayPositions();
+            List<Position> exitPositions = oldRoom.getDoorPositions();
 
             //If even a SINGLE doorway can make it to the target, we can make it(exiting through that door)
             boolean canMakeIt = false;

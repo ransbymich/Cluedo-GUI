@@ -19,13 +19,6 @@ public abstract class Entity {
         type = aType;
     }
 
-    public boolean setType(Type aType) {
-        boolean wasSet = false;
-        type = aType;
-        wasSet = true;
-        return wasSet;
-    }
-
     /**
      * Gets the type of the entity
      * @return Gets the type of entity

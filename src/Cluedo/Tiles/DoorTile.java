@@ -27,7 +27,7 @@ public class DoorTile extends Tile {
     public DoorTile(Position aPosition, Room aRoom) {
         super(aPosition);
         room = aRoom;
-        room.addEntryTile(this);
+        room.addDoorTile(this);
     }
 
 
