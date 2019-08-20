@@ -11,6 +11,7 @@ import Cluedo.Helpers.Type;
 import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.EmptyTile;
 import Cluedo.Tiles.RoomTile;
+import Cluedo.Tiles.Tile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,22 +59,26 @@ public class GUISuggest extends Turn{
 
         //Teleport the accused player to the room of accusal
         Room roomOfAccusal = null;
+        Player accusedPlayer = board.getPlayer(accused);
         for (Room room : board.getRooms().values()) {
             if (room.hasPlayer(cPlayer)){
                 roomOfAccusal = room;
             }
         }
-        if(roomOfAccusal != null){
-            Player accusedPlayer = board.getPlayer(accused);
+        Tile tile = board.getBoard()[accusedPlayer.getPosition().getY()][accusedPlayer.getPosition().getX()];
+        if (roomOfAccusal != null) {
+            if (accusedPlayer != cPlayer && tile instanceof EmptyTile) {
+                ((EmptyTile) tile).setPlayer(null);
+                roomOfAccusal.addEntity(accusedPlayer);
 
-            EmptyTile tile = (EmptyTile) board.getBoard()[accusedPlayer.getPosition().getY()][accusedPlayer.getPosition().getX()];
-
-            tile.setPlayer(null);
-
-            roomOfAccusal.addEntity(accusedPlayer);
+            } else if (board.getBoard()[accusedPlayer.getPosition().getY()][accusedPlayer.getPosition().getX()] instanceof RoomTile) {
+                ((RoomTile) tile).getRoom().removeEntity(accusedPlayer);
+                roomOfAccusal.addEntity(accusedPlayer);
+            }
             cp.println(accusedPlayer.getName() + " enters " + room.getName() + ".");
             gui.repaint();
         }
+
 
 
 
