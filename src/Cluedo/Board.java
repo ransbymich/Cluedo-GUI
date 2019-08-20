@@ -412,7 +412,6 @@ public class Board {
         } else {
             out = "  |";
         }
-        //FIXME ecs systems get can't find the repeat method?
 //        String padding = " ";
 //        String out = padding.repeat(2 - text.length()) + text + "|";
         return out;

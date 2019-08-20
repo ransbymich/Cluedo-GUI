@@ -1,6 +1,7 @@
 package Cluedo.GUI;
 
 import Cluedo.Board;
+import Cluedo.Helpers.State;
 import Cluedo.Util.GUIUtil;
 import Cluedo.Util.InputUtil;
 
@@ -62,6 +63,7 @@ public class GUI extends JFrame implements WindowListener {
     private CluedoCanvas canvas;
     private ConsolePanel console;
     private InfoPanel infoPanel;
+    private GUI gui;
 
     public GUI(){
         //On construction make the user select playing characters and then run the initialize function
@@ -80,6 +82,7 @@ public class GUI extends JFrame implements WindowListener {
         }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e){
             e.printStackTrace();
         }
+        this.gui = this;
         this.addWindowListener(this);
         this.setTitle("Cluedo - Tim Salisbury, Mike Ransby");
 
@@ -170,8 +173,9 @@ public class GUI extends JFrame implements WindowListener {
     private void initializesKeybindings(){
         InputMap inputMap = mPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(KeyStroke.getKeyStroke("C"), "completeTurn");
-        //TODO: Keybindings
-
+        inputMap.put(KeyStroke.getKeyStroke("M"), "move");
+        inputMap.put(KeyStroke.getKeyStroke("S"), "suggest");
+        inputMap.put(KeyStroke.getKeyStroke("A"), "accuse");
 
         ActionMap actionMap = mPanel.getActionMap();
         actionMap.put("completeTurn", new AbstractAction() {
@@ -180,6 +184,36 @@ public class GUI extends JFrame implements WindowListener {
                 board.completeTurn();
                 infoPanel.update();
                 console.println("Completed Turn.");
+            }
+        });
+        actionMap.put("move", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(board.getState() == State.MOVE || board.getState() == State.SUGGEST_MOVE){
+                    infoPanel.changeDice();
+                    board.setState(State.MOVING);
+                    infoPanel.update();
+                }
+            }
+        });
+        actionMap.put("suggest", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(board.getState() == State.SUGGEST || board.getState() == State.SUGGEST_MOVE){
+                    board.setState(State.SUGGESTING);
+                    infoPanel.update();
+                    new SuggestWindow(gui, board, true);
+                }
+            }
+        });
+        actionMap.put("accuse", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(board.getState() == State.ACCUSE){
+                    board.setState(State.ACCUSING);
+                    infoPanel.update();
+                    new SuggestWindow(gui, board, false);
+                }
             }
         });
     }

@@ -10,8 +10,7 @@ public class Die {
      * @return The two randomly generated numbers adding together
      */
     public static int roll() {
-        return 6;
-//        return MathUtil.randomInt(1, 6);
+        return MathUtil.randomInt(1, 6);
     }
 
 }
