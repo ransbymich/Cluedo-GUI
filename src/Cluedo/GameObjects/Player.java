@@ -16,9 +16,7 @@ import static Cluedo.GUI.CluedoCanvas.X_OFFSET;
 import static Cluedo.GUI.CluedoCanvas.Y_OFFSET;
 
 public class Player extends Entity {
-
     private boolean isInPlay = true;
-
     private List<Type> hand;
 
     public Player(Type aType) {
@@ -26,6 +24,9 @@ public class Player extends Entity {
         hand = new ArrayList<Type>();
     }
 
+    /**
+     * removes all items in the player's hand
+     */
     public void clearHand(){
         hand.clear();
     }
@@ -87,12 +88,23 @@ public class Player extends Entity {
         return type;
     }
 
+    /**
+     * Get the nicely formatted name of this player
+     * @return the name of this player
+     */
     public String getName(){return getType().getName();}
 
+    /**
+     * @return String showing all attributes of the player. Used for debug.
+     */
     public String toString() {
         return super.toString() + "[" + "isInPlay" + ":" + getIsInPlay() + "]";
     }
 
+    /**
+     * Draw a circle at the location of the player. Also
+     * @param g the graphics pane
+     */
     @Override
     public void render(Graphics g) {
         Position pos = getPosition();

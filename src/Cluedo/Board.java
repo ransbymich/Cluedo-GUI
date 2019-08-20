@@ -412,8 +412,6 @@ public class Board {
         } else {
             out = "  |";
         }
-//        String padding = " ";
-//        String out = padding.repeat(2 - text.length()) + text + "|";
         return out;
     }
 }
