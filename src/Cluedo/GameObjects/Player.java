@@ -12,8 +12,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import static Cluedo.GUI.CluedoCanvas.xOffset;
-import static Cluedo.GUI.CluedoCanvas.yOffset;
+import static Cluedo.GUI.CluedoCanvas.X_OFFSET;
+import static Cluedo.GUI.CluedoCanvas.Y_OFFSET;
 
 public class Player extends Entity {
 
@@ -99,8 +99,8 @@ public class Player extends Entity {
         int size = CluedoCanvas.TILE_SIZE;
 
         g.setColor(this.getType().getColor());
-        g.fillOval((pos.getX() * size) + xOffset,
-                (pos.getY() * size) + yOffset,
+        g.fillOval((pos.getX() * size) + X_OFFSET,
+                (pos.getY() * size) + Y_OFFSET,
                 size, size);
     }
 }

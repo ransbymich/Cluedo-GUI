@@ -18,17 +18,18 @@ import java.util.Map;
 
 public class GUI extends JFrame implements WindowListener {
 
-    public static Map<Cluedo.Helpers.Type, Image> ASSETS;
+    public static Map<Cluedo.Helpers.Type, Image> ASSETS;   //Stores all of the assets used in the UI
     public static Image[] RED_DIE;
     public static Image[] WHITE_DIE;
     static {
+        //First, load all of the assets
         ASSETS = new HashMap<>();
         File assetDir = new File("Assets/cards");
-        File[] files = assetDir.listFiles(file -> !file.isDirectory() && file.getName().contains(".png"));
+        File[] files = assetDir.listFiles(file -> !file.isDirectory() && file.getName().contains(".png"));  //Filter out potentially useless files
 
         assert files != null;
         for(File file : files){
-            try{
+            try{    //Finally actually load the images
                 Cluedo.Helpers.Type type = InputUtil.getTypeFromString(Cluedo.Helpers.Type.getTypes(), file.getName().replaceFirst("[.][^.]+$", "").toLowerCase());
                 Image img = ImageIO.read(file);
                 ASSETS.put(type, img.getScaledInstance(100, 125, Image.SCALE_SMOOTH));
@@ -37,6 +38,7 @@ public class GUI extends JFrame implements WindowListener {
             }
         }
 
+        //Loads the die images
         RED_DIE = new Image[6];
         WHITE_DIE = new Image[6];
 
@@ -62,12 +64,17 @@ public class GUI extends JFrame implements WindowListener {
     private InfoPanel infoPanel;
 
     public GUI(){
-        new CharacterSelection(this::initalize);
+        //On construction make the user select playing characters and then run the initialize function
+        new CharacterSelection(this::initialize);
     }
 
-
-    private void initalize(List<Cluedo.Helpers.Type> players){
+    /**
+     * Initializes the UI, gets passed a list of players currently paying
+     * @param players
+     */
+    private void initialize(List<Cluedo.Helpers.Type> players){
         try{
+            //General UI setup
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e){
@@ -78,17 +85,17 @@ public class GUI extends JFrame implements WindowListener {
 
         board = new Board(players);
 
-        initalizeMenu();
+        initializeMenu();
 
         mPanel = new JPanel(new GridBagLayout());
 
-        initalizeCanvas();
+        initializeCanvas();
 
-        initalizeInfo();
+        initializeInfo();
 
-        initalizeConsole();
+        initializeConsole();
 
-        initalizeKeyBindings();
+        initializesKeybindings();
 
         this.getContentPane().add(mPanel);
 
@@ -96,19 +103,28 @@ public class GUI extends JFrame implements WindowListener {
         this.setVisible(true);
     }
 
-    private void initalizeConsole(){
+    /**
+     * Initializes the console panel on the right side of the UI
+     */
+    private void initializeConsole(){
         console = new ConsolePanel(board, this);
 
         mPanel.add(console, GUIUtil.makeConstraints(1, 0, 1, 2, GridBagConstraints.CENTER));
     }
 
-    private void initalizeInfo(){
+    /**
+     * Initializes the information panel seen at the bottom of the UI
+     */
+    private void initializeInfo(){
         infoPanel = new InfoPanel(board, this);
 
         mPanel.add(infoPanel, GUIUtil.makeConstraints(0, 1, 1, 1, GridBagConstraints.LINE_START));
     }
 
-    private void initalizeMenu(){
+    /**
+     * Initializes the menu bar at the top of the screen
+     */
+    private void initializeMenu(){
         JMenuBar menuBar = new JMenuBar();
 
         JMenu mainMenu = new JMenu("Menu");
@@ -132,26 +148,30 @@ public class GUI extends JFrame implements WindowListener {
 //            canvas.repaint();
 //            infoPanel.update();
 //            getConsole().clearText();
-//            new CharacterSelection(this::initalize);
+//            new CharacterSelection(this::initialize);
 //        });
 
-        quit.addActionListener((l)->{
-            System.exit(0);
-        });
+        quit.addActionListener((l)-> System.exit(0));
 
         menuBar.add(mainMenu);
         this.setJMenuBar(menuBar);
     }
 
-    private void initalizeCanvas(){
+    /**
+     * Initializes the graphics canvas for the UI
+     */
+    private void initializeCanvas(){
         canvas = new CluedoCanvas(board, this);
 
         mPanel.add(canvas, GUIUtil.makeConstraints(0, 0, 1, 1, GridBagConstraints.CENTER));
     }
 
-    private void initalizeKeyBindings(){
+    private void initializesKeybindings(){
         InputMap inputMap = mPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(KeyStroke.getKeyStroke("C"), "completeTurn");
+        //TODO: Keybindings
+
+
         ActionMap actionMap = mPanel.getActionMap();
         actionMap.put("completeTurn", new AbstractAction() {
             @Override

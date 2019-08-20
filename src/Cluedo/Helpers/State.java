@@ -1,5 +1,8 @@
 package Cluedo.Helpers;
 
+/**
+ * Simple enum used for controlling game state
+ */
 public enum State {
     MOVE,
     MOVING,

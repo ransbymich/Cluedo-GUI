@@ -27,6 +27,11 @@ public class GUIMove extends Turn {
         this.cp = cp;
     }
 
+    /**
+     * Executes the move turn
+     * @param board The board in it's current state
+     * @return      Whether or not it was successful
+     */
     @Override
     public boolean execute(Board board) {
         if(board.getState() != State.MOVING){

@@ -5,14 +5,11 @@ import Cluedo.GUI.CluedoCanvas;
 import Cluedo.GUI.GUI;
 import Cluedo.GameObjects.Player;
 import Cluedo.Helpers.Position;
-import Cluedo.Helpers.Type;
-import Cluedo.Text.Cluedo;
-import javafx.scene.shape.Ellipse;
 
 import java.awt.*;
 
-import static Cluedo.GUI.CluedoCanvas.xOffset;
-import static Cluedo.GUI.CluedoCanvas.yOffset;
+import static Cluedo.GUI.CluedoCanvas.X_OFFSET;
+import static Cluedo.GUI.CluedoCanvas.Y_OFFSET;
 
 public class EmptyTile extends Tile {
 
@@ -44,13 +41,13 @@ public class EmptyTile extends Tile {
         }
 
         g.setColor(player.getType().getColor());
-        g.fillOval((pos.getX() * size) + xOffset,
-                (pos.getY() * size) + yOffset,
+        g.fillOval((pos.getX() * size) + X_OFFSET,
+                (pos.getY() * size) + Y_OFFSET,
                 size, size);
 
 //        g.drawImage(myImage,
-//                (pos.getX() * size) + xOffset,
-//                (pos.getY() * size) + yOffset,
+//                (pos.getX() * size) + X_OFFSET,
+//                (pos.getY() * size) + Y_OFFSET,
 //                size, size, null);
     }
 

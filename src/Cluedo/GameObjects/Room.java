@@ -14,11 +14,10 @@ import Cluedo.Tiles.Tile;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static Cluedo.GUI.CluedoCanvas.xOffset;
-import static Cluedo.GUI.CluedoCanvas.yOffset;
+import static Cluedo.GUI.CluedoCanvas.X_OFFSET;
+import static Cluedo.GUI.CluedoCanvas.Y_OFFSET;
 
 public class Room {
 
@@ -79,8 +78,8 @@ public class Room {
             Image img = GUI.ASSETS.get(type);
 
             g.drawImage(img,
-                (pos.getX() * size) + xOffset,
-                (pos.getY() * size) + yOffset,
+                (pos.getX() * size) + X_OFFSET,
+                (pos.getY() * size) + Y_OFFSET,
                 size, size, null);
         }
 

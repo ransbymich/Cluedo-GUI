@@ -10,6 +10,9 @@ import Cluedo.Helpers.Type;
 import Cluedo.Tiles.DoorTile;
 import Cluedo.Tiles.RoomTile;
 
+/**
+ * This class is pretty much the same as Accuse, but is fitted for use in the GUI
+ */
 public class GUIAccuse extends Turn {
 
     private Type weapon;
@@ -26,19 +29,27 @@ public class GUIAccuse extends Turn {
         this.cp = gui.getConsole();
     }
 
+    /**
+     * Executes the accuse turn
+     * @param board The board in it's current state
+     * @return      Whether or not it was successful
+     */
     @Override
     public boolean execute(Board board) {
         Player player = board.getCurrentPlayer();
 
+        //Check the assumptions
         if(!checkAssumptions(board, player)) return false;
 
         Position pPos = player.getPosition();
 
+        //Get the players room
         room = ((RoomTile)(board.getBoard()[pPos.getY()][pPos.getX()])).getRoom().getType();
 
         //WEAPON, PLAYER, ROOM
         Type[] solution = board.getSolution();
 
+        //Check the solution, if it's correct then complete the game, otherwise say differently
         if(weapon == solution[0] && this.player == solution[1] && room == solution[2]){
             cp.println(player.getName() + "'s accusation was correct! " + player.getName() + " wins!");
             board.completeGame();
@@ -51,6 +62,12 @@ public class GUIAccuse extends Turn {
         return true;
     }
 
+    /**
+     * Checks the assumptions of an accusation
+     * @param board     The board in it's current state
+     * @param player    The current player making the accusation
+     * @return          Whether or not all assumptions are met
+     */
     private boolean checkAssumptions(Board board, Player player){
         Position playerPosition = player.getPosition();
 

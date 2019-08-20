@@ -10,12 +10,11 @@ import Cluedo.Helpers.Position;
 import Cluedo.Helpers.Type;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static Cluedo.GUI.CluedoCanvas.xOffset;
-import static Cluedo.GUI.CluedoCanvas.yOffset;
+import static Cluedo.GUI.CluedoCanvas.X_OFFSET;
+import static Cluedo.GUI.CluedoCanvas.Y_OFFSET;
 
 public class DoorTile extends Tile {
     private Room room;
@@ -44,8 +43,8 @@ public class DoorTile extends Tile {
         int size = CluedoCanvas.TILE_SIZE;
 
         g.drawImage(myImage,
-                (pos.getX() * size) + xOffset,
-                (pos.getY() * size) + yOffset,
+                (pos.getX() * size) + X_OFFSET,
+                (pos.getY() * size) + Y_OFFSET,
                 size, size, null);
     }
 

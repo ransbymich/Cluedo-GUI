@@ -58,12 +58,12 @@ public class Accuse extends Turn {
         Position playerPosition = player.getPosition();
 
         if(!(board.getBoard()[playerPosition.getY()][playerPosition.getX()] instanceof DoorTile)){
-            System.out.println("Cluedo.GameObjects.Player not in a room!");
+            System.out.println("Player not in a room!");
             return false;
         }
 
         if(!player.getIsInPlay()){
-            System.out.println("Cluedo.GameObjects.Player has already made an accusation!");
+            System.out.println("Player has already made an accusation!");
             return false;
         }
 
