@@ -94,6 +94,7 @@ public class GUI extends JFrame implements WindowListener {
 
         this.pack();
         this.setVisible(true);
+        this.setResizable(false);
     }
 
     private void initalizeConsole(){

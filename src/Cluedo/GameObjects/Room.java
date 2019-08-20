@@ -68,7 +68,7 @@ public class Room {
 
 
     /**
-     * Render the items related to this room
+     * Draw the doorways and players that are inside this room
      * @param g the graphics pane to draw on
      */
     public void render(Graphics g) {
@@ -123,8 +123,6 @@ public class Room {
      * @param entity   The entity to add to the room
      */
     public boolean addEntity(Entity entity) {
-        boolean wasAdded = false;
-
         if (entities.contains(entity)) {
             return false;
         }
@@ -132,7 +130,7 @@ public class Room {
         //Entities are players only at this point
         entities.add(entity);
 
-
+        //Logic for allocating the player a position
         if (entity instanceof Player){
             List<Position> tilesAvailable = internalTiles.stream().map(Tile::getPosition).collect(Collectors.toList());
 
@@ -141,8 +139,9 @@ public class Room {
             if (tilesAvailable.isEmpty()){
                 throw new OutOfTilesException();
             }
-
+            //Shuffle the available tiles, so the allocations are random
             Collections.shuffle(tilesAvailable);
+
             //get a position from the internal tiles list
             Position pos = tilesAvailable.get(0);
 
@@ -150,33 +149,28 @@ public class Room {
             entity.setPosition(pos);
 
 
-
             //add that position to the list of allocated positions
             allocatedPositions.add(pos);
         }
 
-
-        wasAdded = true;
-        return wasAdded;
+        return true;
     }
 
 
     /**
      * removes an entity from the room
      * @param entity   The entity to remove
-     * @return
+     * @return true if the removal was successful
      */
     public boolean removeEntity(Entity entity) {
         boolean wasRemoved = false;
         if (entities.contains(entity)) {
-
-
+            //remove the entity from the room
             entities.remove(entity);
-            if (entity instanceof Player){
-                //remove the position from the list of allocated position, it is no longer allocated
-                Position pos = entity.position;
 
-                allocatedPositions.remove(pos);
+            //also remove the position of the player from the list of allocations
+            if (entity instanceof Player){
+                allocatedPositions.remove(entity.position);
             }
 
             wasRemoved = true;
@@ -184,26 +178,35 @@ public class Room {
         return wasRemoved;
     }
 
+    /**
+     * @return string explaining the state of this room
+     */
     public String toString() {
         StringBuilder ret = new StringBuilder();
+        //append the name of the room
         ret.append(type.getName());
+        //if it's empty, append that
         if (entities.isEmpty()){
             ret.append(" is empty\n");
             return ret.toString();
         } else {
+            //if it has players, append all of their names
             List<Entity> players = getEntities().stream().filter((e)-> e instanceof Player).collect(Collectors.toList());
             ret.append(": ");
 
             for (Entity player : players) {
                 ret.append(player.getType().getName());
             }
-
         }
 
+        //return whatever was built
         ret.append("\n");
         return ret.toString();
     }
 
+    /**
+     * @return whether the room contains entities that are players or not
+     */
     public boolean isEmpty() {
         return getEntities().stream().noneMatch((e) -> e instanceof Player);
     }
