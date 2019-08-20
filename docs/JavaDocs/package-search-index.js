@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"Cluedo"},{"l":"Cluedo.Exceptions"},{"l":"Cluedo.GameObjects"},{"l":"Cluedo.GUI"},{"l":"Cluedo.Helpers"},{"l":"Cluedo.Moves"},{"l":"Cluedo.Tests"},{"l":"Cluedo.Text"},{"l":"Cluedo.Tiles"},{"l":"Cluedo.Util"}]
