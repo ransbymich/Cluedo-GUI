@@ -66,7 +66,7 @@ public class DoorTile extends Tile {
 
     /**
      * prints the correct two character combo for the given type of room
-     * @return
+     * @return returns the string
      */
     public String toString() {
         switch (room.getType()) {

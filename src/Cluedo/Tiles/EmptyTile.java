@@ -44,11 +44,6 @@ public class EmptyTile extends Tile {
         g.fillOval((pos.getX() * size) + X_OFFSET,
                 (pos.getY() * size) + Y_OFFSET,
                 size, size);
-
-//        g.drawImage(myImage,
-//                (pos.getX() * size) + X_OFFSET,
-//                (pos.getY() * size) + Y_OFFSET,
-//                size, size, null);
     }
 
     /**
