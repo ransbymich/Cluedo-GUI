@@ -17,6 +17,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This class creates and processes the refuting process of a suggestion
+ */
 public class RefuteWindow extends JFrame {
 
     private JPanel mPanel; //Main panel
@@ -62,6 +65,7 @@ public class RefuteWindow extends JFrame {
 
         refutingPlayer = null;
 
+        //Get the player that can actually refute
         for(Player p : players){
             if(p.getType() == cPlayer.getType()) continue;
 
@@ -79,6 +83,7 @@ public class RefuteWindow extends JFrame {
             }
         }
 
+        //Set up the JLists that show the cards that can be refuted with
         JScrollPane sp = new JScrollPane(refutingCards, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         sp.setPreferredSize(new Dimension(200, 145));
@@ -93,6 +98,7 @@ public class RefuteWindow extends JFrame {
 
         refutingCards.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        //Set up the completion button
         JButton refuteBtn = new JButton("Refute");
 
         mPanel.add(refuteBtn, GUIUtil.makeConstraints(0, 2, 1, 1, GridBagConstraints.CENTER));
@@ -102,6 +108,10 @@ public class RefuteWindow extends JFrame {
         refuteBtn.setBackground(Color.RED);
     }
 
+    /**
+     * Processes the refutation
+     * @param e The action event related to the button press
+     */
     private void refute(ActionEvent e){
         if(refutingCards.getSelectedValue() == null){
             cp.println("You must select a card to refute with!");

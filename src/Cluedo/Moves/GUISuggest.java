@@ -25,7 +25,6 @@ public class GUISuggest extends Turn{
     private Type accused;
     private Type room;
 
-    //remember to change the state after end of turn
     public GUISuggest(GUI gui, Type weapon, Type accused){
         this.gui = gui;
         this.weapon = weapon;
@@ -33,6 +32,11 @@ public class GUISuggest extends Turn{
         this.cp = gui.getConsole();
     }
 
+    /**
+     * Executes the suggest turn
+     * @param board The board in it's current state
+     * @return      Whether or not it was successful
+     */
     @Override
     public boolean execute(Board board) {
         Player cPlayer = board.getCurrentPlayer();

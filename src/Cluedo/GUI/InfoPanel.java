@@ -13,6 +13,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * This class represents and manages the information panel seen at the bottom of the UI
+ */
 public class InfoPanel extends JPanel {
 
     private JLabel pName; //player name
@@ -30,7 +33,6 @@ public class InfoPanel extends JPanel {
 
     private int diceRoll = 2;
 
-
     public InfoPanel(Board board, GUI gui) {
         super(new GridBagLayout());
         this.board = board;
@@ -38,10 +40,12 @@ public class InfoPanel extends JPanel {
         this.pName = new JLabel();
         this.list = new JList<>();
 
+        //Create the two JLabels for the players name and "Hand"
         this.add(pName, GUIUtil.makeConstraints(0, 0, 1, 1, GridBagConstraints.LINE_START));
 
         this.add(new JLabel("Hand"), GUIUtil.makeConstraints(0, 1, 1, 1, GridBagConstraints.LINE_START));
 
+        //Setup the JList to show the cards in the players hand
         list.setCellRenderer(new TypeCellRender());
 
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
@@ -49,21 +53,25 @@ public class InfoPanel extends JPanel {
 
         list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
+        //Setup the horizontal scroll pane for the list
         JScrollPane scrollPane = new JScrollPane(list, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(CluedoCanvas.WIDTH/2, 145));
 
         this.add(scrollPane, GUIUtil.makeConstraints(0, 2, 2, 1, GridBagConstraints.CENTER));
 
+        //Set up a new panel to hold all of the components on the side of the information panel
         JPanel sidePanel = new JPanel(new GridBagLayout());
 
         this.add(sidePanel, GUIUtil.makeConstraints(3, 2, 1, 1, GridBagConstraints.CENTER));
 
+        //Set up the labels for the dice
         redDie = new JLabel(new ImageIcon(GUI.RED_DIE[0]));
         whiteDie = new JLabel(new ImageIcon(GUI.WHITE_DIE[0]));
 
         sidePanel.add(redDie, GUIUtil.makeConstraints(0, 0, 1, 1, GridBagConstraints.CENTER));
         sidePanel.add(whiteDie, GUIUtil.makeConstraints(0, 1, 1, 1, GridBagConstraints.CENTER));
 
+        //Set up a new panel to hold all of the buttons
         JPanel btnPanel = new JPanel(new GridBagLayout());
 
         sidePanel.add(btnPanel, GUIUtil.makeConstraints(1, 0, 1, 2, GridBagConstraints.CENTER));
@@ -83,6 +91,7 @@ public class InfoPanel extends JPanel {
         btnPanel.add(accuseBtn, GUIUtil.makeConstraints(0, 2, 1, 1, GridBagConstraints.CENTER));
         btnPanel.add(moveBtn, GUIUtil.makeConstraints(0, 3, 1, 1, GridBagConstraints.CENTER));
 
+        //Set up all the listeners for the buttons
         completeBtn.addActionListener((e)->{
             board.completeTurn();
             gui.getConsole().setInputConsumer(null);
@@ -90,18 +99,28 @@ public class InfoPanel extends JPanel {
         });
 
         suggestBtn.addActionListener((e)->{
-            board.setState(State.SUGGESTING);
-            update();
-            new SuggestWindow(gui, board, true);
+            if(board.getState() == State.SUGGEST_MOVE || board.getState() == State.SUGGEST){
+                board.setState(State.SUGGESTING);
+                update();
+                new SuggestWindow(gui, board, true);
+            }
         });
 
         accuseBtn.addActionListener((e)->{
-            board.setState(State.ACCUSING);
-            update();
-            new SuggestWindow(gui, board, false);
+            if(board.getState() == State.ACCUSE){
+                board.setState(State.ACCUSING);
+                update();
+                new SuggestWindow(gui, board, false);
+            }
         });
 
-        moveBtn.addActionListener(this::processMove);
+        moveBtn.addActionListener((e)->{
+            if(board.getState() == State.MOVE || board.getState() == State.SUGGEST_MOVE){
+                changeDice();
+                board.setState(State.MOVING);
+                update();
+            }
+        });
 
         stateLabel = new JLabel();
 
@@ -110,40 +129,18 @@ public class InfoPanel extends JPanel {
         update();
     }
 
-//    public boolean checkAssumptions(List<Type> cards){
-//        if (cards.size() != 2) {
-//            gui.getConsole().println("Must select exactly two cards..\n Invalid Move!");
-//            return false;
-//        }
-//        List<Type> weapons = cards.stream().filter(t -> t.getSubType() == Type.SubType.WEAPON).collect(Collectors.toList());
-//        List<Type> players = cards.stream().filter(t -> t.getSubType() == Type.SubType.PLAYER).collect(Collectors.toList());
-//
-//        if (weapons.size() != 1 || players.size() != 1){
-//            gui.getConsole().println("Cards invalid.\n Invalid Move!");
-//            return false;
-//        }
-//
-//        return true;
-//    }
-
-    public void processMove(ActionEvent e){
-        if(board.getState() == State.MOVE || board.getState() == State.SUGGEST_MOVE){
-            changeDice();
-            board.setState(State.MOVING);
-            update();
-        }
-    }
-
-
+    /**
+     * Updates the panel based off current game state
+     */
     public void update(){
         Player player = board.getCurrentPlayer();
         this.pName.setText(player.getName());
         this.list.setListData(player.getHand().toArray(new Type[0]));
 
-        //changed this for easy debug
+        //Change which buttons are useable in each state
         switch (board.getState()) {
             case END_TURN:
-                suggestBtn.setEnabled(false);//false
+                suggestBtn.setEnabled(false);
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(false);
                 completeBtn.setEnabled(true);
@@ -155,13 +152,13 @@ public class InfoPanel extends JPanel {
                 completeBtn.setEnabled(true);
                 break;
             case ACCUSE:
-                suggestBtn.setEnabled(false);//false
+                suggestBtn.setEnabled(false);
                 accuseBtn.setEnabled(true);
                 moveBtn.setEnabled(false);
                 completeBtn.setEnabled(true);
                 break;
             case MOVE:
-                suggestBtn.setEnabled(false);//false
+                suggestBtn.setEnabled(false);
                 accuseBtn.setEnabled(false);
                 moveBtn.setEnabled(true);
                 completeBtn.setEnabled(true);
@@ -184,8 +181,12 @@ public class InfoPanel extends JPanel {
         }
     }
 
+    /**
+     * Rolls two dice, updates the information panel to show what the dice rolled and then return the sum of the two
+     * numbers
+     * @return  The sum of the two dice rolled
+     */
     public int changeDice(){
-        //TODO: Player can reroll dice
         int redDice = Die.roll();
         int whiteDice = Die.roll();
         redDie.setIcon(new ImageIcon(GUI.RED_DIE[redDice - 1]));
@@ -195,10 +196,18 @@ public class InfoPanel extends JPanel {
         return diceRoll;
     }
 
+    /**
+     * Gets the cards selected from the hand
+     * @return  The cards selected in hand
+     */
     public java.util.List<Type> getSelected(){
         return list.getSelectedValuesList();
     }
 
+    /**
+     * Gets the dice rolled
+     * @return  The dice roll
+     */
     public int getDiceRoll() {
         return diceRoll;
     }
