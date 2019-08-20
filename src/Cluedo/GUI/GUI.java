@@ -181,9 +181,11 @@ public class GUI extends JFrame implements WindowListener {
         actionMap.put("completeTurn", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                board.completeTurn();
-                infoPanel.update();
-                console.println("Completed Turn.");
+                if(board.getState() != State.GAME_FINISHED){
+                    board.completeTurn();
+                    infoPanel.update();
+                    console.println("Completed Turn.");
+                }
             }
         });
         actionMap.put("move", new AbstractAction() {
